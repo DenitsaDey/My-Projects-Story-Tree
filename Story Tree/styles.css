@@ -102,7 +102,7 @@ header>nav ul li a:hover{
     text-align: center;
 }
 
-.hero .title-wrapper .get-started{
+.get-started{
     background-color: var(--color-logo);
     color: var(--color-primary);
     border: none;
@@ -112,7 +112,7 @@ header>nav ul li a:hover{
     font-weight: bold;
 }
 
-.hero .title-wrapper .get-started:hover{
+.get-started:hover{
     background-color: var(--color-text-primary);
     color: var(--color-logo);
 }
@@ -216,8 +216,28 @@ h2{
 }
 
 .readMore-btn:hover{
-    background-color: var(--color-bkgrd-light);
-    
+    background-color: var(--color-bkgrd-light); 
 }
 
+/* Subscribe Section */
+
+.subscribe form{
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.subscribe form input{
+    background-color: var(--color-input-subscribe);
+    color: var(--color-bkgrd-lightgrey);
+    border: none;
+    border-radius: 8px;
+    width: 40%;
+    padding-left: 0.5rem;
+}
+
+.subscribe .get-started{
+    border-radius: 8px;
+}
 
