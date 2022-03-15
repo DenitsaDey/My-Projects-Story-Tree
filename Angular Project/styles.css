@@ -1,0 +1,223 @@
+@import url("https://use.fontawesome.com/releases/v6.0.0/css/brands.css");
+@import url("./reset.css");
+@import url("./typography.css");
+
+
+
+:root {
+    --color-primary:#424242;
+    --color-text-primary:#E2A05E;
+    --color-logo:#EEE7CC;
+    --color-bkgrd-dark: #121E2E;
+    --color-bkgrd-light: #F6C884;
+    --color-btn-primary: #454545;
+    --color-btn-start: #008CBA;
+    --color-btn-subscribe: #6BBFFF;
+    --color-input-subscribe: #545A5E;
+    --color-underline-blue:#2DAEC2;
+    --color-bkgrd-lightgrey: #EEF0F1;
+    --color-bkgrd-grey: #393F43;
+    --color-footer-grey: #262B2F;
+    --color-white: #fff;
+    --color-back: #000;
+  }
+
+
+ body{
+     margin: 0 auto;
+ }
+
+
+ /* Header */
+header{
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 100px;
+    background-color: rgba(0, 0, 0, 0.4);
+
+}
+
+
+.logo-wrapper{
+    width: 150px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.logo-wrapper img{
+    width: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+header>nav ul{
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+}
+
+header>nav ul li a{
+    text-decoration: none;
+    color: var(--color-logo);
+    font-weight: bold;
+}
+
+header>nav ul li a:hover{
+    border-bottom: 2px solid var(--color-text-primary);
+}
+
+.list-wrapper>{
+    display: flex;
+    flex-direction: column;
+}
+
+.list-wrapper>span{
+    color: var(--color-text-primary);
+    font-size: 0.75rem;
+    display: block;
+    align-items: top;
+}
+/* Main */
+
+/* Hero Section */
+.hero{
+    padding:300px 100px;
+    background: url("Images/nasa-Q1p7bh3SHj8-unsplash.jpg") center center;
+    background-size: cover;
+}
+
+.hero .title-wrapper{
+    width: 80%;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding: 1.5rem 1rem;
+    color: var(--color-text-primary);
+    line-height: 3rem;
+    letter-spacing: 1px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.hero .title-wrapper .get-started{
+    background-color: var(--color-logo);
+    color: var(--color-primary);
+    border: none;
+    border-radius: 25px;
+    letter-spacing: 2px;
+    padding: 8px 20px;
+    font-weight: bold;
+}
+
+.hero .title-wrapper .get-started:hover{
+    background-color: var(--color-text-primary);
+    color: var(--color-logo);
+}
+
+/* About Section */
+.about{
+    padding: 50px 100px;
+    margin: 0 auto;
+    text-align: center;
+    background-color: var(--color-bkgrd-dark);
+}
+
+.about-wrapper{
+    width: 70%;
+    margin: 0 auto;
+}
+
+h2{
+    color: var(--color-text-primary);
+    letter-spacing: 1px;
+    padding-bottom: 0.5rem;
+}
+
+.about-wrapper h2:after{
+    content: " ";
+    display: block;
+    margin: 0 auto;
+    margin-top: 1rem;
+    width: 150px;
+    border-bottom:2px solid var(--color-text-primary);
+}
+
+.leaf-container{
+    margin: 0 auto; 
+}
+.fa-pagelines{
+    color: var(--color-text-primary);
+    font-size: 1.5rem;
+}
+.about-wrapper p{
+    width: 90%;
+    margin: 1rem auto;
+    color: var(--color-logo);
+}
+
+
+/* How it Works Section */
+.how{
+    padding: 50px 100px;
+    background-color: var(--color-bkgrd-light);
+    text-align: center;
+}
+
+.how h2{
+    color: var(--color-primary)
+}
+.how h2:after{
+    content: " ";
+    display: block;
+    margin: 0 auto;
+    margin-top: 1rem;
+    width: 150px;
+    border-bottom:2px solid var(--color-primary);
+}
+
+.how>.leaf-container>.fa-pagelines{
+    color: var(--color-primary);
+}
+
+.how .article-wrapper{
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    margin-top: 1.5rem;
+}
+
+.how .article-wrapper article{
+    width: 30%;
+    background-color: var(--color-white);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.how .article-wrapper article img{
+    width: 100%;
+}
+
+.how .article-wrapper article .article-text-wrapper{
+    padding: 20px;
+}
+
+.article-text-wrapper p{
+    padding: 15px 0px;
+}
+
+.readMore-btn{
+    border-radius:8px;
+    border: none;
+    background-color:var(--color-text-primary);
+    padding: 4px 8px;
+}
+
+.readMore-btn:hover{
+    background-color: var(--color-bkgrd-light);
+    
+}
+
+
