@@ -173,11 +173,3 @@ button.social-signin:active {
 button.social-signin.facebook {
   background: #32508E;
 }
-
-button.social-signin.twitter {
-  background: #55ACEE;
-}
-
-button.social-signin.google {
-  background: #DD4B39;
-}
