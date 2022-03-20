@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DiagramComponent } from './diagram.component';
+import { FamilyDiagramComponent } from './family-diagram.component';
 
-describe('DiagramComponent', () => {
-  let component: DiagramComponent;
-  let fixture: ComponentFixture<DiagramComponent>;
+describe('FamilyDiagramComponent', () => {
+  let component: FamilyDiagramComponent;
+  let fixture: ComponentFixture<FamilyDiagramComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DiagramComponent ]
+      declarations: [ FamilyDiagramComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DiagramComponent);
+    fixture = TestBed.createComponent(FamilyDiagramComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

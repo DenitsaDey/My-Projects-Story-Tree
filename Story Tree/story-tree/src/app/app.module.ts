@@ -4,19 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DiagramComponent } from './diagram/diagram.component';
 import { InspectorComponent } from './inspector/inspector.component';
+import { FamilyModule } from './family/family.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DiagramComponent,
     InspectorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    FamilyModule
   ],
   providers: [],
   bootstrap: [AppComponent]

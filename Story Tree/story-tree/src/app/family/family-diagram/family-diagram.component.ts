@@ -8,11 +8,11 @@ by defining the "make" function as the "$" sign
 const $ = go.GraphObject.make;
 
 @Component({
-  selector: 'stapp-diagram',
-  templateUrl: './diagram.component.html',
-  styleUrls: ['./diagram.component.css']
+  selector: 'stapp-family-diagram',
+  templateUrl: './family-diagram.component.html',
+  styleUrls: ['./family-diagram.component.css']
 })
-export class DiagramComponent implements OnInit {
+export class FamilyDiagramComponent implements OnInit {
 
   /*we define a class property "diagram" 
   and since the diagram will need the myTreeDiagramDiv, 
@@ -25,6 +25,7 @@ export class DiagramComponent implements OnInit {
   @Input()
   public model: go.Model;
 
+  //the output will notify the component containing the model which node will be edited
   @Output()
   public nodeClicked = new EventEmitter();
   
@@ -34,7 +35,7 @@ export class DiagramComponent implements OnInit {
   }
 
   public ngAfterViewInit() {
-    this.diagram = $(go.Diagram, 'MyTreeDiagramDiv', // we set the diagram property to new GoJS diagram within the div with id "MyTreeDiagramDiv"
+    this.diagram = $(go.Diagram, 'FamilyDiagramDiv', // we set the diagram property to new GoJS diagram within the div with id "MyTreeDiagramDiv"
       {               //once the diagram is created we give it a tree layout by adding the layout argument to the $ function
         layout:
           $(go.TreeLayout,
@@ -143,7 +144,7 @@ export class DiagramComponent implements OnInit {
       );  // end Node
 
 
-    this.diagram.model = this.model; //we set the diagram model to the @Input property tha we received from the app component
+    this.diagram.model = this.model; //we set the diagram model to the @Input property that we received from the app component
               
     // when the selection changes, emit event to app-component updating the selected node
     this.diagram.addDiagramListener('ChangedSelection', (e) => {
@@ -151,4 +152,5 @@ export class DiagramComponent implements OnInit {
       this.nodeClicked.emit(node);
     });
   }
+
 }
