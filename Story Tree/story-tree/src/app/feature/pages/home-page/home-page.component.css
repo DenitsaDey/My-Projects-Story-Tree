@@ -3,7 +3,7 @@
 /* Hero Section */
 .hero{
     padding:300px 100px;
-    background: url("assets/Images/nasa-Q1p7bh3SHj8-unsplash.jpg") center center;
+    background: url("../../../../assets/Images/nasa-Q1p7bh3SHj8-unsplash.jpg") center center;
     background-size: cover;
 }
 
