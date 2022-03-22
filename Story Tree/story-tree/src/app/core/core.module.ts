@@ -24,7 +24,7 @@ import { storageServiceProvider } from './services/storage.service';
 })
 export class CoreModule {  
   static forRoot(): ModuleWithProviders<CoreModule> {
-    return {  //meaning the services will be initiated only once (i.e. will be Singleton)
+    return {  //meaning the services will be instantiated only once (i.e. will be Singleton)
       ngModule: CoreModule,
       providers: [
         UserService,

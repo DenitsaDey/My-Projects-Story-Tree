@@ -10,11 +10,13 @@ import { FamilyModule } from './family/family.module';
 import { HeaderComponent } from './core/header/header.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { CoreModule } from './core/core.module';
+import { PagesModule } from './feature/pages/pages.module';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    InspectorComponent
+    InspectorComponent,
   ],
   imports: [
     BrowserModule,
@@ -22,7 +24,8 @@ import { CoreModule } from './core/core.module';
     FormsModule,
     FamilyModule,
     CoreModule,
-    RouterModule
+    RouterModule,
+    PagesModule,
   ],
   providers: [],
   bootstrap: [
