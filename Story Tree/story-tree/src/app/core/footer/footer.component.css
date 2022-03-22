@@ -1,0 +1,63 @@
+/* Footer */
+
+ /* Links Section */
+ .links{
+    padding: 50px 100px;
+    background-color: var(--color-bkgrd-dark);
+    color: var(--color-text-primary);
+    display: flex;
+    justify-content: space-between;
+}
+
+.links-container h5{
+    padding-bottom: 1rem;
+}
+
+.links-container ul li a{
+    text-decoration: none;
+    color: var(--color-logo);
+}
+
+.links-container ul li a:hover{
+   text-decoration: underline;
+}
+
+.links-container ul li{
+    line-height: 2rem;
+    color: var(--color-logo); 
+}
+
+.social li{
+    display: inline-block;
+    padding: 1px;
+    color: var(--color-logo);
+}
+
+.social li:hover{
+    color: var(--color-text-primary);
+}
+
+.social>li>a:hover{
+    text-decoration:none;
+    color: var(--color-text-primary);
+}
+
+/* Copyright Section */
+.copyright{
+    background-color: var(--color-black);
+    color: var(--color-logo);
+    text-align: center;
+    padding: 10px;
+}
+
+.copyright .footer-logo-wrapper{
+    height: 3rem;
+    width: 3rem;
+    overflow: hidden;
+    margin: 0.5rem auto;
+}
+
+.footer-logo-wrapper img{
+    width: 100%;
+    object-fit: cover;
+}
