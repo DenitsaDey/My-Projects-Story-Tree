@@ -11,7 +11,7 @@ export class MemberService {
   constructor(private httpCLient: HttpClient) { }
 
   //we annotate the function with $ as this is the way to say this function returns an observable
-  getProfiles$(): Observable<IProfile[]>{
-    return this.httpCLient.get<IProfile[]>('https://')
-  }
+  // getProfiles$(): Observable<IProfile[]>{
+  //   return this.httpCLient.get<IProfile[]>('https://')
+  // }
 }
