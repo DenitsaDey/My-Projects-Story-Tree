@@ -8,6 +8,7 @@ import { InspectorComponent } from './inspector/inspector.component';
 import { FamilyModule } from './family/family.module';
 import { HeaderComponent } from './core/header/header.component';
 import { FooterComponent } from './core/footer/footer.component';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FooterComponent } from './core/footer/footer.component';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    FamilyModule
+    FamilyModule,
+    CoreModule,
   ],
   providers: [],
   bootstrap: [

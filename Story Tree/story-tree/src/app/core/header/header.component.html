@@ -2,11 +2,20 @@
     <div class="logo-wrapper">
         <a href="#"><img src="../../../assets/Images/logos/story tree removebg-preview.png" alt="stroy-tree-logo"></a>
     </div>
-    <nav class="nav-wrapper">
+
+    <nav class="nav-wrapper" *ngIf="!isLogged">
         <ul>
             <li><a href="#">About</a></li>
             <li><a href="signin.html">Sign in</a></li>
             <li class="list-wrapper"><span>Not yet a memeber? </span><a href="register.html">Register</a></li>
+        </ul>
+    </nav>
+
+    <nav class="nav-wrapper" *ngIf="isLogged">
+        <ul>
+            <li class="list-wrapper"><span>Welcome!</span><a href="#">My tree</a></li>
+            <li><a href="#"></a>Create a new tree</li>
+            <li><a href="#" (click)="logoutHandler">Logout</a></li>
         </ul>
     </nav>
 </header>
