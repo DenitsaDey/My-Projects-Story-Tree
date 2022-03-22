@@ -6,15 +6,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { InspectorComponent } from './inspector/inspector.component';
 import { FamilyModule } from './family/family.module';
-import { CoreComponent } from './core/core.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './core/header/header.component';
+import { FooterComponent } from './core/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    InspectorComponent,
-    CoreComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent,
+    InspectorComponent
   ],
   imports: [
     BrowserModule,
@@ -23,6 +23,9 @@ import { HeaderComponent } from './header/header.component';
     FamilyModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [
+    AppComponent,
+    HeaderComponent,
+    FooterComponent]
 })
 export class AppModule { }
