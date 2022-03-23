@@ -5,19 +5,17 @@ import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { InspectorComponent } from './inspector/inspector.component';
-import { FamilyModule } from './family/family.module';
 import { HeaderComponent } from './core/header/header.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { CoreModule } from './core/core.module';
 import { PagesModule } from './feature/pages/pages.module';
 import { AuthModule } from './auth/auth.module';
+import { FamilyModule } from './feature/family/family.module';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    InspectorComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,

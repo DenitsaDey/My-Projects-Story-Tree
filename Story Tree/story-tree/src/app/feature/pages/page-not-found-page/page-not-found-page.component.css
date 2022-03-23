@@ -1,6 +1,10 @@
+@import url("https://use.fontawesome.com/releases/v6.0.0/css/icons.css");
 
+#error-wrapper{
+  padding:150px 100px 10px 100px;
+}
 .mainbox {
-    margin: auto;
+  margin: 0 auto;
     height: 550px;
     width: 550px;
     position: relative;

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as go from 'gojs';
 
 /*
@@ -21,7 +21,7 @@ export class FamilyDiagramComponent implements OnInit {
   */
   public diagram: go.Diagram = null;
 
-  //we define an Angular Input property named model and bind them in the app.component.html
+  //we define an Angular Input property named model and bind it in the common family-tree-page component
   @Input()
   public model: go.Model;
 
@@ -152,5 +152,4 @@ export class FamilyDiagramComponent implements OnInit {
       this.nodeClicked.emit(node);
     });
   }
-
 }

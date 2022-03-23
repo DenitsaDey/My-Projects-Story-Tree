@@ -19,8 +19,8 @@
 #body-wrapper {
   width: 100vw;
   height: 100vh;
+  padding:300px 100px;
   margin: 0;
-  padding: 0;
   background-image: url("../../../assets/Images/dayne-topkin-y5_mFlLMwJk-unsplash.jpg");
   background-position: center center;
   background-size: cover;
@@ -33,7 +33,7 @@
 
 #login-box {
   position: relative;
-  margin: 13% 30% 2% 31%;
+  margin: -3% 25% 2% 29%;
   width: 600px;
   height: 400px;
   background: #FFF;
