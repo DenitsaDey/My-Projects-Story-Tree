@@ -11,6 +11,7 @@ import { HeaderComponent } from './core/header/header.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { CoreModule } from './core/core.module';
 import { PagesModule } from './feature/pages/pages.module';
+import { AuthModule } from './auth/auth.module';
 
 
 @NgModule({
@@ -23,9 +24,10 @@ import { PagesModule } from './feature/pages/pages.module';
     AppRoutingModule,
     FormsModule,
     FamilyModule,
-    CoreModule,
+    CoreModule.forRoot(),
     RouterModule,
     PagesModule,
+    AuthModule,
   ],
   providers: [],
   bootstrap: [

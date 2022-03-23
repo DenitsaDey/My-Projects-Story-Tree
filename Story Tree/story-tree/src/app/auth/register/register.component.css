@@ -16,7 +16,9 @@
     --color-black: #000;
   }
 
-body {
+#body-wrapper {
+  width: 100vw;
+  height: 100vh;
   margin: 0;
   padding: 0;
   background-image: url("../../../assets/Images/dayne-topkin-y5_mFlLMwJk-unsplash.jpg");
@@ -130,7 +132,7 @@ input[type="submit"]:active {
   padding: 40px;
   width: 300px;
   height: 400px;
-  background: url('Images/kevin-delvecchio-7noZJ_4nhU8-unsplash.jpg');
+  background: url('../../../assets/Images/kevin-delvecchio-7noZJ_4nhU8-unsplash.jpg');
   background-size: cover;
   background-position: center;
   border-radius: 0 2px 2px 0;

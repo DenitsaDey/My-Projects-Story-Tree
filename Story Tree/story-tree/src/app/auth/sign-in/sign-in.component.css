@@ -16,10 +16,12 @@
     --color-black: #000;
   }
 
-body {
+#body-wrapper {
+  width: 100vw;
+  height: 100vh;
   margin: 0;
   padding: 0;
-  background-image: url("Images/niko-photos-tGTVxeOr_Rs-unsplash.jpg");
+  background-image: url("../../../assets/Images/niko-photos-tGTVxeOr_Rs-unsplash.jpg");
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -117,7 +119,7 @@ input[type="submit"]:active {
   padding: 40px;
   width: 300px;
   height: 400px;
-  background: url('Images/nordwood-themes-bJjsKbToY34-unsplash.jpg');
+  background: url('../../../assets/Images/nordwood-themes-bJjsKbToY34-unsplash.jpg');
   background-size: cover;
   background-position: center;
   border-radius: 0 2px 2px 0;
