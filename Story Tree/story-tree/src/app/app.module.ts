@@ -12,6 +12,14 @@ import { PagesModule } from './feature/pages/pages.module';
 import { AuthModule } from './auth/auth.module';
 import { FamilyModule } from './feature/family/family.module';
 
+// 1. Import the libs you need
+import { AngularFireModule } from '@angular/fire/compat/';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore/';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+// 2. add your credentials of the database from the environment.firebase
+import { environment } from 'src/environments/environment';
+
 
 @NgModule({
   declarations: [
@@ -19,6 +27,11 @@ import { FamilyModule } from './feature/family/family.module';
   ],
   imports: [
     BrowserModule,
+    //3/ Initialize
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule, //firestore
+    AngularFireStorageModule, //storage
+    AngularFireAuthModule, //auth
     AppRoutingModule,
     FormsModule,
     FamilyModule,
