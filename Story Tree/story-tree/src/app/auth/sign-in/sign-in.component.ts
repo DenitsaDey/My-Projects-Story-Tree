@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {NgForm } from '@angular/forms';
 
 @Component({
   selector: 'stapp-sign-in',
@@ -12,4 +13,7 @@ export class SignInComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onLogin(loginForm: NgForm){
+    console.log(loginForm.value);
+  }
 }

@@ -1,0 +1,38 @@
+<div id="body-wrapper">
+    <div id="login-box">
+        <div class="container">
+            <h1>Add a member</h1> 
+            <form #addMemberForm="ngForm" (ngSubmit)="onSubmit()">  
+                <div class="form-group">  
+                    <label for="name">Name</label>  
+                    <input type="text" class="form-control" id="name" required name="name" ngModel #name="ngModel">   
+                    <div class="alert alert-danger" *ngIf="name.touched && name.invalid">
+                        Name is required!
+                    </div>
+                </div>   
+                <div class="form-group">   
+                    <label for="relation">Relation to me</label>   
+                    <select class="form-control" id="relation" required name="relation" ngModel #relation="ngModel">                    
+                        <option *ngFor="let relation of relations" [value]="relation">{{relation}}</option>                 
+                    </select> 
+                    <div class="alert alert-danger" *ngIf="relation.touched && relation.invalid">
+                        Relation is required!
+                    </div>  
+                </div>   
+                <div class="form-group">    
+                    <label for="partner">Married to</label> 
+                    <select class="form-control" id="partner" name="partner" ngModel>                    
+                        <option *ngFor="let partner of members" [value]="partner.id">My {{partner.name}}</option>                 
+                    </select> 
+                </div> 
+                <div class="form-group">
+                    <label for="parent">Parents</label>                    
+                    <select class="form-control" id="parent" name="parent" ngModel>                    
+                        <option *ngFor="let parent of members" [value]="parent.id">My {{parent.name}}</option>                 
+                    </select>                   
+                </div>                    
+                <button type="submit" class="btn btn-success">Submit</button>   
+            </form>    
+        </div>
+    </div>
+</div>

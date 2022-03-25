@@ -6,6 +6,8 @@ import { InspectorComponent } from './inspector/inspector.component';
 import { FormsModule } from '@angular/forms';
 import { MemberDetailsPageComponent } from './member-details-page/member-details-page.component';
 import { FamilyRoutingModule } from './family-routing.module';
+import { AddMemberComponent } from './add-member/add-member.component';
+
 
 
 
@@ -14,12 +16,13 @@ import { FamilyRoutingModule } from './family-routing.module';
     FamilyTreePageComponent,
     FamilyDiagramComponent,
     InspectorComponent,
-    MemberDetailsPageComponent
+    MemberDetailsPageComponent,
+    AddMemberComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-    FamilyRoutingModule
+    FamilyRoutingModule,
   ],
   exports: [
     FamilyTreePageComponent,
