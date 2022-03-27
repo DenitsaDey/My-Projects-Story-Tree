@@ -1,11 +1,28 @@
-<form class="login" action="" mathod="post">
+<form class="login" action="" method="post" [formGroup]="signinFormGroup" (ngSubmit)="handleSignIn()"> 
+  <!-- ngSubmit is used to preserve the browser default behaviou of submitting by pressing Enter -->
 <div id="body-wrapper">
   <div id="login-box">
     <div class="left">
       <h1>Welcome back,</h1>
 
-      <input type="text" name="email" placeholder="E-mail" />
-      <input type="password" name="password" placeholder="Password" />
+      <input type="text" name="email" placeholder="E-mail" formControlName="email"/>
+      <ng-container *ngIf="signinFormGroup.controls['email'].touched && signinFormGroup.controls['email'].invalid">
+        <!-- ng-container is used in order not to create additional p element in the DOM unless required to visualise error -->
+        <p class="error">
+          E-mail is required!
+        </p>
+      </ng-container>
+
+      <input type="password" name="password" placeholder="Password" formControlName="password"/>
+      <ng-container *ngIf="signinFormGroup.controls['password'].touched && signinFormGroup.controls['password'].invalid">
+        <!-- for developer use to visualise errors -> {{signinFormGroup.controls['password'].errors | json}} -->
+        <p *ngIf="signinFormGroup.controls['password'].errors['required']" class="error">
+          Password is required!
+        </p>
+        <p *ngIf="signinFormGroup.controls['password'].errors['minlength']" class="error">
+          Password must be at least {{signinFormGroup.controls['password'].errors['minlength'].requiredLength}} symbols long!
+        </p>
+      </ng-container>
 
       <input (click)="loginHandler()" type="submit" name="signup_submit" value="Sign in" />
       <button class="social-signin facebook">Sign in with facebook</button>

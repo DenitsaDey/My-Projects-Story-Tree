@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NgForm } from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
 
@@ -10,7 +10,15 @@ import { UserService } from 'src/app/core/services/user.service';
 })
 export class SignInComponent implements OnInit {
 
-  constructor(private userService: UserService, private router: Router) { }
+  signinFormGroup: FormGroup = this.formBuilder.group({
+    'email': new FormControl('', [Validators.required, Validators.email]),
+    'password': new FormControl(null, [Validators.required, Validators.minLength(6)])
+  });
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UserService, 
+    private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -23,5 +31,9 @@ export class SignInComponent implements OnInit {
     //toDo validate user's data
     this.userService.login();
     this.router.navigate(['/home']);
+  }
+
+  handleSignIn(): void{
+    console.log('form must be submitted')
   }
 }
