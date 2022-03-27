@@ -31,7 +31,8 @@
                         <option *ngFor="let parent of members" [value]="parent.id">My {{parent.name}}</option>                 
                     </select>                   
                 </div>                    
-                <button type="submit" class="btn btn-success">Submit</button>   
+                <button [disabled]="addMemberForm.invalid" type="submit" class="btn btn-success">Submit</button>   
+                <button (click)="clearForm()" type="submit" class="btn btn-info">Clear</button>   
             </form>    
         </div>
     </div>

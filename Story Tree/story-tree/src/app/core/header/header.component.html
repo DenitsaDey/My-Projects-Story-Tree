@@ -13,9 +13,10 @@
 
     <nav class="nav-wrapper" *ngIf="isLogged">
         <ul>
-            <li class="list-wrapper"><span>Welcome!</span><a href="#">My tree</a></li>
-            <li><a href="#"></a>Create a new tree</li>
-            <li><a href="#" (click)="logoutHandler">Logout</a></li>
+            <li class="list-wrapper"><span>Welcome,</span><a routerLink="/profile">User name!</a></li>
+            <li><a routerLink="/family">My tree</a></li>
+            <li><a href="#">Create a new tree</a></li>
+            <li><a href="#" (click)="logoutHandler()">Logout</a></li>
         </ul>
     </nav>
 </header>

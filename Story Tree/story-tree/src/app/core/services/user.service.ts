@@ -7,6 +7,7 @@ import { StorageService } from './storage.service';
 export class UserService {
 
   isLogged = false;
+
   constructor(private storage: StorageService) {
     this.isLogged = this.storage.getItem('isLogged');
   }
@@ -18,7 +19,7 @@ export class UserService {
   }
 
   logout(): void {
-    this.isLogged = true;
-    this.storage.setItem('isLogged', true);
+    this.isLogged = false;
+    this.storage.setItem('isLogged', false);
   }
 }
