@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { IUser } from '../interfaces/index';
 import { StorageService } from './storage.service';
 
+export interface CreateUserDto { name: string, email: string, password: string }
 
 const apiUrl = environment.apiUrl;
 
@@ -13,6 +16,7 @@ const apiUrl = environment.apiUrl;
 
 export class UserService {
 
+  currentUser: IUser;
   isLogged = false;
 
   constructor(private storage: StorageService, private httpCLient: HttpClient) {
@@ -30,7 +34,7 @@ export class UserService {
     this.storage.setItem('isLogged', false);
   }
 
-  createProfile$(profile){
-    return this.httpCLient.post(`${apiUrl}/profiles.json`, profile);
+  createProfile$(userData: CreateUserDto): Observable<IUser>{
+    return this.httpCLient.post(`${apiUrl}/profiles.json`, userData, {withCredentials: true});
   };
 }

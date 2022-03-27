@@ -9,9 +9,9 @@
       <ng-container *ngIf="signinFormGroup.controls['email'].touched && signinFormGroup.controls['email'].invalid">
         <!-- ng-container is used in order not to create additional p element in the DOM unless required to visualise error -->
         <p class="error">
-          E-mail is required!
+          Email is required!
         </p>
-        <!-- when custom email validation is required we use the emailValidotro from util.ts
+        <!-- when custom email validation is required we use the emailValidotor from util.ts
           <p *ngIf="signinFormGroup.controls['email'].errors['email']" class="error">
           E-mail is not valid!
         </p> -->

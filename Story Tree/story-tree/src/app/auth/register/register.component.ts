@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MemberService } from 'src/app/core/services/member.service';
+import { CreateUserDto, UserService } from 'src/app/core/services/user.service';
 import { passwordMatch } from '../util';
 
 @Component({
@@ -22,26 +23,33 @@ export class RegisterComponent implements OnInit {
   
   constructor(
     private formBuiler: FormBuilder,
-    private memberService: MemberService, 
+    private userService: UserService, 
     private router: Router,
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
   }
 
-  onSubmit(): void{
-    this.memberService.createProfile(this.registerFormGroup.value)
-    .subscribe(response => {
-      console.log(response);
+  //we can use this method if we want to save ourselves the repeated condition in the .html *ngIf .touched && .valid
+  shouldShowErrorForControl(controlName: string, sourceGroup: FormGroup = this.registerFormGroup) { //source group is the registerFormGroup by default, but there is option to provide it in the cases when there is a separate group, like for the passwords, i.e. ('password', passwordsGroup)
+    return sourceGroup.controls[controlName].touched && sourceGroup.controls[controlName].invalid
+  }
+
+  handleRegister():void{
+    const {name, email, password} = this.registerFormGroup.value;
+
+    const body: CreateUserDto = {
+      name: name,
+      email: email,
+      password: password
+    }
+
+    this.userService.createProfile$(body).subscribe(() => {
       this.registerFormGroup.reset();
-      this.router.navigate(['../', 'signin'], { relativeTo: this.activatedRoute});
+      this.router.navigate(['../', 'signin'], { relativeTo: this.activatedRoute})
     },
     (error) => {
       console.log(error);
     });
-  }
-
-  handleRegister():void{
-    console.log('registered');
   }
 }

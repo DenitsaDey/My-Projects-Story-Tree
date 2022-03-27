@@ -23,11 +23,12 @@
 
       <!-- password -->
       <input type="password" name="password" placeholder="Password" formControlName="password"/>
-      <ng-container *ngIf="registerFormGroup.controls['password'].touched && registerFormGroup.controls['password'].invalid">
+      <!--here we use the shortened function for *ngIf instead of the whole condition, just for example purpose-->
+      <ng-container *ngIf="shouldShowErrorForControl('password')">
         <p *ngIf="registerFormGroup.controls['password'].errors['required']" class="error">
           Password is required!
         </p>
-        <p *ngIf="registerFormGroup.controls['password'].errors['minLength']" class="error">
+        <p *ngIf="registerFormGroup.controls['password'].errors['minlength']" class="error">
           Password must be at least {{registerFormGroup.controls['password'].errors['minlength'].requiredLength}} symbols long!
         </p>
       </ng-container>

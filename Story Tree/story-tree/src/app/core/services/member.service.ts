@@ -22,7 +22,5 @@ export class MemberService {
     return this.httpCLient.get<IProfile>(`${apiUrl}/profiles.json/${id}`);
   }
 
-  createProfile(profile){
-    return this.httpCLient.post(`${apiUrl}/profiles.json`, profile);
-  };
+  
 }
