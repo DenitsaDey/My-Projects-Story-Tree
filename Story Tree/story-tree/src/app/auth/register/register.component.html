@@ -1,15 +1,47 @@
-<form class="register" action="" method="post">
+<form class="register" [formGroup]="registerFormGroup" (ngSubmit)="handleRegister()">
 <div id="body-wrapper">
 <div id="login-box">
     <div class="left">
       <h1>Register</h1>
       
-      <input type="text" name="username" placeholder="Username" />
-      <input type="text" name="email" placeholder="E-mail" />
-      <input type="password" name="password" placeholder="Password" />
-      <input type="password" name="password2" placeholder="Retype password" />
-      
-      <input (click)='onSubmit()' type="submit" name="signup_submit" value="Sign me up" />
+      <!-- name -->
+      <input type="text" name="name" placeholder="Name" formControlName="name"/>
+      <ng-container *ngIf="registerFormGroup.controls['name'].touched && registerFormGroup.controls['name'].invalid">
+        <p class="error">Name is required!</p>
+      </ng-container>
+
+      <!-- email -->
+      <input type="text" name="email" placeholder="E-mail" formControlName="email"/>
+      <ng-container *ngIf="registerFormGroup.controls['email'].touched && registerFormGroup.controls['email'].invalid">
+        <p *ngIf="registerFormGroup.controls['email'].errors['required']" class="error">
+          Email is required!
+        </p>
+        <p *ngIf="registerFormGroup.controls['email'].errors['email']" class="error">
+        Email is not valid!
+        </p>
+      </ng-container>
+
+      <!-- password -->
+      <input type="password" name="password" placeholder="Password" formControlName="password"/>
+      <ng-container *ngIf="registerFormGroup.controls['password'].touched && registerFormGroup.controls['password'].invalid">
+        <p *ngIf="registerFormGroup.controls['password'].errors['required']" class="error">
+          Password is required!
+        </p>
+        <p *ngIf="registerFormGroup.controls['password'].errors['minLength']" class="error">
+          Password must be at least {{registerFormGroup.controls['password'].errors['minlength'].requiredLength}} symbols long!
+        </p>
+      </ng-container>
+
+      <!-- confirmPassword -->
+      <input type="password" name="password2" placeholder="Retype password" formControlName="confirmPassword"/>
+      <ng-container *ngIf="registerFormGroup.controls['confirmPassword'].touched && registerFormGroup.controls['confirmPassword'].invalid">
+        <p *ngIf="registerFormGroup.controls['confirmPassword'].errors['passwordMissmatch']" class="error">
+          Passwords do not match!
+        </p>
+      </ng-container>
+
+      <!-- <input [disabled]="registerFormGroup.invalid" type="submit" name="signup_submit" value="Sign me up" /> -->
+      <button type="submit" [disabled]="registerFormGroup.invalid">Sign me up</button>
     </div>
     
     <div class="right">

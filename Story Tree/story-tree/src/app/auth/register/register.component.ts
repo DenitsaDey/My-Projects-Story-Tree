@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MemberService } from 'src/app/core/services/member.service';
+import { passwordMatch } from '../util';
 
 @Component({
   selector: 'stapp-register',
@@ -10,14 +11,18 @@ import { MemberService } from 'src/app/core/services/member.service';
 })
 export class RegisterComponent implements OnInit {
 
-  registerForm: FormGroup = new FormGroup({
+  passwordControl= new FormControl(null, [Validators.required, Validators.minLength(6)]);
+
+  registerFormGroup: FormGroup = this.formBuiler.group({
     name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(5)]),
-    confirmPassword: new FormControl('', [Validators.required])
+    password: this.passwordControl, //we assign it to a variable in order to be used in the match function of the confirmPassword formControl
+    confirmPassword: new FormControl(null, [passwordMatch(this.passwordControl)])
   });
   
-  constructor(private memberService: MemberService, 
+  constructor(
+    private formBuiler: FormBuilder,
+    private memberService: MemberService, 
     private router: Router,
     private activatedRoute: ActivatedRoute) { }
 
@@ -25,14 +30,18 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(): void{
-    this.memberService.createProfile(this.registerForm.value)
+    this.memberService.createProfile(this.registerFormGroup.value)
     .subscribe(response => {
       console.log(response);
-      this.registerForm.reset();
+      this.registerFormGroup.reset();
       this.router.navigate(['../', 'signin'], { relativeTo: this.activatedRoute});
     },
     (error) => {
       console.log(error);
     });
+  }
+
+  handleRegister():void{
+    console.log('registered');
   }
 }
