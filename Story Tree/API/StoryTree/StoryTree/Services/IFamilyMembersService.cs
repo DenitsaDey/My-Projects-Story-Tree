@@ -9,5 +9,7 @@
     public interface IFamilyMembersService
     {
         IEnumerable<FamilyMemberViewModel> GetAllMyMembers(string profileId);
+
+        FamilyMemberViewModel GetById(string profileId, string relativeId);
     }
 }

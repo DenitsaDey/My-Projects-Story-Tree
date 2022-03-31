@@ -13,7 +13,7 @@ const routes: Routes = [
         component: AddMemberComponent
     },
     {
-        path: 'family/:memberId',
+        path: 'family/:relativeId',
         component: MemberDetailsPageComponent
     },
     

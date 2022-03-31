@@ -50,5 +50,28 @@
 
             return family;
         }
+
+        public FamilyMemberViewModel GetById(string profileId, string relativeId)
+        {
+            var currentMember = this.data.Profiles
+                                        .Where(p => p.Id == relativeId)
+                                        .Select(p => new FamilyMemberViewModel
+                                        {
+                                            Id = p.Id,
+                                            Name = p.Name,
+                                            Birthday = p.Birthday,
+                                            Location = p.Location,
+                                            PartnerId = p.PartnerId,
+                                            Parent1Id = p.Parent1Id,
+                                            Parent2Id = p.Parent2Id,
+                                            RelationToMe = this.data.Relations
+                                                            .Where(r => r.MemberId == profileId && r.RelativeId == relativeId)
+                                                            .FirstOrDefault()
+                                                            .Relation
+                                        })
+                                        .FirstOrDefault();
+
+            return currentMember;
+        }
     }
 }

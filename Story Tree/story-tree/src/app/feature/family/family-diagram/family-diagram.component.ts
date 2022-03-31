@@ -123,10 +123,10 @@ export class FamilyDiagramComponent implements OnInit {
                 minSize: new go.Size(10, 14),
                 margin: new go.Margin(0, 0, 0, 3)
               },
-              new go.Binding('text', 'relationToMe').makeTwoWay()),
+              new go.Binding('text', 'title').makeTwoWay()),
             $(go.TextBlock, { font: '9pt  Segoe UI,sans-serif', stroke: 'white' },
               { row: 2, column: 0 },
-              new go.Binding('text', 'location', function (v) { return 'Lives in: ' + v; })),
+              new go.Binding('text', 'key', function (v) { return 'ID: ' + v; })),
             $(go.TextBlock, { font: '9pt  Segoe UI,sans-serif', stroke: 'white' },
               { name: 'boss', row: 2, column: 3 }, // we include a name so we can access this TextBlock when deleting Nodes/Links
               new go.Binding('text', 'parent', function (v) { return 'Boss: ' + v; })),

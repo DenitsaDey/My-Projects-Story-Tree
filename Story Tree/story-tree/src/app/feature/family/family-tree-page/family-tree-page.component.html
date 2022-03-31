@@ -1,8 +1,4 @@
-<div *ngIf="model">
-    <stapp-family-diagram [model]='model' (nodeClicked)='setSelectedNode($event)'></stapp-family-diagram>
-    <stapp-inspector [selectedNode]='selectedNode' [model]='model'></stapp-inspector>
-</div>
-<div *ngIf="!model">
-    Loading...
-</div>
+<stapp-family-diagram [model]='model' (nodeClicked)='setSelectedNode($event)'></stapp-family-diagram>
+<stapp-inspector [selectedNode]='selectedNode' [model]='model'></stapp-inspector>
+
 

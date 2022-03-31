@@ -5,17 +5,6 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:19986/api'
-  //apiUrl: 'https://story-tree-d5de9-default-rtdb.firebaseio.com/'
-  // firebase:{
-  // apiKey: "AIzaSyBBBsvaKyta529wiVhpFIcNxfMPYb5n328",
-  // authDomain: "story-tree-d5de9.firebaseapp.com",
-  // databaseURL: "https://story-tree-d5de9-default-rtdb.firebaseio.com",
-  // projectId: "story-tree-d5de9",
-  // storageBucket: "story-tree-d5de9.appspot.com",
-  // messagingSenderId: "767562735700",
-  // appId: "1:767562735700:web:4ff72a01a6b0d01660cdc1",
-  // measurementId: "G-P7CJPWFME5"
-  // }
 };
 
 /*

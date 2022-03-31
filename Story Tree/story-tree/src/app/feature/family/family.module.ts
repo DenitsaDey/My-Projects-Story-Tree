@@ -11,13 +11,14 @@ import { AddMemberComponent } from './add-member/add-member.component';
 
 
 
+
 @NgModule({
   declarations: [
     FamilyTreePageComponent,
     FamilyDiagramComponent,
     InspectorComponent,
     MemberDetailsPageComponent,
-    AddMemberComponent
+    AddMemberComponent,
   ],
   imports: [
     CommonModule,
