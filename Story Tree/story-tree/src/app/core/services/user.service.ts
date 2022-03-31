@@ -19,7 +19,7 @@ export class UserService {
   currentUser: IUser;
   isLogged = false;
 
-  constructor(private storage: StorageService, private httpCLient: HttpClient) {
+  constructor(private storage: StorageService, private httpClient: HttpClient) {
     this.isLogged = this.storage.getItem('isLogged');
   }
 
@@ -34,7 +34,7 @@ export class UserService {
     this.storage.setItem('isLogged', false);
   }
 
-  createProfile$(userData: CreateUserDto): Observable<IUser>{
-    return this.httpCLient.post(`${apiUrl}/profiles.json`, userData, {withCredentials: true});
+  createProfile$(userData: CreateUserDto){
+    return this.httpClient.post(`${apiUrl}/profiles.json`, userData, {withCredentials: true});
   };
 }

@@ -47,9 +47,6 @@ export class RegisterComponent implements OnInit {
     this.userService.createProfile$(body).subscribe(() => {
       this.registerFormGroup.reset();
       this.router.navigate(['../', 'signin'], { relativeTo: this.activatedRoute})
-    },
-    (error) => {
-      console.log(error);
     });
   }
 }
