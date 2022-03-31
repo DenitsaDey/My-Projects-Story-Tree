@@ -35,14 +35,26 @@ namespace StoryTree
                 .AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
-            // Application services
+            //DDEY: Application services
            services.AddTransient<IProfilesService, ProfilesService>();
+
+            //DDEY: Allow CORS
+            services.AddCors((setup) =>
+            {
+                setup.AddPolicy("default", (options) =>
+                {
+                    options
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowAnyOrigin();
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            // Seed data on application startup
+            //DDEY: Seed data on application startup
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
@@ -54,6 +66,9 @@ namespace StoryTree
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            //DDEY: specify in the configure method the use of CORS options
+            app.UseCors("default");
 
             app.UseRouting();
 
