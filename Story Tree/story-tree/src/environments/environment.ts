@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:19986/api/profiles'
+  apiUrl: 'http://localhost:19986/api'
   //apiUrl: 'https://story-tree-d5de9-default-rtdb.firebaseio.com/'
   // firebase:{
   // apiKey: "AIzaSyBBBsvaKyta529wiVhpFIcNxfMPYb5n328",

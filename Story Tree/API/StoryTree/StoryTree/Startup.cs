@@ -37,6 +37,7 @@ namespace StoryTree
 
             //DDEY: Application services
            services.AddTransient<IProfilesService, ProfilesService>();
+           services.AddTransient<IFamilyMembersService, FamilyMembersService>();
 
             //DDEY: Allow CORS
             services.AddCors((setup) =>

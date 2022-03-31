@@ -3,6 +3,10 @@ import * as go from 'gojs';
 import {AngularFirestore} from '@angular/fire/compat/firestore';
 import {IMember} from '../interfaces'
 import { Observable } from 'rxjs/internal/Observable';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+
+const apiUrl = environment.apiUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -10,28 +14,12 @@ import { Observable } from 'rxjs/internal/Observable';
 export class FamilyService {
   
 
-  constructor(private db : AngularFirestore) {
-    const familyMembers = this.db.collection('members').valueChanges();
-      familyMembers.subscribe(console.log);
-    
-   }
+  constructor(private httpClient: HttpClient) {}
    
-   defaultMembers = this.db.collection('default').valueChanges().subscribe();
- 
-   
-   getDefaultMembers(){
-     return this.defaultMembers;
+   loadFamilyTree$(id: string): Observable<IMember[]>{
+    return this.httpClient.get<IMember[]>(`${apiUrl}/familymembers/${id}`);
    }
-  //  familyMembers$ = this.db.collection('members').valueChanges();
-//familyMembers$.subscribe(members =>{
-  // this.members = members;
-  // console.log(this.members);
-    
-  // getMembers$(): Observable<IMember[]>{
-    
-  //   familyMembers = this.db.collection('members').valueChanges();
-  //   return familyMembers;
-  // }
+  
 }
 
 
