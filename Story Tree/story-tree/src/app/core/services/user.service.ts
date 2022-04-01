@@ -2,18 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { IUser } from '../interfaces/index';
+import { IMember, IUser } from '../interfaces/index';
 import { StorageService } from './storage.service';
 
 export interface CreateUserDto { name: string, email: string, password: string }
 
 const apiUrl = environment.apiUrl;
 
-@Injectable({
-  providedIn: 'root'
-})
-
-
+@Injectable()
 export class UserService {
 
   currentUser: IUser;
@@ -34,7 +30,13 @@ export class UserService {
     this.storage.setItem('isLogged', false);
   }
 
+
+  //DDEY TODO
   createProfile$(userData: CreateUserDto){
-    return this.httpClient.post(`${apiUrl}/profiles.json`, userData, {withCredentials: true});
+    return this.httpClient.post(`${apiUrl}/profiles`, userData, {withCredentials: true});
   };
+
+  getUserById$(id: string): Observable<IMember>{
+    return this.httpClient.get<IMember>(`${apiUrl}/profiles/${id}`);
+  }
 }

@@ -88,7 +88,7 @@ path {
 button {
   border: none;
   background: none;
-  font-size: 16px;
+  font-size: 24px;
   color: #f4d03f;
   cursor: pointer;
   transition:.5s;
@@ -98,3 +98,11 @@ button {
     transform: rotate(22deg)
   }
 
+  
+  .subscribe{
+      color: green;
+  }
+
+  .unsubscribe{
+      color: red;
+  }

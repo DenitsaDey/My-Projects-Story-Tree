@@ -13,13 +13,15 @@ const profileId = "b8d7263c-a032-453e-94ec-6e5d99179aba" //DDEY: main user Danie
 export class MemberDetailsPageComponent implements OnInit {
 
   member: IMember;
-  
+  canSubscribe: boolean = false;
 
 
   constructor(private activatedRoute: ActivatedRoute, 
     private memberService: MemberService) { }
 
   ngOnInit(): void {
+    // DDEY: when we use snapshot it does not refresh when the param in the url is changes
+    // for this reason we subscribe to the activated route to be able to change the Id of the realtive dinamically
     this.activatedRoute.params.subscribe(params =>{
       const relativeId = params['relativeId'];
       this.memberService.getMemberById$(profileId, relativeId).subscribe(member => {
@@ -29,5 +31,11 @@ export class MemberDetailsPageComponent implements OnInit {
       });
     })
   }
+
+  /* DDEY: for demo purpose of the button styling in the .html file
+  ngOnChanges(): void{
+    this.canSubscribe = this.member.shareTree
+  }
+  */
 
 }

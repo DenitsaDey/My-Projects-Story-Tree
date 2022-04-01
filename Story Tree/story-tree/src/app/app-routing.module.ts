@@ -19,4 +19,4 @@ const routes: Routes = [
   }
 ];
 
-export const AppRoutingModule = RouterModule.forRoot(routes);
+export const AppRoutingModule = RouterModule.forRoot(routes); //DDEY: forRoot meanting instantiated only once for the whole app

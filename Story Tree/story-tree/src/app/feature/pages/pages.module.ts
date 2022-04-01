@@ -15,7 +15,6 @@ import { PageNotFoundPageComponent } from './page-not-found-page/page-not-found-
     RouterModule
   ],
   exports: [
-    HomePageComponent
   ]
 })
 export class PagesModule { }

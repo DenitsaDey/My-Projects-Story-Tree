@@ -7,4 +7,5 @@ export interface IMember{
     partnerId: string | null;
     parent1Id: string | null;
     parent2Id: string | null;
+    email: string | null;
 }

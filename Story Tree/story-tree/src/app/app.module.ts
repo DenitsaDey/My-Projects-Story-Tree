@@ -22,11 +22,11 @@ import { FamilyModule } from './feature/family/family.module';
   imports: [
     BrowserModule,
     HttpClientModule,
+    RouterModule,
+    CoreModule.forRoot(),
     AppRoutingModule,
     FormsModule,
     FamilyModule,
-    CoreModule.forRoot(),
-    RouterModule,
     PagesModule,
     AuthModule,
   ],

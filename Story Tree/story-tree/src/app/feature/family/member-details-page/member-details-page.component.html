@@ -22,11 +22,22 @@
             <li><button><i class="far fa-map-marker-alt"></i></button>Lives in: {{member.location}}</li>
             <li><button><i class="fal fa-birthday-cake"></i></button>Birthday: {{member.birthday}}</li>
             <!-- TODO -- <li><button><i class="far fa-envelope"></i></button>E-mail: {{member.email}}</li>-->
-        </ul>
-      
-      
-      
+        </ul> 
     </div>
+    <!--DDEY: example of button styling on conditions
+        TODO bool prop of member 
+        <button *ngIf="member.shareTree" [class.subscribe]="canSubscribe" [class.unsubscribe]="!canSubscribe">
+          <i class="fas fa-user-friends"></i>
+        {{canSubscribe ? 'Show Tree' : 'Hide Tree'}}
+    </button> -->
+
+    <!-- DDEY: example of routerLink with parameters
+        <div class="title-total"> 
+        <a [routerLink="['/family', member.id]"]  
+          <h2>{{member.name}}</h2>
+        </a>
+        </div>
+    -->
 </div>
    
     </div>    
