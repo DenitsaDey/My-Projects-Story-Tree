@@ -36,6 +36,9 @@
       <!-- confirmPassword -->
       <input type="password" name="password2" placeholder="Retype password" formControlName="confirmPassword"/>
       <ng-container *ngIf="registerFormGroup.controls['confirmPassword'].touched && registerFormGroup.controls['confirmPassword'].invalid">
+        <p *ngIf="registerFormGroup.controls['confirmPassword'].errors['required']" class="error">
+          Retype password is required!
+        </p>
         <p *ngIf="registerFormGroup.controls['confirmPassword'].errors['passwordMissmatch']" class="error">
           Passwords do not match!
         </p>

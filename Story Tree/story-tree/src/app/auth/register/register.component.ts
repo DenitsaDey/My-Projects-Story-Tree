@@ -18,7 +18,7 @@ export class RegisterComponent implements OnInit {
     name: new FormControl('', [Validators.required]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: this.passwordControl, //we assign it to a variable in order to be used in the match function of the confirmPassword formControl
-    confirmPassword: new FormControl(null, [passwordMatch(this.passwordControl)])
+    confirmPassword: new FormControl(null, [Validators.required, passwordMatch(this.passwordControl)])
   });
   
   constructor(

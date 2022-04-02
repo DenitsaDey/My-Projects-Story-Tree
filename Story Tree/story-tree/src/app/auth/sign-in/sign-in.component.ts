@@ -14,7 +14,7 @@ export class SignInComponent implements OnInit {
   errorMessage: string = '';
 
   signinFormGroup: FormGroup = this.formBuilder.group({
-    'email': new FormControl('', [Validators.required, Validators.email]), // ,emailValidator] - wehen custom email validator is required, we use the one from util.js or simply use Validators.pattern(/.{6,}@gmail\.(bg|com)/)
+    'email': new FormControl('', [Validators.required, Validators.email]), // ,emailValidator] - when custom email validator is required, we use the one from util.js or simply use Validators.pattern(/.{6,}@gmail\.(bg|com)/)
     'password': new FormControl(null, [Validators.required, Validators.minLength(6)])
   });
 
@@ -31,25 +31,24 @@ export class SignInComponent implements OnInit {
 
   loginHandler(): void{
     //toDo validate user's data
-    this.userService.login();
-    this.router.navigate(['/home']);
-    console.log('form is submitted', this.signinFormGroup)
+    //this.userService.login();
+    //this.router.navigate(['/home']);
+    //console.log('form is submitted', this.signinFormGroup)
   }
 
   handleSignIn(): void{
-    console.log('form to be submitted.')
-    // this.errorMessage = '';
-    // this.userService.login$(this.signinFormGroup.value).subscribe({
-    //   next: user => {
-    //     console.log(user);
-    //     this.router.navigate(['/home']);
-    //   },
-    //   complete: () => {
-    //     console.log('login stream completed')
-    //   },
-    //   error: (err) => {
-    //     this.errorMessage = err.error.message;
-    //   }
-    // });
+    this.errorMessage = '';
+    this.userService.signin$(this.signinFormGroup.value).subscribe({
+      next: user => {
+        console.log(user);
+        this.router.navigate(['/home']);
+      },
+      complete: () => {
+        console.log('login stream completed')
+      },
+      error: (err) => {
+        this.errorMessage = err.error.message;
+      }
+    });
   }
 }

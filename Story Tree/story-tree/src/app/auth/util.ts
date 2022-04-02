@@ -4,12 +4,14 @@ import { AbstractControl, FormGroup, ValidationErrors, ValidatorFn } from "@angu
 export function emailValidator(control: AbstractControl): ValidationErrors | null {
     const value = control.value;
 
-    // if (control.errors && Object.keys(control.errors).filter(errorName => errorName !== 'email').length > 0) {
-    //     return null;
-    // }
+    /* used to display one error at a time, in the cases when the given control for that field has already some other validation errors != from email error
+    if (control.errors && Object.keys(control.errors).filter(errorName => errorName !== 'email').length > 0) {
+         return null;
+     }
+    */
 
     if (!value) {
-        return null
+        return null;
     }
 
     //specific email conditions are required, i.e. min 6 symbols before @ and the domain to be gmail with top level domain .bg or .com
