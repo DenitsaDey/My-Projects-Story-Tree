@@ -6,7 +6,7 @@ import { IMember, IUser } from '../interfaces/index';
 import { StorageService } from './storage.service';
 
 export interface CreateUserDto { name: string, email: string, password: string }
-
+//this is the same as an object with string key and its value: { [key: string]: string }
 const apiUrl = environment.apiUrl;
 
 @Injectable()
@@ -25,12 +25,17 @@ export class UserService {
 
   signin$(userData: { email: string, password: string }): Observable<IUser> {
     return this.httpClient
-      .post<IUser>(`${apiUrl}/signin`, userData, { withCredentials: true, observe: 'response' })
+      .post<IUser>(`${apiUrl}/auth/signin`, userData, )
       .pipe(
-        tap(response => console.log(response)),
-        map(response => response.body),
         tap(user => this.currentUser = user)
-      )
+      ); 
+      //DDEY: this bellow currently blocks the CORS
+      //.post<IUser>(`${apiUrl}/auth/signin`, userData, { withCredentials: true, observe: 'response' } 
+      // .pipe(
+      //   tap(response => console.log(response)),
+      //   map(response => response.body),
+      //   tap(user => this.currentUser = user)
+      // );
   }
 
   /* old version
@@ -45,6 +50,8 @@ export class UserService {
     this.isLogged = false;
     this.storage.setItem('isLogged', false);
     */
+   //DDEY: from https://www.youtube.com/watch?v=NSQHiIAP7Z8
+   localStorage.removeItem("jwt");
   }
 
 
@@ -57,7 +64,5 @@ export class UserService {
     return this.httpClient.get<IMember>(`${apiUrl}/profiles/${id}`);
   }
 
-  register$(userData: CreateUserDto): Observable<IUser> {
-    return this.httpClient.post<IUser>(`${apiUrl}/register`, userData, { withCredentials: true })
-  }
+  
 }

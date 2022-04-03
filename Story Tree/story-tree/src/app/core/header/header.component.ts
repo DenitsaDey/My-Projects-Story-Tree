@@ -16,7 +16,9 @@ export class HeaderComponent {
   get currentUser(): IUser {
     return this.userService.currentUser;
   }
-  constructor(public userService: UserService) { }
+  constructor(public userService: UserService) { 
+    console.log(this.currentUser);
+  }
 
   logoutHandler(): void{
     this.userService.logout();

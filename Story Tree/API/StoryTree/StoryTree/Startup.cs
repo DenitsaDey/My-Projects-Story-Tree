@@ -1,5 +1,6 @@
 namespace StoryTree
 {
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
@@ -8,12 +9,14 @@ namespace StoryTree
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.Extensions.Logging;
+    using Microsoft.IdentityModel.Tokens;
     using StoryTree.Data;
     using StoryTree.Data.Seeding;
     using StoryTree.Services;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text;
     using System.Threading.Tasks;
 
     public class Startup
@@ -28,6 +31,39 @@ namespace StoryTree
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //DDEY: Allowing CORS
+            services.AddCors((setup) =>
+            {
+                setup.AddPolicy("default", (options) =>
+                {
+                    options
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowAnyOrigin();
+                });
+            });
+
+            //DDEY: Adding Authentication by first installing the nuget packege Microsoft.AspNetCore.Authentication.JWTBearer
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+
+                        ValidIssuer = "https://localhost:19986",
+                        ValidAudience = "https://localhost:19986",
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("storyTreeSecretKey@100")) //DDEY: for demo purpose, but best practice is the secret key to be stored in an environment viariable
+                    };
+                });
+
             services.AddDbContext<ApplicationDbContext>(options => options
             .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -39,17 +75,7 @@ namespace StoryTree
            services.AddTransient<IProfilesService, ProfilesService>();
            services.AddTransient<IFamilyMembersService, FamilyMembersService>();
 
-            //DDEY: Allow CORS
-            services.AddCors((setup) =>
-            {
-                setup.AddPolicy("default", (options) =>
-                {
-                    options
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowAnyOrigin();
-                });
-            });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,10 +94,13 @@ namespace StoryTree
                 app.UseDeveloperExceptionPage();
             }
 
-            //DDEY: specify in the configure method the use of CORS options
+            //DDEY: specifying in the configure method the use of CORS options
             app.UseCors("default");
 
             app.UseRouting();
+
+            //DDEY: adding the use of Authentication specified in the ConfigureServices
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

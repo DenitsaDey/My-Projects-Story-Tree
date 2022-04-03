@@ -15,7 +15,7 @@
 
         string CreateMember(ProfileInputModel member);
 
-        bool MemberExists(string id);
+        bool MemberExists(string email, string password);
 
         bool UpdateProfile(ProfileInputModel input, string id);
 

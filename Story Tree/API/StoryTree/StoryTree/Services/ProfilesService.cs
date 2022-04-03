@@ -72,9 +72,9 @@
             return profile.Id;
         }
 
-        public bool MemberExists(string id)
+        public bool MemberExists(string email, string password)
         {
-            return this.data.Profiles.Any(p => p.Id == id);
+            return this.data.Profiles.Any(p => p.Email == email && p.Password == password);
         }
 
         public bool UpdateProfile(ProfileInputModel input, string id)
