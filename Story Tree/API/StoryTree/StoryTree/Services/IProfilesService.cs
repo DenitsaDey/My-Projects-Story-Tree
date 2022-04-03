@@ -11,6 +11,8 @@
     {
         IEnumerable<ProfileViewModel> GetAll();
 
+        UserViewModel GetProfile(string email, string password);
+
         ProfileViewModel GetById(string id);
 
         string CreateMember(ProfileInputModel member);

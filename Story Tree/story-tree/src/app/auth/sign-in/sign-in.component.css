@@ -42,10 +42,7 @@
   overflow: hidden;
 }
 
-.error{
-  color: red;
-  margin: -1rem 0 1rem 0;
-}
+
 
 .left {
   position: absolute;
@@ -206,4 +203,9 @@ button.social-signin.facebook {
   opacity: 1;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
   transition: 0.1s ease;
+}
+
+.error{
+  color: red;
+  margin: -1rem 0 1rem 0;
 }

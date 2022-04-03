@@ -58,8 +58,8 @@ namespace StoryTree
                         ValidateLifetime = true,
                         ValidateIssuerSigningKey = true,
 
-                        ValidIssuer = "https://localhost:19986",
-                        ValidAudience = "https://localhost:19986",
+                        ValidIssuer = "http://localhost:19986",
+                        ValidAudience = "http://localhost:19986",
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("storyTreeSecretKey@100")) //DDEY: for demo purpose, but best practice is the secret key to be stored in an environment viariable
                     };
                 });

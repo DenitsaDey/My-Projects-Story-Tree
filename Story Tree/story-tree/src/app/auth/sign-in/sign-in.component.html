@@ -28,8 +28,12 @@
         </p>
       </ng-container>
 
-      <ng-container *ngIf="errorMessage" class="error">{{errorMessage}}</ng-container>
-      
+      <ng-container *ngIf="invalidLogin">
+        <p class="error">
+          Invalid username or password
+            </p>  
+          </ng-container>
+
       <input (click)="loginHandler()" type="submit" name="signup_submit" value="Sign in" />
       <button class="social-signin facebook">Sign in with facebook</button>
     </div>

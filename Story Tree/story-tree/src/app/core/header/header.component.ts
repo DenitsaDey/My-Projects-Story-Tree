@@ -11,13 +11,13 @@ export class HeaderComponent {
 
   get isLogged(): boolean {
     return this.userService.isLogged;
+    
   }
 
   get currentUser(): IUser {
     return this.userService.currentUser;
   }
   constructor(public userService: UserService) { 
-    console.log(this.currentUser);
   }
 
   logoutHandler(): void{

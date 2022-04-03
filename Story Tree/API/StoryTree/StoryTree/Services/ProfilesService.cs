@@ -36,6 +36,20 @@
             return profiles;
         }
 
+        public UserViewModel GetProfile(string email, string password)
+        {
+            var currentUser =  this.data.Profiles
+                                    .Where(p => p.Email == email && p.Password == password)
+                                    .Select(p => new UserViewModel
+                                    {
+                                        Id = p.Id,
+                                        Name = p.Name,
+                                        Email = p.Email
+                                    })
+                                    .FirstOrDefault();
+            return currentUser;
+        }
+
         public ProfileViewModel GetById(string id)
         {
             var profile = this.data.Profiles

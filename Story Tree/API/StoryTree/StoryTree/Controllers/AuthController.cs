@@ -39,15 +39,16 @@
                 var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
                 var tokenOptions = new JwtSecurityToken(
-                    issuer: "https://localhost:19986",
-                    audience: "https://localhost:19986",
+                    issuer: "http://localhost:19986",
+                    audience: "http://localhost:19986",
                     claims: new List<Claim>(),
                     expires: DateTime.Now.AddDays(1),
                     signingCredentials: signingCredentials
                     );
 
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-                return Ok(new { Token = tokenString });
+                var currentUser = this.profilesService.GetProfile(input.Email, input.Password);
+                return Ok(new { Token = tokenString, User = currentUser });
             }
 
             return Unauthorized();

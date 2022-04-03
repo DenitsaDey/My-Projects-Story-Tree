@@ -46,12 +46,13 @@ export class SignInComponent implements OnInit {
       next: response => {
         const token = (<any>response).token;
         localStorage.setItem("jwt", token);
+        this.userService.currentUser = (<any>response).user;
         this.invalidLogin = false;
         this.router.navigate(['../', 'home'], { relativeTo: this.activatedRoute });
         
     console.log(this.userService.currentUser);
       }, error: (err) => {
-        this.errorMessage = err.error.message;
+        this.errorMessage = err.error.message; // DDEY: gives undefined?
         this.invalidLogin = true;
       }
     });
