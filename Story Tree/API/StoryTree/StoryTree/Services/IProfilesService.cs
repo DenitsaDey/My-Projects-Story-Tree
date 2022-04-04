@@ -19,6 +19,10 @@
 
         bool MemberExists(string email, string password);
 
+        bool EmailExists(string email);
+
+        void RegisterProfile(RegisterInputModel input);
+
         bool UpdateProfile(ProfileInputModel input, string id);
 
         bool DeleteProfile(string id);

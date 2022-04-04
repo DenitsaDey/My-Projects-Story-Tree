@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { map, Observable, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { IMember, IUser } from '../interfaces/index';
@@ -18,16 +19,28 @@ export class UserService {
     return !!this.currentUser;
   }
 
-  constructor(private storage: StorageService, private httpClient: HttpClient) {
+  constructor(private storage: StorageService, 
+    private httpClient: HttpClient,
+    private jwtHelper: JwtHelperService) {
     //this.isLogged = this.storage.getItem('isLogged'); initial version
     console.log('UserService#constructor');
   }
 
+  isUserAuthenticated(){
+    const token: string = localStorage.getItem('jwt');
+    if(token && !this.jwtHelper.isTokenExpired(token)){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
   signin$(userData: { email: string, password: string }): Observable<IUser> {
     return this.httpClient
-      .post<IUser>(`${apiUrl}/auth/signin`, userData, )
+      .post<IUser>(`${apiUrl}/auth/signin`, userData )
       .pipe(
-        tap(user => this.currentUser = user)
+        tap(response => console.log(response)),
+        map(user => this.currentUser = user)
       ); 
       //DDEY: this bellow currently blocks the CORS
       //.post<IUser>(`${apiUrl}/auth/signin`, userData, { withCredentials: true, observe: 'response' } 
@@ -57,12 +70,13 @@ export class UserService {
 
   //DDEY TODO - registering a new profile
   createProfile$(userData: CreateUserDto){
-    return this.httpClient.post(`${apiUrl}/profiles`, userData, {withCredentials: true}); // HttpRequest with property withCredentials: true -> sets the cookies from the backend
+    return this.httpClient.post(`${apiUrl}/auth/register`, userData,); // HttpRequest with property {withCredentials: true} -> sets the cookies from the backend
   };
 
   getUserById$(id: string): Observable<IMember>{
     return this.httpClient.get<IMember>(`${apiUrl}/profiles/${id}`);
   }
 
+  
   
 }

@@ -13,7 +13,11 @@ import { CoreModule } from './core/core.module';
 import { PagesModule } from './feature/pages/pages.module';
 import { AuthModule } from './auth/auth.module';
 import { FamilyModule } from './feature/family/family.module';
+import { JwtModule } from '@auth0/angular-jwt';
 
+export function tokenGetter(){
+  return localStorage.getItem('jwt');
+}
 
 @NgModule({
   declarations: [
@@ -29,6 +33,13 @@ import { FamilyModule } from './feature/family/family.module';
     FamilyModule,
     PagesModule,
     AuthModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ['localhost:19986'],
+        disallowedRoutes: []
+      }
+    }),
   ],
   providers: [],
   bootstrap: [

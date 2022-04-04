@@ -91,6 +91,24 @@
             return this.data.Profiles.Any(p => p.Email == email && p.Password == password);
         }
 
+        public bool EmailExists(string email)
+        {
+            return this.data.Profiles.Any(p => p.Email == email);
+        }
+
+        public void RegisterProfile(RegisterInputModel input)
+        {
+            var newUser = new Profile
+            {
+                Name = input.Name,
+                Email = input.Email,
+                Password = input.Password
+            };
+
+            this.data.Profiles.Add(newUser);
+            this.data.SaveChanges();
+        }
+
         public bool UpdateProfile(ProfileInputModel input, string id)
         {
             var currentProfile = this.data.Profiles.Where(p => p.Id == id).FirstOrDefault();

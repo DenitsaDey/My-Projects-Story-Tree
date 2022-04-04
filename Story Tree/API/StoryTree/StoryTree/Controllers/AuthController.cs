@@ -26,14 +26,14 @@
 
         [HttpPost]
         [Route("signin")]
-        public IActionResult Login([FromBody]LoginInputModel input)
+        public IActionResult Login([FromBody] LoginInputModel input)
         {
-            if(input == null)
+            if (input == null)
             {
                 return BadRequest("Invalid client request");
             }
 
-            if(this.profilesService.MemberExists(input.Email, input.Password))
+            if (this.profilesService.MemberExists(input.Email, input.Password))
             {
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("storyTreeSecretKey@100")); //DDEY: for demo purpose, but best practice is the secret key to be stored in an environment viariable
                 var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
@@ -52,6 +52,29 @@
             }
 
             return Unauthorized();
+        }
+
+        [HttpPost]
+        [Route("register")]
+        public IActionResult Register([FromBody] RegisterInputModel input)
+        {
+            if (input == null)
+            {
+                return BadRequest("Invalid client request");
+            }
+
+            if(this.profilesService.MemberExists(input.Email, input.Password))
+            {
+                return BadRequest("User with this email and password already exists.");
+            }
+
+            if (this.profilesService.EmailExists(input.Email))
+            {
+                return BadRequest("User with this email is already registered.");
+            }
+
+            this.profilesService.RegisterProfile(input);
+            return Ok();
         }
     }
 }

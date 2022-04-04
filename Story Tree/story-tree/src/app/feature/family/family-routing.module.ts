@@ -7,17 +7,17 @@ import { MemberDetailsPageComponent } from "./member-details-page/member-details
 const routes: Routes = [
     {
         path: 'family',
-        //canActivate: [AuthGuard], todo uncomment
+        canActivate: [AuthGuard],
         component: FamilyTreePageComponent
     },
     {
         path: 'family/add',
-        //canActivate: [AuthGuard], TODO uncomment
+        canActivate: [AuthGuard],
         component: AddMemberComponent
     },
     {
         path: 'family/:relativeId',
-        //canActivate: [AuthGuard], TODO uncomment
+        canActivate: [AuthGuard],
         component: MemberDetailsPageComponent
     },
     
