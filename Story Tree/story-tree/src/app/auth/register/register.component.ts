@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit {
       password: password
     }
 
-    this.userService.createProfile$(body).subscribe(() => {
+    this.userService.register$(body).subscribe(() => {
       this.registerFormGroup.reset();
       this.router.navigate(['../', 'signin'], { relativeTo: this.activatedRoute})
     });

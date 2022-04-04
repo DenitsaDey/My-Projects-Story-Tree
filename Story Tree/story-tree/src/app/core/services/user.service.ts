@@ -4,7 +4,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { IMember, IUser } from '../interfaces/index';
+import { IMember, IProfile, IUser } from '../interfaces/index';
 import { StorageService } from './storage.service';
 
 export interface CreateUserDto { name: string, email: string, password: string }
@@ -16,6 +16,8 @@ const apiUrl = environment.apiUrl;
 export class UserService {
 
   currentUser: IUser;
+
+  //DDEY: used in the header component for "Welcome, {{username}}"
   //isLogged = false; initial version
   get isLogged(){
     return !!this.currentUser;
@@ -25,7 +27,7 @@ export class UserService {
     private httpClient: HttpClient,
     private jwtHelper: JwtHelperService) {
     //this.isLogged = this.storage.getItem('isLogged'); initial version
-    console.log('UserService#constructor');
+    
   }
 
   isUserAuthenticated(){
@@ -37,6 +39,8 @@ export class UserService {
       return false;
     }
   }
+
+  //DDEY: used in the signin component
   signin$(userData: { email: string, password: string }): Observable<IUser> {
     return this.httpClient
       .post<IUser>(`${apiUrl}/auth/signin`, userData )
@@ -63,6 +67,7 @@ export class UserService {
   }
   */
 
+  //DDEY: used in the header component for logoutHandler
   logout(): void {
     /* old version
     this.isLogged = false;
@@ -73,13 +78,15 @@ export class UserService {
   }
 
 
-  //DDEY TODO - registering a new profile
-  createProfile$(userData: CreateUserDto){
+  //DDEY: used in the register component
+  register$(userData: CreateUserDto){
     return this.httpClient.post(`${apiUrl}/auth/register`, userData,); // HttpRequest with property {withCredentials: true} -> sets the cookies from the backend
   };
 
-  getUserById$(id: string): Observable<IMember>{
-    return this.httpClient.get<IMember>(`${apiUrl}/profiles/${id}`);
+
+  //DDEY: used in the profile component
+  getUserById$(id: string): Observable<IProfile>{
+    return this.httpClient.get<IProfile>(`${apiUrl}/profiles/${id}`);
   }
 
   

@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class ProfileViewModel
+    public class ProfileViewModel 
     {
         public string Id { get; set; }
 
@@ -20,5 +20,7 @@
         public string Parent1Id { get; set; }
 
         public string Parent2Id { get; set; }
+
+        public int FamilyMembersCount { get; set; }
     }
 }

@@ -43,13 +43,6 @@
             return NotFound("The profile could not be found!");
         }
 
-        //Create a new profile
-        [HttpPost]
-        public IActionResult AddProfile([FromBody] ProfileInputModel input)
-        {
-            var newProfileId = this.profilesService.CreateMember(input);
-            return CreatedAtAction(nameof(GetProfile), newProfileId, input);
-        }
 
         //Update a profile
         [HttpPost]

@@ -6,4 +6,5 @@ export interface IProfile{
     partnerId: string;
     parent1Id: string;
     parent2Id: string;
+    familyMembersCount: number;
 }

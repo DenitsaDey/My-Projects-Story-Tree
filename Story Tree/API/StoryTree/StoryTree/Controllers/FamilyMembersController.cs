@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using StoryTree.Services;
+    using StoryTree.ViewModels;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -13,7 +14,9 @@
     {
         private readonly IFamilyMembersService familymembersService;
 
-        public FamilyMembersController(IFamilyMembersService familymembersService)
+        public FamilyMembersController(
+            IFamilyMembersService familymembersService,
+            IProfilesService profilesService)
         {
             this.familymembersService = familymembersService;
         }
@@ -28,6 +31,7 @@
         }
 
         //Get Details about a relative
+        //TODO Authorise
         [HttpGet]
         [Route("{profileId:}/{relativeId:}")]
         public IActionResult GetMemberDetails([FromRoute] string profileId, [FromRoute] string relativeId)
@@ -41,5 +45,17 @@
             return NotFound("The profile could not be found!");
 
         }
+
+        //Create a new user-relative relation
+        [HttpPost]
+        public IActionResult AddMemberRelation([FromBody] FamilyMemberInputModel input, [FromBody] string memberId)
+        {
+            this.familymembersService.CreateRelative(input, memberId);
+
+            
+            return Ok();
+        }
+
+        
     }
 }

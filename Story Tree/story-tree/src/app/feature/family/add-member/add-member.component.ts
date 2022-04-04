@@ -44,7 +44,7 @@ export class AddMemberComponent implements OnInit, AfterViewInit {
 
   onSubmit(addMemberForm: NgForm): void {
     console.log(addMemberForm.value);
-    this.
+    
   }
 
   clearForm():void{

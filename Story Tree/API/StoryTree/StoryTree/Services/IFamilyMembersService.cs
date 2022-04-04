@@ -10,6 +10,8 @@
     {
         IEnumerable<FamilyMemberViewModel> GetAllMyMembers(string profileId);
 
-        FamilyMemberViewModel GetById(string profileId, string relativeId);
+        FamilyMemberDetailsViewModel GetById(string profileId, string relativeId);
+
+        void CreateRelative(FamilyMemberInputModel input, string memberId);
     }
 }

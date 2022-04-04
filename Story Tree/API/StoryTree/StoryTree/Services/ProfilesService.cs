@@ -36,7 +36,8 @@
             return profiles;
         }
 
-        public UserViewModel GetProfile(string email, string password)
+        //DDEY: method is used for login in AuthController
+        public UserViewModel GetUserProfile(string email, string password)
         {
             var currentUser =  this.data.Profiles
                                     .Where(p => p.Email == email && p.Password == password)
@@ -50,6 +51,7 @@
             return currentUser;
         }
 
+        //DDEY: method is used to get the user profile in ProfilesController
         public ProfileViewModel GetById(string id)
         {
             var profile = this.data.Profiles
@@ -62,40 +64,31 @@
                     Location = p.Location,
                     PartnerId = p.PartnerId,
                     Parent1Id = p.Parent1Id,
-                    Parent2Id = p.Parent2Id
+                    Parent2Id = p.Parent2Id,
+                    FamilyMembersCount = this.data.Relations.Where(r => r.MemberId == id).Count()
                 })
                 .FirstOrDefault();
             return profile;
         }
 
-        public string CreateMember(ProfileInputModel input)
-        {
-            var profile = new Profile
-            {
-                Name = input.Name,
-                Birthday = input.Birthday,
-                Location = input.Location,
-                PartnerId = this.data.Profiles.Where(p => p.Name == input.Partner).FirstOrDefault().Id,
-                Parent1Id = this.data.Profiles.Where(p => p.Name == input.Parent1).FirstOrDefault().Id,
-                Parent2Id = this.data.Profiles.Where(p => p.Name == input.Parent2).FirstOrDefault().Id,
-            };
 
-            this.data.Profiles.Add(profile);
-            this.data.SaveChanges();
 
-            return profile.Id;
-        }
-
+        //DDEY: method is used for registration in auth controller
         public bool MemberExists(string email, string password)
         {
             return this.data.Profiles.Any(p => p.Email == email && p.Password == password);
         }
 
+
+        //DDEY: method is used for registration in auth controller
         public bool EmailExists(string email)
         {
             return this.data.Profiles.Any(p => p.Email == email);
         }
 
+
+
+        //DDEY: method is used for registering a new user
         public void RegisterProfile(RegisterInputModel input)
         {
             var newUser = new Profile

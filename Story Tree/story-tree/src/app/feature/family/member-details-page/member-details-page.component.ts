@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { IMember } from 'src/app/core/interfaces';
+import { IMemberDetails } from 'src/app/core/interfaces';
 import { MemberService } from 'src/app/core/services/member.service';
 
 const profileId = "b8d7263c-a032-453e-94ec-6e5d99179aba" //DDEY: main user Daniela's id is hard-coded for demo purposes
@@ -12,8 +12,8 @@ const profileId = "b8d7263c-a032-453e-94ec-6e5d99179aba" //DDEY: main user Danie
 })
 export class MemberDetailsPageComponent implements OnInit {
 
-  member: IMember;
-  canSubscribe: boolean = false;
+  member: IMemberDetails;
+  //canSubscribe: boolean = false;
 
 
   constructor(private activatedRoute: ActivatedRoute, 
@@ -27,14 +27,13 @@ export class MemberDetailsPageComponent implements OnInit {
       this.memberService.getMemberById$(profileId, relativeId).subscribe(member => {
         this.member = member;
         console.log(member);
-        // this.canViewTree = this.member.shareTree - TODO: add bool shareTree option
       });
     })
   }
 
   /* DDEY: for demo purpose of the button styling in the .html file
   ngOnChanges(): void{
-    this.canSubscribe = this.member.shareTree
+    this.canSubscribe = this.member.shareInfo
   }
   */
 

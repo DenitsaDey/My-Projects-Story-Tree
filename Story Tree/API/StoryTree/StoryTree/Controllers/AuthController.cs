@@ -47,11 +47,11 @@
                     );
 
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-                var currentUser = this.profilesService.GetProfile(input.Email, input.Password);
+                var currentUser = this.profilesService.GetUserProfile(input.Email, input.Password);
                 return Ok(new { Token = tokenString, User = currentUser });
             }
 
-            return Unauthorized();
+            return NotFound("User not found");
         }
 
         [HttpPost]

@@ -17,6 +17,7 @@ export class HeaderComponent {
   get currentUser(): IUser {
     return this.userService.currentUser;
   }
+  
   constructor(public userService: UserService) { 
   }
 

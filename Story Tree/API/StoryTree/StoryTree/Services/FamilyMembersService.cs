@@ -1,9 +1,11 @@
 ﻿namespace StoryTree.Services
 {
     using StoryTree.Data;
+    using StoryTree.Models;
     using StoryTree.ViewModels;
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -16,6 +18,8 @@
             this.data = data;
         }
 
+
+        //DDEY: method is used to get all user's family members for his family tree in FamilyMembersController
         public IEnumerable<FamilyMemberViewModel> GetAllMyMembers(string profileId)
         {
             var family = new List<FamilyMemberViewModel>();
@@ -26,7 +30,8 @@
                 {
                     RelativeId = x.RelativeId,
                     Relation = x.Relation
-                });
+                })
+                .ToList();
 
             foreach (var member in myFamilyMembers)
             {
@@ -36,12 +41,11 @@
                                         {
                                             Id = p.Id,
                                             Name = p.Name,
-                                            Birthday = p.Birthday,
-                                            Location = p.Location,
                                             PartnerId = p.PartnerId,
                                             Parent1Id = p.Parent1Id,
                                             Parent2Id = p.Parent2Id,
                                             RelationToMe = member.Relation
+                                            //DDEY: TODO - to add options for profile pic and button Details if prop bool shareInfo is true
                                         })
                                         .FirstOrDefault();
 
@@ -51,19 +55,19 @@
             return family;
         }
 
-        public FamilyMemberViewModel GetById(string profileId, string relativeId)
+
+        //DDEY: method is used to get the details of individual family member in FamilyMembersController (from the details button in front-end)
+        public FamilyMemberDetailsViewModel GetById(string profileId, string relativeId)
         {
             var currentMember = this.data.Profiles
                                         .Where(p => p.Id == relativeId)
-                                        .Select(p => new FamilyMemberViewModel
+                                        .Select(p => new FamilyMemberDetailsViewModel
                                         {
                                             Id = p.Id,
                                             Name = p.Name,
-                                            Birthday = p.Birthday,
+                                            Email = p.Email,
+                                            Birthday = p.Birthday.ToString(),
                                             Location = p.Location,
-                                            PartnerId = p.PartnerId,
-                                            Parent1Id = p.Parent1Id,
-                                            Parent2Id = p.Parent2Id,
                                             RelationToMe = this.data.Relations
                                                             .Where(r => r.MemberId == profileId && r.RelativeId == relativeId)
                                                             .FirstOrDefault()
@@ -72,6 +76,36 @@
                                         .FirstOrDefault();
 
             return currentMember;
+        }
+
+        //DDEY: method is used to register relaive in the profiles controller
+        public void CreateRelative(FamilyMemberInputModel input, string memberId)
+        {
+            //DDEY: TODO: to add condition && p.shareInfo == true
+            var memberToBeAdded = this.data.Profiles.Where(p => p.Name == input.Name).FirstOrDefault();
+            if(memberToBeAdded == null)
+            {
+                var newMember = new Profile
+                {
+                    Name = input.Name
+                };
+                this.data.Profiles.Add(newMember);
+                this.data.SaveChanges();
+                memberToBeAdded = newMember;
+            }
+
+            memberToBeAdded.PartnerId = input.PartnerId;
+            memberToBeAdded.Parent1Id = input.Parent1Id;
+            memberToBeAdded.Parent2Id = input.Parent2Id;
+
+            var newRelation = new RelationToMe
+            {
+                MemberId = memberId,
+                RelativeId = memberToBeAdded.Id,
+            };
+
+            this.data.Relations.Add(newRelation);
+            this.data.SaveChanges();
         }
     }
 }

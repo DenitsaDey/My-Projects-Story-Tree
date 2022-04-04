@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IMember, IProfile } from '../interfaces'
+import { IMember, IMemberDetails, IProfile } from '../interfaces'
 import { environment } from 'src/environments/environment';
 import { IBase } from '../interfaces/base';
 
-export interface CreateMemberDto { name: string, relationToMe: string, partnerId?: string, parent1Id?: string, parent2Id?: string }
+export interface CreateRelativeDto { name: string, relationToMe: string, partnerId?: string, parent1Id?: string, parent2Id?: string }
 //DDEY: this is the same as an object with string key and its value: { [key: string]: string }
 
 const apiUrl = environment.apiUrl;
@@ -23,21 +23,22 @@ export class MemberService {
    }
   */
 
-  getMemberById$(profileId: string, relativeId:string): Observable<IMember>{
-    return this.httpClient.get<IMember>(`${apiUrl}/familymembers/${profileId}/${relativeId}`);
+   //DDEY: used in the member-details component
+  getMemberById$(profileId: string, relativeId:string): Observable<IMemberDetails>{
+    return this.httpClient.get<IMemberDetails>(`${apiUrl}/profiles/${profileId}/${relativeId}`);
   }
 
-  //DDEY: TODO find how to get the profileId from the jwt
+  //DDEY: used in the add-member component for the drop-down select box
+  //DDEY: TODO find how to get the profileId from the jwt ? {withCredentials: true}
   getAllMembers$(profileId: string): Observable<IBase[]>{
     return this.httpClient.get<IBase[]>(`${apiUrl}/familymembers/${profileId}`)
   }
+ 
 
-  createMember$(member: CreateMemberDto){
-    //DDEY: TODO logic if member already exists or to create new
-    return this.httpClient.post(`${apiUrl}/`)
+  addRelative$(relative: CreateRelativeDto, memberId: string){
+    
+    return this.httpClient.post(`${apiUrl}/familymembers`, relative, memberId);
   }
 
-  // createProfile$(userData: CreateUserDto){
-  //   return this.httpClient.post(`${apiUrl}/auth/register`, userData,); // HttpRequest with property {withCredentials: true} -> sets the cookies from the backend
-  // };
+  
 }

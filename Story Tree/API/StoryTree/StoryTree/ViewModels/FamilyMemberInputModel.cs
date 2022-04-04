@@ -5,10 +5,8 @@
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class FamilyMemberViewModel
+    public class FamilyMemberInputModel
     {
-        public string Id { get; set; }
-
         public string Name { get; set; }
 
         public string RelationToMe { get; set; }

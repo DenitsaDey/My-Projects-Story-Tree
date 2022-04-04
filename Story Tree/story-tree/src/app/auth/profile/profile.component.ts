@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IMember } from 'src/app/core/interfaces';
+import { IProfile } from 'src/app/core/interfaces';
 import { UserService } from 'src/app/core/services/user.service';
 
 const userId = "b8d7263c-a032-453e-94ec-6e5d99179aba" //hard-coded for demo purposes
@@ -11,7 +11,7 @@ const userId = "b8d7263c-a032-453e-94ec-6e5d99179aba" //hard-coded for demo purp
 export class ProfileComponent implements OnInit {
 
   //DDEY: TODO get infor from state
-  user: IMember;
+  user: IProfile;
 
   constructor(private userService: UserService) { }
 
