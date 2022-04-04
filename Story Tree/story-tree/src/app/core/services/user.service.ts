@@ -1,13 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { map, Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IMember, IUser } from '../interfaces/index';
 import { StorageService } from './storage.service';
 
 export interface CreateUserDto { name: string, email: string, password: string }
-//this is the same as an object with string key and its value: { [key: string]: string }
+//DDEY: this is the same as an object with string key and its value: { [key: string]: string }
+
 const apiUrl = environment.apiUrl;
 
 @Injectable()
@@ -40,7 +42,10 @@ export class UserService {
       .post<IUser>(`${apiUrl}/auth/signin`, userData )
       .pipe(
         tap(response => console.log(response)),
-        map(user => this.currentUser = user)
+        // map(response => this.currentUser = response),
+        // tap(user => console.log(this.currentUser)),
+        // tap(user => console.log(user))
+        tap(user => this.currentUser = user)
       ); 
       //DDEY: this bellow currently blocks the CORS
       //.post<IUser>(`${apiUrl}/auth/signin`, userData, { withCredentials: true, observe: 'response' } 

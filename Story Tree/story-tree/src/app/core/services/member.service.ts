@@ -3,6 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IMember, IProfile } from '../interfaces'
 import { environment } from 'src/environments/environment';
+import { IBase } from '../interfaces/base';
+
+export interface CreateMemberDto { name: string, relationToMe: string, partnerId?: string, parent1Id?: string, parent2Id?: string }
+//DDEY: this is the same as an object with string key and its value: { [key: string]: string }
 
 const apiUrl = environment.apiUrl;
 
@@ -23,5 +27,17 @@ export class MemberService {
     return this.httpClient.get<IMember>(`${apiUrl}/familymembers/${profileId}/${relativeId}`);
   }
 
-  
+  //DDEY: TODO find how to get the profileId from the jwt
+  getAllMembers$(profileId: string): Observable<IBase[]>{
+    return this.httpClient.get<IBase[]>(`${apiUrl}/familymembers/${profileId}`)
+  }
+
+  createMember$(member: CreateMemberDto){
+    //DDEY: TODO logic if member already exists or to create new
+    return this.httpClient.post(`${apiUrl}/`)
+  }
+
+  // createProfile$(userData: CreateUserDto){
+  //   return this.httpClient.post(`${apiUrl}/auth/register`, userData,); // HttpRequest with property {withCredentials: true} -> sets the cookies from the backend
+  // };
 }

@@ -44,3 +44,9 @@
   input.ng-invalid.ng-touched, select.ng-invalid{
       border-left: 4px solid red;
   }
+
+  .select-parents{
+      display: flex;
+      gap: 2rem;
+      justify-content: space-between;
+  }
