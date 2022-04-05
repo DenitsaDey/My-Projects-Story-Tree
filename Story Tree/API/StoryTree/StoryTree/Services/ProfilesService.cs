@@ -20,28 +20,25 @@
             this.data = data;
         }
 
-        //public UserViewModel GetCurrentUser()
-        //{
-        //    var identity = HttpContext.User.Identity as ClaimsIdentity;
-        //    if(identity != null){
-        //        var userClaims = identity.Claims;
+        public UserViewModel GetCurrentUser()
+        {
+            var currUser = this.data.Profiles
+                                .Where(p => p.Id == ClaimTypes.NameIdentifier)
+                                .Select(p => new UserViewModel
+                                {
+                                    Id = p.Id,
+                                    Name = p.Name,
+                                    Email = p.Email
+                                })
+                                .FirstOrDefault();
+            
+            if (currUser != null)
+            {
+                return currUser;
+            }
+            return null;
+        }
 
-        //        var currentUser =  new UserViewModel
-        //        {
-        //            Email = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.Email)?.Value,
-        //            Name = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.Name)?.Value,
-
-        //        };
-
-        //        currentUser.Id = this.data.Profiles
-        //                            .Where(p => p.Email == currentUser.Email 
-        //                                    && p.Name == currentUser.Name)
-        //                            .FirstOrDefault()
-        //                            .Id;
-        //        return currentUser;
-        //    }
-        //    return null;
-        //}
         public IEnumerable<ProfileViewModel> GetAll()
         {
             var profiles = this.data.Profiles

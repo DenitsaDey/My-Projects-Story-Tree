@@ -4,8 +4,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { IMember, IProfile, IUser } from '../interfaces/index';
-import { StorageService } from './storage.service';
+import { IProfile, IUser } from '../interfaces/index';
 
 export interface CreateUserDto { name: string, email: string, password: string }
 //DDEY: this is the same as an object with string key and its value: { [key: string]: string }
@@ -23,8 +22,7 @@ export class UserService {
     return !!this.currentUser;
   }
 
-  constructor(private storage: StorageService, 
-    private httpClient: HttpClient,
+  constructor(private httpClient: HttpClient,
     private jwtHelper: JwtHelperService) {
     //this.isLogged = this.storage.getItem('isLogged'); initial version
     
@@ -42,45 +40,25 @@ export class UserService {
 
   //DDEY: used in the signin component
   signin$(userData: { email: string, password: string }): Observable<IUser> {
-    return this.httpClient
-      .post<IUser>(`${apiUrl}/auth/signin`, userData )
+      return this.httpClient
+      .post<IUser>(`${apiUrl}/auth/signin`, userData, { withCredentials: true, observe: 'response' }) 
       .pipe(
         tap(response => console.log(response)),
-        // map(response => this.currentUser = response),
-        // tap(user => console.log(this.currentUser)),
-        // tap(user => console.log(user))
+        map(response => response.body),
         tap(user => this.currentUser = user)
-      ); 
-      //DDEY: this bellow currently blocks the CORS
-      //.post<IUser>(`${apiUrl}/auth/signin`, userData, { withCredentials: true, observe: 'response' } 
-      // .pipe(
-      //   tap(response => console.log(response)),
-      //   map(response => response.body),
-      //   tap(user => this.currentUser = user)
-      // );
+      );
   }
-
-  /* old version
-  login(): void {
-    this.isLogged = true;
-    this.storage.setItem('isLogged', true);
-  }
-  */
 
   //DDEY: used in the header component for logoutHandler
   logout(): void {
-    /* old version
-    this.isLogged = false;
-    this.storage.setItem('isLogged', false);
-    */
    //DDEY: from https://www.youtube.com/watch?v=NSQHiIAP7Z8
    localStorage.removeItem("jwt");
   }
 
 
   //DDEY: used in the register component
-  register$(userData: CreateUserDto){
-    return this.httpClient.post(`${apiUrl}/auth/register`, userData,); // HttpRequest with property {withCredentials: true} -> sets the cookies from the backend
+  register$(userData: CreateUserDto): Observable<IUser>{
+    return this.httpClient.post<IUser>(`${apiUrl}/auth/register`, userData,{withCredentials: true}); // HttpRequest with property {withCredentials: true} -> sets the cookies from the backend
   };
 
 

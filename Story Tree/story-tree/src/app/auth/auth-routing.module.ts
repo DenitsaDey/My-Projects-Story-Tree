@@ -18,6 +18,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         component: ProfileComponent 
     }
+    
 ]
 
 export const AuthRoutingModule = RouterModule.forChild(routes);

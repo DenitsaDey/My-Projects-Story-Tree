@@ -37,9 +37,11 @@ namespace StoryTree
                 setup.AddPolicy("default", (options) =>
                 {
                     options
+                        .WithOrigins("http://localhost:4200")
                         .AllowAnyMethod()
                         .AllowAnyHeader()
-                        .AllowAnyOrigin();
+                        .AllowCredentials();
+
                 });
             });
 
@@ -94,12 +96,15 @@ namespace StoryTree
                 app.UseDeveloperExceptionPage();
             }
 
-            //DDEY: specifying in the configure method the use of CORS options
-            app.UseCors("default");
+            
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
+
+            //DDEY: specifying in the configure method the use of CORS options,
+            ////must be placed after UseRouting, but before UseAuthorization
+            app.UseCors("default");
 
             //DDEY: adding the use of Authentication specified in the ConfigureServices
             app.UseAuthentication();

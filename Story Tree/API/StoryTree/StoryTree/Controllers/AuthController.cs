@@ -1,5 +1,7 @@
 ﻿namespace StoryTree.Controllers
 {
+    using Microsoft.AspNetCore.Cors;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.IdentityModel.Tokens;
     using StoryTree.Services;
@@ -26,8 +28,10 @@
 
         [HttpPost]
         [Route("signin")]
+        [EnableCors]
         public IActionResult Login([FromBody] LoginInputModel input)
         {
+            
             if (input == null)
             {
                 return BadRequest("Invalid client request");
@@ -42,18 +46,21 @@
 
                 var claims = new List<Claim> {
                     new Claim(ClaimTypes.Name, currentUser.Name),
-                    new Claim(ClaimTypes.Email, currentUser.Email)
+                    new Claim(ClaimTypes.Email, currentUser.Email),
+                    new Claim(ClaimTypes.NameIdentifier, currentUser.Id)
                     };
 
                 var tokenOptions = new JwtSecurityToken(
                     issuer: "http://localhost:19986",
-                    audience: "http://localhost:19986",
+                    audience: "http://localhost:4200",
                     claims: claims,
                     expires: DateTime.Now.AddDays(1),
                     signingCredentials: signingCredentials
                     );
 
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
+                HttpContext.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+                
                 return Ok(new { Token = tokenString, User = currentUser });
             }
 

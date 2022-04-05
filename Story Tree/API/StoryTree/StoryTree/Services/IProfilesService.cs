@@ -9,7 +9,7 @@
 
     public interface IProfilesService
     {
-        //UserViewModel GetCurrentUser();
+        UserViewModel GetCurrentUser();
 
         IEnumerable<ProfileViewModel> GetAll();
 
