@@ -48,8 +48,10 @@
 
         //Create a new user-relative relation
         [HttpPost]
-        public IActionResult AddMemberRelation([FromBody] FamilyMemberInputModel input, [FromBody] string memberId)
+        public IActionResult AddMemberRelation([FromBody] FamilyMemberInputModel input)
         {
+            //DDEY TODO find how to pass the id from the jwt
+            var memberId = "b8d7263c-a032-453e-94ec-6e5d99179aba";
             this.familymembersService.CreateRelative(input, memberId);
 
             

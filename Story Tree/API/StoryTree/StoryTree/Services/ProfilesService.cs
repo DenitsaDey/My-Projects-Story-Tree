@@ -1,5 +1,6 @@
 ﻿namespace StoryTree.Services
 {
+    using Microsoft.AspNetCore.Http;
     using Microsoft.EntityFrameworkCore;
     using StoryTree.Data;
     using StoryTree.Models;
@@ -7,6 +8,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
     public class ProfilesService : IProfilesService
@@ -18,6 +20,28 @@
             this.data = data;
         }
 
+        //public UserViewModel GetCurrentUser()
+        //{
+        //    var identity = HttpContext.User.Identity as ClaimsIdentity;
+        //    if(identity != null){
+        //        var userClaims = identity.Claims;
+
+        //        var currentUser =  new UserViewModel
+        //        {
+        //            Email = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.Email)?.Value,
+        //            Name = userClaims.FirstOrDefault(o => o.Type == ClaimTypes.Name)?.Value,
+
+        //        };
+
+        //        currentUser.Id = this.data.Profiles
+        //                            .Where(p => p.Email == currentUser.Email 
+        //                                    && p.Name == currentUser.Name)
+        //                            .FirstOrDefault()
+        //                            .Id;
+        //        return currentUser;
+        //    }
+        //    return null;
+        //}
         public IEnumerable<ProfileViewModel> GetAll()
         {
             var profiles = this.data.Profiles

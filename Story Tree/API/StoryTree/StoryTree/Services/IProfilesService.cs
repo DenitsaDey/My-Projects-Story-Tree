@@ -9,6 +9,8 @@
 
     public interface IProfilesService
     {
+        //UserViewModel GetCurrentUser();
+
         IEnumerable<ProfileViewModel> GetAll();
 
         UserViewModel GetUserProfile(string email, string password);

@@ -1,4 +1,6 @@
 <div class="body-wrapper">
+  <ng-container *ngIf="!!user">
+    <ng-container *ngIf="!isInEditMode">
     <div class="card">
         <div class="img-avatar">
           <img src="../../../assets/Images/people/michael-dam-mEZ3PoFGs_k-unsplash.jpg">
@@ -10,19 +12,57 @@
           <div class="title-total">   
               <h2>{{user.name}}</h2>
               <div class="title">Me</div>
-        
-        <div class="desc">Morgan has collected ants since they were six years old and now has many dozen ants but none in their pants.</div>
-        <div class="actions">
-            <ul>
-                <li><button><i class="fa-light fa-earth-americas"></i></button>Lives in: {{user.location}}</li>
-                <li><button><i class="fal fa-birthday-cake"></i></button>Birthday: {{user.birthDate}}</li>
-                <li><button><i class="far fa-envelope"></i></button>Family Members: {{user.familyMembersCount}}</li>
-            </ul> 
-        </div>
-    </div>
-       
+              <div class="actions">
+                <ul>
+                    <li><button><i class="fa-light fa-earth-americas"></i></button>Lives in: {{user.location}}</li>
+                    <li><button><i class="fal fa-birthday-cake"></i></button>Birthday: {{user.birthDate}}</li>
+                    <li><button><i class="fal fa-birthday-cake"></i></button>Maried to: {{user.partnerId}}</li>
+                    <li><button><i class="far fa-envelope"></i></button>Family Members: {{user.familyMembersCount}}</li>
+                </ul> 
+              </div>
+              <button (click)="enterEditMode()" class="edit-button">Edit</button>
+           </div>
         </div>    
       </div>
-    </div>
+    </ng-container>
+
+    <ng-container *ngIf="isInEditMode">
+      <form #editProfileForm="ngForm" (ngSubmit)="updateProfile()">
+        <div class="card">
+          <div class="img-avatar">
+            <img src="../../../assets/Images/people/michael-dam-mEZ3PoFGs_k-unsplash.jpg">
+          </div>
+          <div class="card-text">
+            <div class="portada">
+              <button><i class="far fa-images"></i>Upload new picture</button> 
+            </div>
+            <div class="title-total">   
+                <input type="text" name="name" ngModel required id="name" value="{{user.name}}">
+                <div class="title">Me</div>
+                <div class="actions">
+                  <ul>
+                      <li><button><i class="fa-light fa-earth-americas"></i></button>
+                        <p>Lives in: </p>
+                        <input type="text" name="location" ngModel id="location" value="{{user.location}}"></li>
+                      <li><button><i class="fal fa-birthday-cake"></i></button>
+                        <p>Birthday: </p>
+                        <input type="text" name="birthday" ngModel id="birthday" value="{{user.birthDate}}"></li>
+                      <li><button><i class="fal fa-birthday-cake"></i></button>
+                        <p>Married to: </p>
+                        <input type="text" name="partnerId" ngModel id="parnerId" value="{{user.partnerId}}"></li>
+                      <li><button><i class="far fa-envelope"></i></button>
+                        <p>Family Members: {{user.familyMembersCount}}</p></li>
+                  </ul> 
+                </div>
+                <button type="button" (click)="isInEditMode=false" class="cancel-button">Cancel</button>
+                <button [disabled]="editProfileForm.invalid" class="edit-button">Save</button>
+             </div>
+          </div>    
+        </div>
+      </form>
+    </ng-container>
+
+  </ng-container>
+</div>
     
    

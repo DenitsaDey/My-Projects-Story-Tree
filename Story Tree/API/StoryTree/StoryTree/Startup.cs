@@ -97,6 +97,8 @@ namespace StoryTree
             //DDEY: specifying in the configure method the use of CORS options
             app.UseCors("default");
 
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
             app.UseRouting();
 
             //DDEY: adding the use of Authentication specified in the ConfigureServices

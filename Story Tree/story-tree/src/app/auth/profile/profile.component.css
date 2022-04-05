@@ -31,9 +31,9 @@
 .card .title {
   padding: 1rem;
   text-align: left;
-  color: var(--color-primary);
+  color: orange;
   font-weight: bold;
-  font-size: 12px;
+  font-size: 16px;
 }
 .card .desc {
   padding: 0.5rem 1rem;
@@ -89,15 +89,17 @@ path {
   background-size: cover;
 }
 
-.portada button{
+.portada>button{
     position: absolute;
     bottom: 0px;
+    background-color: rgba(0,0,0,0.3);
 }
 
 button {
   border: none;
   background: none;
-  font-size: 24px;
+  padding: 10px;
+  font-size: 14px;
   color: #f4d03f;
   cursor: pointer;
   transition:.5s;
@@ -107,7 +109,34 @@ button {
     transform: rotate(22deg)
   }
 
-  
+
+  .edit-button{
+    border-radius:8px;
+    border: none;
+    background-color:var(--color-bkgrd-light);
+    padding: 4px 8px;
+    color: white;
+}
+
+.edit-button:hover{
+    background-color: var(--color-text-primary); 
+}
+
+.cancel-button{
+  border-radius:8px;
+    border: none;
+    background-color:var(--color-bkgrd-light);
+    padding: 4px 8px;
+    color: white;
+    background-color: var(--color-logo);
+    color: var(--color-primary);
+}
+
+.cancel-button:hover{
+  background-color: var(--color-primary);
+  color: var(--color-logo); 
+}
+
   .subscribe{
       color: green;
   }

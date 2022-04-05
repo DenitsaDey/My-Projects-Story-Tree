@@ -37,7 +37,7 @@ export class MemberService {
 
   addRelative$(relative: CreateRelativeDto, memberId: string){
     
-    return this.httpClient.post(`${apiUrl}/familymembers`, relative, memberId);
+    return this.httpClient.post(`${apiUrl}/familymembers`, relative);
   }
 
   

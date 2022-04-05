@@ -35,19 +35,25 @@
 
             if (this.profilesService.MemberExists(input.Email, input.Password))
             {
+                var currentUser = this.profilesService.GetUserProfile(input.Email, input.Password);
+
                 var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("storyTreeSecretKey@100")); //DDEY: for demo purpose, but best practice is the secret key to be stored in an environment viariable
                 var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
+
+                var claims = new List<Claim> {
+                    new Claim(ClaimTypes.Name, currentUser.Name),
+                    new Claim(ClaimTypes.Email, currentUser.Email)
+                    };
 
                 var tokenOptions = new JwtSecurityToken(
                     issuer: "http://localhost:19986",
                     audience: "http://localhost:19986",
-                    claims: new List<Claim>(),
+                    claims: claims,
                     expires: DateTime.Now.AddDays(1),
                     signingCredentials: signingCredentials
                     );
 
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-                var currentUser = this.profilesService.GetUserProfile(input.Email, input.Password);
                 return Ok(new { Token = tokenString, User = currentUser });
             }
 
