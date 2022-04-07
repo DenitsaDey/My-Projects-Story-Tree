@@ -59,9 +59,10 @@
                     );
 
                 var tokenString = new JwtSecurityTokenHandler().WriteToken(tokenOptions);
-                HttpContext.Response.Headers.Add("Access-Control-Allow-Origin", "*");
+                //HttpContext.Response.Headers.Add("Access-Control-Allow-Origin", "*");
                 
                 return Ok(new { Token = tokenString, User = currentUser });
+                //return Ok(new { Id = currentUser.Id, Token = tokenString});
             }
 
             return NotFound("User not found");

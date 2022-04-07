@@ -14,29 +14,36 @@
     public class ProfilesService : IProfilesService
     {
         private readonly ApplicationDbContext data;
+        private readonly IHttpContextAccessor httpContextAccessor;
 
-        public ProfilesService(ApplicationDbContext data)
+        public ProfilesService(ApplicationDbContext data,
+            IHttpContextAccessor httpContextAccessor)
         {
             this.data = data;
+            this.httpContextAccessor = httpContextAccessor;
         }
 
-        public UserViewModel GetCurrentUser()
+        public string GetCurrentUserId()
         {
-            var currUser = this.data.Profiles
-                                .Where(p => p.Id == ClaimTypes.NameIdentifier)
-                                .Select(p => new UserViewModel
-                                {
-                                    Id = p.Id,
-                                    Name = p.Name,
-                                    Email = p.Email
-                                })
-                                .FirstOrDefault();
-            
-            if (currUser != null)
+            var identity = this.httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
+            if(identity != null)
             {
-                return currUser;
+                var userClaims = identity.Claims;
+                var userClaimId = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+                var currUserId = this.data.Profiles
+                                .Where(p => p.Id == userClaimId)
+                                .FirstOrDefault()?
+                                .Id;
+
+                if (currUserId != null)
+                {
+                    return currUserId;
+                }
+                return null;
             }
+
             return null;
+            
         }
 
         public IEnumerable<ProfileViewModel> GetAll()
@@ -46,7 +53,7 @@
                 {
                     Id = p.Id,
                     Name = p.Name,
-                    Birthday = p.Birthday,
+                    Birthday = p.Birthday.ToString(),
                     Location = p.Location,
                     PartnerId = p.PartnerId,
                     Parent1Id = p.Parent1Id,
@@ -81,7 +88,7 @@
                 {
                     Id = p.Id,
                     Name = p.Name,
-                    Birthday = p.Birthday,
+                    Birthday = p.Birthday.ToString(),
                     Location = p.Location,
                     PartnerId = p.PartnerId,
                     Parent1Id = p.Parent1Id,

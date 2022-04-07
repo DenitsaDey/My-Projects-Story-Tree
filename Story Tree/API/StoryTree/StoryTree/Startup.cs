@@ -3,6 +3,7 @@ namespace StoryTree
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
@@ -68,6 +69,8 @@ namespace StoryTree
 
             services.AddDbContext<ApplicationDbContext>(options => options
             .UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddHttpContextAccessor();
 
             services.AddControllers()
                 .AddNewtonsoftJson(options =>

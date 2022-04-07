@@ -3,7 +3,7 @@
         <a routerLink="/home"><img src="../../../assets/Images/logos/story tree removebg-preview.png" alt="stroy-tree-logo"></a>
     </div>
 
-    <nav class="nav-wrapper" *ngIf="!isLogged">
+    <nav class="nav-wrapper" *ngIf="!(isLoggedIn$ | async)">
         <ul>
             <li><a href="#">About</a></li>
             <li><a routerLink="/signin">Sign in</a></li>
@@ -11,12 +11,12 @@
         </ul>
     </nav>
 
-    <nav class="nav-wrapper" *ngIf="isLogged">
+    <nav class="nav-wrapper" *ngIf="(isLoggedIn$ | async)">
         <ul>
-            <li class="list-wrapper"><span>Welcome,</span><a routerLink="/profile">{{currentUser.name}}</a></li>
+            <li class="list-wrapper"><span>Welcome,</span><a routerLink="/profile">{{(currentUser$ | async).name}}</a></li>
             <li><a routerLink="/family">My tree</a></li>
             <li><a routerLink="family/add">Create a new tree</a></li>
-            <li><a href="#" (click)="logoutHandler()">Logout</a></li>
+            <li><a href="javascript:void(0);" (click)="logoutHandler()">Logout</a></li>
         </ul>
     </nav>
 </header>

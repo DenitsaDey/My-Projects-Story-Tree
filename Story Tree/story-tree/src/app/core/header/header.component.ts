@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/auth.service';
 import { IUser } from '../interfaces';
 import { UserService } from '../services/user.service';
 
@@ -8,21 +11,35 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+  //old version:
+  // get isLogged(): boolean {
+  //   return this.userService.isLogged;  
+  // }
+  // get currentUser(): IUser {
+  //   return this.userService.currentUser;
+  // }
 
-  get isLogged(): boolean {
-    return this.userService.isLogged;
-    
-  }
+  currentUser$: Observable<IUser> = this.authService.currentUser$;
+  isLoggedIn$: Observable<boolean> = this.authService.isLoggedIn$;
 
-  get currentUser(): IUser {
-    return this.userService.currentUser;
-  }
+  private isLoggingOut: boolean = false;
   
-  constructor(public userService: UserService) { 
+  constructor(public userService: UserService, 
+    public authService: AuthService,
+    private router: Router) { 
   }
 
   logoutHandler(): void{
-    this.userService.logout();
+    if (this.isLoggingOut) {
+      return;
+    }
+
+    this.isLoggingOut = true;
+    console.log('logout called');
+
+    this.authService.handleLogout();
+    this.isLoggingOut = false;
+    this.router.navigate(['/home']);
   }
 
 }

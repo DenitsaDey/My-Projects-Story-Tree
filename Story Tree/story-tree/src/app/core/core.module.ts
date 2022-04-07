@@ -7,6 +7,8 @@ import { UserService } from './services/user.service';
 import { storageServiceProvider } from './services/storage.service';
 import { MemberService } from './services/member.service';
 import { FamilyService } from './services/family.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
 
 
 
@@ -32,7 +34,12 @@ export class CoreModule {
         UserService,
         MemberService,
         FamilyService,
-        storageServiceProvider
+        storageServiceProvider,
+        {
+          provide: HTTP_INTERCEPTORS,
+          multi: true,
+          useClass: AuthInterceptor,
+        }
       ]
     }
   }

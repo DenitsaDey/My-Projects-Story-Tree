@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IProfile } from 'src/app/core/interfaces';
+import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/auth.service';
+import { IProfile, IUser } from 'src/app/core/interfaces';
 import { UserService } from 'src/app/core/services/user.service';
 
 const userId = "b8d7263c-a032-453e-94ec-6e5d99179aba" //hard-coded for demo purposes
@@ -15,18 +17,28 @@ export class ProfileComponent implements OnInit {
 
   @ViewChild('editProfileForm') editProfileForm: NgForm;
 
+  currentUser$: Observable<IUser> = this.authService.currentUser$;
+  
+  currUserId: string;
+    
   //DDEY: TODO get infor from state
   user: IProfile;
 
   isInEditMode: boolean = false;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(
+    private userService: UserService, 
+    private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit(): void {
     
       this.userService.getUserById$(userId).subscribe({
         next: (user) => {
+          console.log(user);
           this.user = user;
+          console.log(`profile:`);
+          console.log(this.user);
         },
         error: () => {
           this.router.navigate(['/login'])
@@ -42,7 +54,7 @@ export class ProfileComponent implements OnInit {
       this.editProfileForm.form.patchValue({
         name: this.user.name,
         location: this.user.location,
-        birthday: this.user.birthDate,
+        birthday: this.user.birthday,
         partnerId: this.user.partnerId,
       })
     });

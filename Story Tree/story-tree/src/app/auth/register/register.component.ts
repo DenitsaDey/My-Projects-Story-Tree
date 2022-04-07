@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/auth.service';
 import { MemberService } from 'src/app/core/services/member.service';
 import { CreateUserDto, UserService } from 'src/app/core/services/user.service';
 import { passwordMatch } from '../util';
@@ -23,7 +24,7 @@ export class RegisterComponent implements OnInit {
   
   constructor(
     private formBuiler: FormBuilder,
-    private userService: UserService, 
+    private authService: AuthService, 
     private router: Router,
     private activatedRoute: ActivatedRoute) { }
 
@@ -44,7 +45,7 @@ export class RegisterComponent implements OnInit {
       password: password
     }
 
-    this.userService.register$(body).subscribe(() => {
+    this.authService.register$(body).subscribe(() => {
       this.registerFormGroup.reset();
       this.router.navigate(['../', 'signin'], { relativeTo: this.activatedRoute})
     });

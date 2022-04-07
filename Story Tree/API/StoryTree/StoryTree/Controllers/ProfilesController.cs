@@ -34,6 +34,7 @@
         [ActionName("GetProfile")]
         public IActionResult GetProfile([FromRoute] string id)
         {
+            //var id = this.profilesService.GetCurrentUserId();
             var profile = this.profilesService.GetById(id);
             if (profile != null)
             {
