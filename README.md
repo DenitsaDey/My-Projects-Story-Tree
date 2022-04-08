@@ -1,4 +1,4 @@
-![](https://res.cloudinary.com/doh2fp7hz/image/upload/v1649393679/story_tree_cropped_tkf3d7.jpg)
+![](https://res.cloudinary.com/doh2fp7hz/image/upload/v1649393712/story_tree_negative-removebg-preview_cropped_mbctjn.png)
 
 
 # StoryTree
