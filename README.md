@@ -1,8 +1,6 @@
 ![](https://res.cloudinary.com/doh2fp7hz/image/upload/v1649393712/story_tree_negative-removebg-preview_cropped_mbctjn.png)
 
 
-# StoryTree
-
 StoryTree is created as a platform that allows users to effortlessly build their family tree and stay on track with the pictures that their family members share .
 
 This is my defense project for Angular Course at [SoftUni](https://softuni.org). (Mar-Apr 2022)
