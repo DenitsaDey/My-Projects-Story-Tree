@@ -34,6 +34,7 @@ This is my defense project for Angular Course at [SoftUni](https://softuni.org).
 - @auth0/angular-jwt: JSON Web Token helper library for Angular
 - RxJS: library for reactive programming using Observables
 - Routing and Router Guards 
+- Authentication
 - Data Validation, both Client-side and Server-side
 - Structural Directives
 - Template-driven Forms (two-way binding)
