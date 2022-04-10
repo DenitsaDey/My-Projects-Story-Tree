@@ -35,23 +35,19 @@ export class ProfileComponent implements OnInit {
    
   ngOnInit(): void {
     
-      // this.userService.getUser$().subscribe({
-      //   next: (user) => {
-      //     console.log(user);
+      this.userService.getUser$().subscribe({
+        next: (user) => {
+          this.user = user;
+        },
+        error: () => {
+          this.router.navigate(['/login'])
+        }
+      });
+
+      
+      // this.userService.getUser$().subscribe( (user) =>{
       //     this.user = user;
-      //     console.log(`profile:`);
-      //     console.log(this.user);
-      //   },
-      //   error: () => {
-      //     this.router.navigate(['/login'])
-      //   }
-      // });
-      // this.currentUser$.subscribe({
-      //   next: (user) =>{
-      //     this.user = user;
-      //   },
-      //   error: () => {this.router.navigate(['/login']);}
-      // })
+      //   })
   }
 
   enterEditMode(): void{
