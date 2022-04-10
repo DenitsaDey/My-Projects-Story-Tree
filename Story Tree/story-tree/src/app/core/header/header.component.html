@@ -15,7 +15,7 @@
         <ul>
             <li class="list-wrapper"><span>Welcome,</span><a routerLink="/profile">{{(currentUser$ | async).name}}</a></li>
             <li><a routerLink="/family">My tree</a></li>
-            <li><a routerLink="family/add">Create a new tree</a></li>
+            <li><a routerLink="family/add">{{((currentUser$ | async).familyMembersCount > 0)? 'Add new member' : 'Create a tree'}}</a></li>
             <li><a href="javascript:void(0);" (click)="logoutHandler()">Logout</a></li>
         </ul>
     </nav>
