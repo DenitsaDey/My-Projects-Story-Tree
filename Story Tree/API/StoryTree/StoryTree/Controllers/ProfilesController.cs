@@ -44,6 +44,19 @@
             return NotFound("The profile could not be found!");
         }
 
+        [HttpGet]
+        [Route("user")]
+        public IActionResult GetUser()
+        {
+            var id = this.profilesService.GetCurrentUserId();
+            var profile = this.profilesService.GetById(id);
+            if (profile != null)
+            {
+                return Ok(profile);
+            }
+
+            return NotFound("The profile could not be found!");
+        }
 
         //Update a profile
         [HttpPost]

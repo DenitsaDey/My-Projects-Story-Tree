@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
-import { IUser } from 'src/app/core/interfaces';
+import { IFullUser, IUser } from 'src/app/core/interfaces';
 import { UserService } from 'src/app/core/services/user.service';
 import { emailValidator } from '../util';
 
@@ -14,7 +14,7 @@ import { emailValidator } from '../util';
 })
 export class SignInComponent implements OnInit {
 
-  currentUser$: Observable<IUser> = this.authService.currentUser$;
+  currentUser$: Observable<IFullUser> = this.authService.currentUser$;
 
   errorMessage: string = '';
   invalidLogin: boolean;
@@ -46,27 +46,38 @@ export class SignInComponent implements OnInit {
 
   handleSignIn(): void {
     this.errorMessage = '';
-    
+
+
     this.authService.signin$(this.signinFormGroup.value)
-      .subscribe({
-         //(response) => {
-        next: response => {
-              console.log(response);
-              const token = (<any>response).token;
-              localStorage.setItem("jwt", token);
-              this.currentUser$ = (<any>response).user;
-              //this.currUser = (<any>response).user;
-              this.invalidLogin = false;
-              this.router.navigate(['../', 'home'], { relativeTo: this.activatedRoute });
-          console.log(token);
-          //console.log(this.currUser)
-          console.log(this.currentUser$);
-          //console.log(this.authService.isLoggedIn$? 'true' : 'false') -  checking if isLoggedIn$ works
-            }, error: (err) => {
-              this.errorMessage = err.error.message; // DDEY: gives undefined?
-              this.invalidLogin = true;
-            }
-          });
+       .subscribe({
+         next: () => {
+          this.router.navigate(['../', 'home'], { relativeTo: this.activatedRoute });
+         },
+         complete: () => {
+           console.log('signin stream completed')
+         },
+         error: (err: any) => {
+           this.errorMessage = err.error.message;
+         }
+        });
+    //DDEY: version before testing handling sign in in auth service
+    // this.authService.signin$(this.signinFormGroup.value)
+    //   .subscribe({
+    //     next: response => {
+    //       console.log(response);
+    //       const token = (<any>response).token;
+    //       localStorage.setItem("jwt", token);
+    //       this.currentUser$ = (<any>response).user;
+    //       this.invalidLogin = false;
+    //       this.router.navigate(['../', 'home'], { relativeTo: this.activatedRoute });
+    //       console.log(token);
+    //       console.log(this.currentUser$);
+    //       //console.log(this.authService.isLoggedIn$? 'true' : 'false') -  checking if isLoggedIn$ works
+    //     }, error: (err) => {
+    //       this.errorMessage = err.error.message; // DDEY: gives undefined?
+    //       this.invalidLogin = true;
+    //     }
+    //   });
   }
 
 }

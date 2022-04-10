@@ -26,7 +26,8 @@
         public string GetCurrentUserId()
         {
             var identity = this.httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
-            if(identity != null)
+            //var identity = this.httpContextAccessor.HttpContext.Request.Headers.Where(h => h.Key == "jwt").FirstOrDefault().Value as ClaimsIdentity;
+            if (identity != null)
             {
                 var userClaims = identity.Claims;
                 var userClaimId = userClaims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
@@ -43,7 +44,7 @@
             }
 
             return null;
-            
+
         }
 
         public IEnumerable<ProfileViewModel> GetAll()
@@ -53,11 +54,14 @@
                 {
                     Id = p.Id,
                     Name = p.Name,
+                    Email = p.Email,
                     Birthday = p.Birthday.ToString(),
                     Location = p.Location,
-                    PartnerId = p.PartnerId,
-                    Parent1Id = p.Parent1Id,
-                    Parent2Id = p.Parent2Id
+                    Partner = this.data.Profiles.Where(x => x.Id == p.Partner.Id).Select(pr => new UserViewModel { Id = pr.Id, Name = pr.Name, Email = pr.Email }).FirstOrDefault(),
+                    Parent1 = this.data.Profiles.Where(x => x.Id == p.Parent1.Id).Select(pr => new UserViewModel { Id = pr.Id, Name = pr.Name, Email = pr.Email }).FirstOrDefault(),
+                    Parent2 = this.data.Profiles.Where(x => x.Id == p.Parent2.Id).Select(pr => new UserViewModel { Id = pr.Id, Name = pr.Name, Email = pr.Email }).FirstOrDefault(),
+                    FamilyMembersCount = this.data.Relations.Where(r => r.MemberId == p.Id).Count(),
+                    RelationToMe = "",
                 })
                 .ToList();
 
@@ -65,15 +69,22 @@
         }
 
         //DDEY: method is used for login in AuthController
-        public UserViewModel GetUserProfile(string email, string password)
+        public ProfileViewModel GetUserProfile(string email, string password)
         {
-            var currentUser =  this.data.Profiles
+            var currentUser = this.data.Profiles
                                     .Where(p => p.Email == email && p.Password == password)
-                                    .Select(p => new UserViewModel
+                                    .Select(p => new ProfileViewModel
                                     {
                                         Id = p.Id,
                                         Name = p.Name,
-                                        Email = p.Email
+                                        Email = p.Email,
+                                        Birthday = p.Birthday.ToString(),
+                                        Location = p.Location,
+                                        Partner = this.data.Profiles.Where(x => x.Id == p.Partner.Id).Select(pr => new UserViewModel { Id = pr.Id, Name = pr.Name, Email = pr.Email }).FirstOrDefault(),
+                                        Parent1 = this.data.Profiles.Where(x => x.Id == p.Parent1.Id).Select(pr => new UserViewModel { Id = pr.Id, Name = pr.Name, Email = pr.Email }).FirstOrDefault(),
+                                        Parent2 = this.data.Profiles.Where(x => x.Id == p.Parent2.Id).Select(pr => new UserViewModel { Id = pr.Id, Name = pr.Name, Email = pr.Email }).FirstOrDefault(),
+                                        FamilyMembersCount = this.data.Relations.Where(r => r.MemberId == p.Id).Count(),
+                                        RelationToMe = "",
                                     })
                                     .FirstOrDefault();
             return currentUser;
@@ -88,12 +99,14 @@
                 {
                     Id = p.Id,
                     Name = p.Name,
+                    Email = p.Email,
                     Birthday = p.Birthday.ToString(),
                     Location = p.Location,
-                    PartnerId = p.PartnerId,
-                    Parent1Id = p.Parent1Id,
-                    Parent2Id = p.Parent2Id,
-                    FamilyMembersCount = this.data.Relations.Where(r => r.MemberId == id).Count()
+                    Partner = this.data.Profiles.Where(x => x.Id == p.Partner.Id).Select(pr => new UserViewModel { Id = pr.Id, Name = pr.Name, Email = pr.Email }).FirstOrDefault(),
+                    Parent1 = this.data.Profiles.Where(x => x.Id == p.Parent1.Id).Select(pr => new UserViewModel { Id = pr.Id, Name = pr.Name, Email = pr.Email }).FirstOrDefault(),
+                    Parent2 = this.data.Profiles.Where(x => x.Id == p.Parent2.Id).Select(pr => new UserViewModel { Id = pr.Id, Name = pr.Name, Email = pr.Email }).FirstOrDefault(),
+                    FamilyMembersCount = this.data.Relations.Where(r => r.MemberId == id).Count(),
+                    RelationToMe = this.data.Relations.Where(x => x.MemberId == id && x.RelativeId == id).FirstOrDefault().Relation,
                 })
                 .FirstOrDefault();
             return profile;
@@ -133,7 +146,7 @@
         public bool UpdateProfile(ProfileInputModel input, string id)
         {
             var currentProfile = this.data.Profiles.Where(p => p.Id == id).FirstOrDefault();
-            if(currentProfile == null)
+            if (currentProfile == null)
             {
                 return false;
             }

@@ -8,7 +8,7 @@ import {
   HttpResponse
 } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
-import { IUser } from './interfaces';
+import { IFullUser, IUser } from './interfaces';
 import { AuthService } from '../auth.service';
 
 @Injectable()
@@ -23,8 +23,13 @@ export class AuthInterceptor implements HttpInterceptor {
       if(event instanceof HttpResponse) {
         if(event.url.endsWith('signin')){ //DDEY: include { || event.url.endsWith('register') } if the user access the site straight after register. In my case I redirect to login and from there the user accesses the rest of the app
           console.log('login/register happened');
-          const newlyLoggedUser: IUser = (<any>event.body).user; //DDEY - because the response from ASP.NET sends an Object{token:..., user{id:..., name:..., email:...}} and we need to take only the user out of it
-          this.authService.handleLogin(newlyLoggedUser);
+          const newlyLoggedUser: IFullUser = (<any>event.body).user; //DDEY - because the response from ASP.NET sends an Object{token:..., user{id:..., name:..., email:...}} and we need to take only the user out of it
+          //const newlyLoggedUserId: string = (<any>event.body).user.id;
+          this.authService.handleLogin(newlyLoggedUser);//, newlyLoggedUserId
+          event = event.clone({
+            headers: event.headers.set('authorization', this.authService.token)
+          });
+          //this.authService.isUserAuthenticated(token);
         } else if (event.url.endsWith('logout')) {
           this.authService.handleLogout();
         }

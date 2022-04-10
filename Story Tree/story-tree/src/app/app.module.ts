@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -14,6 +14,7 @@ import { PagesModule } from './feature/pages/pages.module';
 import { AuthModule } from './auth/auth.module';
 import { FamilyModule } from './feature/family/family.module';
 import { JwtModule } from '@auth0/angular-jwt';
+import { AuthService } from './auth.service';
 
 export function tokenGetter(){
   return localStorage.getItem('jwt');
@@ -41,7 +42,16 @@ export function tokenGetter(){
       }
     }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (authService: AuthService) => {
+        return () => authService.authenticate();
+      },
+      deps: [AuthService],
+      multi: true
+    }
+  ],
   bootstrap: [
     AppComponent,
     HeaderComponent,

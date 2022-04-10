@@ -45,6 +45,7 @@
                 var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
                 var claims = new List<Claim> {
+                    new Claim(JwtRegisteredClaimNames.Sub, currentUser.Id),
                     new Claim(ClaimTypes.Name, currentUser.Name),
                     new Claim(ClaimTypes.Email, currentUser.Email),
                     new Claim(ClaimTypes.NameIdentifier, currentUser.Id)

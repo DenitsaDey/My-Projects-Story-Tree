@@ -11,16 +11,20 @@
 
         public string Name { get; set; }
 
+        public string Email { get; set; }
+
         public string Birthday { get; set; }
 
         public string Location { get; set; }
 
-        public string PartnerId { get; set; }
+        public UserViewModel Partner { get; set; }
 
-        public string Parent1Id { get; set; }
+        public UserViewModel Parent1 { get; set; }
 
-        public string Parent2Id { get; set; }
+        public UserViewModel Parent2 { get; set; }
 
         public int FamilyMembersCount { get; set; }
+
+        public string RelationToMe { get; set; }
     }
 }

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
-import { IUser } from '../interfaces';
+import { IFullUser, IUser } from '../interfaces';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class HeaderComponent {
   //   return this.userService.currentUser;
   // }
 
-  currentUser$: Observable<IUser> = this.authService.currentUser$;
+  currentUser$: Observable<IFullUser> = this.authService.currentUser$;
   isLoggedIn$: Observable<boolean> = this.authService.isLoggedIn$;
 
   private isLoggingOut: boolean = false;

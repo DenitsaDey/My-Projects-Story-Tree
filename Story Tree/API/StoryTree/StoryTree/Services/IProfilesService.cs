@@ -13,7 +13,7 @@
 
         IEnumerable<ProfileViewModel> GetAll();
 
-        UserViewModel GetUserProfile(string email, string password);
+        ProfileViewModel GetUserProfile(string email, string password);
 
         ProfileViewModel GetById(string id);
 

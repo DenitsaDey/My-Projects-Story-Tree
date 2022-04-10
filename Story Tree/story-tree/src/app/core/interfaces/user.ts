@@ -1,10 +1,6 @@
-//import { IBase } from './base';
+import { IBase } from './base';
 
 // DDEY: For demo purpose that class can extend base class
-//export interface IUser extends IBase{
-export interface IUser{
-    id?: string;
-    name: string;
+export interface IUser extends IBase{
     email: string;
-    password?: string; //TODO DDEY: check if anywhere needed
 }

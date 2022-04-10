@@ -3,7 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
-import { IProfile, IUser } from 'src/app/core/interfaces';
+import { IFullUser, IProfile, IUser } from 'src/app/core/interfaces';
 import { UserService } from 'src/app/core/services/user.service';
 
 const userId = "b8d7263c-a032-453e-94ec-6e5d99179aba" //hard-coded for demo purposes
@@ -17,12 +17,13 @@ export class ProfileComponent implements OnInit {
 
   @ViewChild('editProfileForm') editProfileForm: NgForm;
 
-  currentUser$: Observable<IUser> = this.authService.currentUser$;
+  currentUser$: Observable<IFullUser> = this.authService.currentUser$;
   
-  currUserId: string;
+  //TEST
+  //currUserId$: Observable<string> = this.authService.currUserId$;
     
   //DDEY: TODO get infor from state
-  user: IProfile;
+  user: IFullUser;
 
   isInEditMode: boolean = false;
 
@@ -31,19 +32,26 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     private router: Router) { }
 
+   
   ngOnInit(): void {
     
-      this.userService.getUserById$(userId).subscribe({
-        next: (user) => {
-          console.log(user);
-          this.user = user;
-          console.log(`profile:`);
-          console.log(this.user);
-        },
-        error: () => {
-          this.router.navigate(['/login'])
-        }
-      });
+      // this.userService.getUser$().subscribe({
+      //   next: (user) => {
+      //     console.log(user);
+      //     this.user = user;
+      //     console.log(`profile:`);
+      //     console.log(this.user);
+      //   },
+      //   error: () => {
+      //     this.router.navigate(['/login'])
+      //   }
+      // });
+      // this.currentUser$.subscribe({
+      //   next: (user) =>{
+      //     this.user = user;
+      //   },
+      //   error: () => {this.router.navigate(['/login']);}
+      // })
   }
 
   enterEditMode(): void{
@@ -55,7 +63,7 @@ export class ProfileComponent implements OnInit {
         name: this.user.name,
         location: this.user.location,
         birthday: this.user.birthday,
-        partnerId: this.user.partnerId,
+        partnerId: this.user.partner.id,
       })
     });
   }
