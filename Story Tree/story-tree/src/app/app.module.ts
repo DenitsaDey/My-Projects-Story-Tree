@@ -16,6 +16,8 @@ import { FamilyModule } from './feature/family/family.module';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthService } from './auth.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { StoreModule } from '@ngrx/store';
+import { IRootState, currentUserReducer } from './+store';
 
 export function tokenGetter(){
   return localStorage.getItem('jwt');
@@ -43,6 +45,9 @@ export function tokenGetter(){
         disallowedRoutes: []
       }
     }),
+    StoreModule.forRoot<IRootState>({
+      currentUser: currentUserReducer
+    }, {}),
   ],
   providers: [
     {

@@ -5,6 +5,10 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AuthRoutingModule } from './auth-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { IAuthState, profileReducer, loginReducer } from './+store';
+import { EffectsModule } from '@ngrx/effects';
+import { ProfileEffects } from './+store/profile.effects';
 
 
 @NgModule({
@@ -18,6 +22,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AuthRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    StoreModule.forFeature<IAuthState>('auth', {
+      profile: profileReducer,
+      login: loginReducer,
+    }),
+    EffectsModule.forFeature([ProfileEffects])
   ]
 })
 export class AuthModule { }

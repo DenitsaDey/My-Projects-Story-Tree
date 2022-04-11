@@ -1,10 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, EMPTY, Observable} from 'rxjs';
 import { catchError, map, tap} from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { IFullUser, IUser } from './core/interfaces';
+import { IRootState, logout, signin } from './+store';
+import { IFullUser } from './core/interfaces';
 import { CreateUserDto } from './core/services/user.service';
 
 @Injectable({
@@ -21,7 +23,8 @@ export class AuthService {
   private _currentUserId = new BehaviorSubject<string>(undefined);
 
   //DDEY: by calling handleLogin() we protect the currentUser$ from being set externally from someone else and at the same time 'next' will provide all subscribers of the User currently logged
-  currentUser$ = this._currentUser.asObservable();
+  //old version before store: currentUser$ = this._currentUser.asObservable();
+  currentUser$ = this.store.select(globalState => globalState.currentUser);
   isLoggedIn$ = this.currentUser$.pipe(map(user => !!user));
   currentUserId$ = this._currentUserId.asObservable();
 
@@ -58,7 +61,8 @@ export class AuthService {
   */
 
   constructor(private httpClient: HttpClient, 
-    private jwtHelper: JwtHelperService) {
+    private jwtHelper: JwtHelperService,
+    private store: Store<IRootState>) {
       this._hasToken$.next(!!this.token);
   }
 
@@ -66,14 +70,14 @@ export class AuthService {
 
 
 //DDEY: used in the register component
-register$(userData: CreateUserDto): Observable<IUser>{
-  return this.httpClient.post<IUser>(`${environment.apiUrl}/auth/register`, userData,{withCredentials: true}); // HttpRequest with property {withCredentials: true} -> sets the cookies from the backend
+register$(userData: CreateUserDto): Observable<IFullUser>{
+  return this.httpClient.post<IFullUser>(`${environment.apiUrl}/auth/register`, userData,{withCredentials: true}); // HttpRequest with property {withCredentials: true} -> sets the cookies from the backend
 };
 
   //DDEY: used in the signin component
-  signin$(userData: { email: string, password: string }): Observable<IUser> {
+  signin$(userData: { email: string, password: string }): Observable<IFullUser> {
     return this.httpClient
-    .post<IUser>(`${environment.apiUrl}/auth/signin`, userData, { withCredentials: true}) //, observe: 'response'
+    .post<IFullUser>(`${environment.apiUrl}/auth/signin`, userData, { withCredentials: true}) //, observe: 'response'
     .pipe(
       tap((response: any) =>{
         const token = (<any>response).token;
@@ -93,23 +97,6 @@ register$(userData: CreateUserDto): Observable<IUser>{
       //tap(response => console.log(response)),
     );
 }
-
-  
-//DDEY: used in the header component for logoutHandler and in the auth interceptor
-handleLogout(): void {
-  //DDEY: from https://www.youtube.com/watch?v=NSQHiIAP7Z8
-  localStorage.removeItem(this.tokenName);
-  //DDEY: by g.stoimenov
-  this._currentUser.next(undefined);
-  this._currentUserId.next(undefined);
- }
-
-  /* by g.stoimenov
-  logout$(): Observable<void> {
-    return this.httpClient
-      .post<void>(`${environment.apiUrl}/logout`, {}, { withCredentials: true })
-  }
-  */
 
   //DDEY: authenticate with jwt
   isUserAuthenticated(){
@@ -134,7 +121,23 @@ handleLogout(): void {
 
   //DDEY: used in the interceptor
   handleLogin(newUser: IFullUser) {
-    this._currentUser.next(newUser);
+    this.store.dispatch(signin({ user: newUser }));
   }
+
+  //DDEY: used in the header component for logoutHandler and in the auth interceptor
+handleLogout(): void {
+  //DDEY: from https://www.youtube.com/watch?v=NSQHiIAP7Z8
+  localStorage.removeItem(this.tokenName);
+  //DDEY: by g.stoimenov
+  this.store.dispatch(logout())
+  this._currentUserId.next(undefined);
+ }
+
+  /* by g.stoimenov
+  logout$(): Observable<void> {
+    return this.httpClient
+      .post<void>(`${environment.apiUrl}/logout`, {}, { withCredentials: true })
+  }
+  */
 
 }

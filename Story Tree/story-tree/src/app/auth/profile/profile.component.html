@@ -1,6 +1,6 @@
 <div class="body-wrapper">
-  <ng-container *ngIf="!!user">
-    <ng-container *ngIf="!isInEditMode">
+  <ng-container *ngIf="(currentUser$ | async) as currentUser">
+    <ng-container *ngIf="!(isInEditMode$ | async)">
     <div class="card">
         <div class="img-avatar">
           <img src="../../../assets/Images/people/michael-dam-mEZ3PoFGs_k-unsplash.jpg">
@@ -10,23 +10,23 @@
             <button class="button-primary">Upload new picture</button> 
           </div>
           <div class="title-total">   
-              <h2>{{(currentUser$ | async).name}}</h2>
+              <h2>{{currentUser.name}}</h2>
               <div class="title">Me</div>
               <div class="actions">
                 <ul>
-                    <li><p><span class="title-sm">Lives in: </span>{{(currentUser$ | async).location}}</p></li>
-                    <li><p><span class="title-sm">Birthday: </span>{{(currentUser$ | async).birthday | date: 'longDate'}}</p></li>
-                    <li><p><span class="title-sm">Maried to: </span>{{(currentUser$ | async).partner.name}}</p></li>
-                    <li><p><span class="title-sm">Family Members: </span>{{(currentUser$ | async).familyMembersCount}}</p></li>
+                    <li><p><span class="title-sm">Lives in: </span>{{currentUser.location}}</p></li>
+                    <li><p><span class="title-sm">Birthday: </span>{{currentUser.birthday | date: 'longDate'}}</p></li>
+                    <li><p><span class="title-sm">Maried to: </span>{{currentUser.partner.name}}</p></li>
+                    <li><p><span class="title-sm">Family Members: </span>{{currentUser.familyMembersCount}}</p></li>
                 </ul> 
               </div>
-              <button (click)="enterEditMode()" class="button-primary">Edit</button>
+              <button (click)="enterEditMode(currentUser)" class="button-primary">Edit</button>
             </div>
         </div>    
       </div>
     </ng-container>
 
-    <ng-container *ngIf="isInEditMode">
+    <ng-container *ngIf="isInEditMode$ | async">
       <form #editProfileForm="ngForm" (ngSubmit)="updateProfile()">
         <div class="card">
           <div class="img-avatar">
@@ -43,16 +43,16 @@
                     <li><p>Name: </p>
                       <input type="text" name="name" ngModel required id="name" value="{{(currentUser$ | async).name}}">
                     <li><p>Lives in: </p>
-                        <input type="text" name="location" ngModel id="location" value="{{user.location}}"></li>
+                        <input type="text" name="location" ngModel id="location" value="{{(currentUser$ | async).location}}"></li>
                       <li><p>Birthday: </p>
                         <input type="text" name="birthday" ngModel id="birthday" value="{{(currentUser$ | async).birthday | date: 'longDate'}}"></li>
                       <li><p>Married to: </p>
                         <input type="text" name="partnerId" ngModel id="parnerId" value="{{(currentUser$ | async).partner.name}}"></li>
-                      <li><p>Family Members: {{user.familyMembersCount}}</p></li>
+                      <li><p>Family Members: {{(currentUser$ | async).familyMembersCount}}</p></li>
                   </ul> 
                 </div>
                 <button [disabled]="editProfileForm.invalid" class="edit-button">Save</button>
-                <button type="button" (click)="isInEditMode=false" class="cancel-button">Cancel</button>  
+                <button type="button" (click)="exitEditMode()" class="cancel-button">Cancel</button>  
              </div>
           </div>    
         </div>
