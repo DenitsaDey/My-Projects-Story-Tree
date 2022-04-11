@@ -13,19 +13,21 @@
     public class FamilyMembersController : ControllerBase
     {
         private readonly IFamilyMembersService familymembersService;
+        private readonly IProfilesService profilesService;
 
         public FamilyMembersController(
             IFamilyMembersService familymembersService,
             IProfilesService profilesService)
         {
             this.familymembersService = familymembersService;
+            this.profilesService = profilesService;
         }
 
         //Get All Relatives
         [HttpGet]
-        [Route("{profileId:}")]
-        public IActionResult GetAllProfiles([FromRoute] string profileId)
+        public IActionResult GetAllProfiles()
         {
+            var profileId = this.profilesService.GetCurrentUserId();
             var familyMembers = this.familymembersService.GetAllMyMembers(profileId);
             return Ok(familyMembers);
         }

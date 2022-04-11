@@ -15,6 +15,7 @@ import { AuthModule } from './auth/auth.module';
 import { FamilyModule } from './feature/family/family.module';
 import { JwtModule } from '@auth0/angular-jwt';
 import { AuthService } from './auth.service';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 export function tokenGetter(){
   return localStorage.getItem('jwt');
@@ -26,6 +27,7 @@ export function tokenGetter(){
   ],
   imports: [
     BrowserModule,
+    FontAwesomeModule,
     HttpClientModule,
     RouterModule,
     CoreModule.forRoot(),

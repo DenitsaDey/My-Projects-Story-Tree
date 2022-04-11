@@ -85,7 +85,7 @@ input[type="password"]:focus {
 }
 
 input[type="submit"] {
-  margin-top: 28px;
+  margin-top: 105px;
   width: 120px;
   height: 32px;
   background: #32508E;
@@ -141,9 +141,9 @@ input[type="submit"]:active {
   letter-spacing: 1px;
 }
 
-button.social-signin {
+.social-signin {
     
-  margin-top: 40px;
+  margin-top: 100px;
   margin-bottom: 20px;
   width: 220px;
   height: 36px;

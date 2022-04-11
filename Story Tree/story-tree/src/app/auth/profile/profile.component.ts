@@ -59,7 +59,7 @@ export class ProfileComponent implements OnInit {
         name: this.user.name,
         location: this.user.location,
         birthday: this.user.birthday,
-        partnerId: this.user.partner.id,
+        partnerId: this.user.partner.name,
       })
     });
   }
@@ -70,4 +70,6 @@ export class ProfileComponent implements OnInit {
 
     this.isInEditMode = false;
   }
+
+
 }

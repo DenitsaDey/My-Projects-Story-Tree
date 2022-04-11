@@ -33,7 +33,7 @@
 
 #login-box {
   position: relative;
-  margin: -3% 25% 2% 29%;
+  margin: -4% 20% 2% 29%;
   width: 600px;
   height: 400px;
   background: #FFF;
@@ -153,10 +153,11 @@ button[type="submit"]:active {
 
 button.social-signin {
     
-  margin-top: 40px;
+  margin-top: 185px;
   margin-bottom: 20px;
-  width: 220px;
-  height: 36px;
+  margin-left: 40px;
+  width: 120px;
+  height: 32px;
   border: none;
   border-radius: 2px;
   color: #FFF;
