@@ -61,7 +61,7 @@
         //Update a profile
         [HttpPut]
         [Route("user")]
-        public IActionResult UpdateProfile([FromBody] ProfileInputModel input)
+        public IActionResult UpdateProfile([FromForm] ProfileInputModel input)
         {
             var id = this.profilesService.GetCurrentUserId();
             if (this.profilesService.UpdateProfile(input, id))

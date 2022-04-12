@@ -3,8 +3,7 @@ import { IFullUser } from "src/app/core/interfaces"
 import { IUpdateUserDto } from "src/app/core/services/user.service";
 
 const profileDomain = '[ProfileComponent]'
-export const profileLoaded =
-    createAction(`${profileDomain} Profile Loaded`, props<{ profile: IFullUser }>());
+export const profileLoaded = createAction(`${profileDomain} Profile Loaded`, props<{ profile: IFullUser }>());
 export const enterEditMode = createAction(`${profileDomain} Enter Edit Mode`); //DDEY: the string Enter Edit... is id for the action and this is how the reducer will recognise it when used
 export const exitEditMode = createAction(`${profileDomain} Exit Edit Mode`);
 export const profilePageInitalized = createAction(`${profileDomain} Profile Initailize`)

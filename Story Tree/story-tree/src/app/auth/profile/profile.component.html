@@ -27,7 +27,8 @@
     </ng-container>
 
     <ng-container *ngIf="isInEditMode$ | async">
-      <form #editProfileForm="ngForm" (ngSubmit)="updateProfile(editProfileForm)">
+      <form #editProfileForm="ngForm" (ngSubmit)="updateProfile()">
+      <!-- <form #editProfileForm="ngForm" (ngSubmit)="updateProfile(editProfileForm)"> -->
         <div class="card">
           <div class="img-avatar">
             <img src="../../../assets/Images/people/michael-dam-mEZ3PoFGs_k-unsplash.jpg">
@@ -44,6 +45,7 @@
                       <input type="text" name="name" ngModel required id="name" value="{{(currentUser$ | async).name}}">
                     <li><p>Lives in: </p>
                         <input type="text" name="location" ngModel id="location" value="{{(currentUser$ | async).location}}"></li>
+                    <!-- <li><p>Married to: {{(currentUser$ | async).partner.name}}</p> -->
                     <li><p>Married to: </p>
                       <select class="form-control" id="partner" name="partner" ngModel value="{{(currentUser$ | async).partner.name}}">                    
                         <option *ngFor="let partner of members" [value]="partner.name">{{partner.name}}</option>                 

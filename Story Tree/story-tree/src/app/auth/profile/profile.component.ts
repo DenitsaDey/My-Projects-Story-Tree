@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { IFullUser } from 'src/app/core/interfaces';
@@ -41,6 +41,7 @@ export class ProfileComponent implements OnInit {
     private memberService: MemberService,
     private userService: UserService,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
     private store: Store<IAuthModuleState>) { }
 
    
@@ -99,33 +100,36 @@ export class ProfileComponent implements OnInit {
     */
   }
 
-  // updateProfile(): void {
+  updateProfile(): void {
 
-  //   this.store.dispatch(updateProfileStarted({
-  //     user: {
-  //       name: this.editProfileForm.value.name,
-  //       location: this.editProfileForm.value.location,
-  //       partnerName: this.editProfileForm.value.partner,
-  //       //profilePicture: this.newProfilePicture,
-  //     }
-  //   }));
-  //   // TODO stoimenovg: continue. with the http update request
-  //   //console.log(this.editProfileForm.value);
-
-  //   //old version: this.isInEditMode = false;
-  //   //this.exitEditMode();
-  // }
-
-  updateProfile(editProfileForm: NgForm){
-    this.userService.updateProfile$(editProfileForm.value).subscribe({
-      next:(user) => {
-        this.router.navigate(['profile']);
-      },
-      error:(err) => {
-        console.log(err);
+    this.store.dispatch(updateProfileStarted({
+      user: {
+        name: this.editProfileForm.value.name,
+        location: this.editProfileForm.value.location,
+        partner: this.editProfileForm.value.partner,
+        profilePicture: this.newProfilePicture,
       }
-    })
+    }));
+    // TODO stoimenovg: continue. with the http update request
+    //console.log(this.editProfileForm.value);
+
+    //old version: this.isInEditMode = false;
+    //this.exitEditMode();
   }
+
+  // updateProfile(editProfileForm: NgForm){
+  //   this.userService.updateProfile$(editProfileForm.value).subscribe({
+  //     next:(user) => {
+  //       this.store.dispatch(profilePageInitalized());
+  //       this.router.navigate(['../', 'profile'], { relativeTo: this.activatedRoute})
+  //     },
+  //     error:(err) => {
+  //       console.log(err);
+  //     }
+  //   })
+  //   this.exitEditMode();
+    
+  // }
 
   exitEditMode(): void {
     this.store.dispatch(exitEditMode());

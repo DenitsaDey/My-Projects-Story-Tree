@@ -3,9 +3,10 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { createEffects } from "@ngrx/effects/src/effects_module";
 import { of } from "rxjs";
 import { catchError, filter, map, mergeMap } from "rxjs/operators";
+import { login } from "src/app/+store";
 import { UserService } from "src/app/core/services/user.service";
 
-import { profileLoaded, profileLoadError, profilePageInitalized } from "./actions";
+import { profileLoaded, profileLoadError, profilePageInitalized, updateProfileCompleted, updateProfileError, updateProfileStarted } from "./actions";
 
 @Injectable()
 export class ProfileEffects {
@@ -19,4 +20,19 @@ export class ProfileEffects {
             catchError(() => of(profileLoadError()))
         )
     )
+
+    onProfileUpdateStarted$ = createEffect(() => this.actions$.pipe(
+        ofType(updateProfileStarted),
+        mergeMap(action => this.userService.updateProfile$(action.user)
+            .pipe(
+                map(result => updateProfileCompleted({ updatedUser: result })),
+                catchError(err => of(updateProfileError({ errorMessage: err.error.message })))
+            )
+        ),
+    ))
+
+    onProfileUpdateCompleted$ = createEffect(() => this.actions$.pipe(
+        ofType(updateProfileCompleted),
+        map(result => login({ user: result.updatedUser }))
+    ))
 }

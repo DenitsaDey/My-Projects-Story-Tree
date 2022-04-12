@@ -156,7 +156,7 @@
             //currentProfile.Birthday = DateTime.ParseExact(input.Birthday, "yyyy--MM--dd", CultureInfo.InvariantCulture);
             currentProfile.Location = input.Location;
             //currentProfile.Email = input.Email;
-            currentProfile.Partner = this.data.Profiles.Where(p => p.Name == input.PartnerName).FirstOrDefault();
+            currentProfile.Partner = this.data.Profiles.Where(p => p.Name == input.Partner.Name).FirstOrDefault();
             //currentProfile.Parent1Id = this.data.Profiles.Where(p => p.Name == input.Parent1).FirstOrDefault().Id;
             //currentProfile.Parent2Id = this.data.Profiles.Where(p => p.Name == input.Parent2).FirstOrDefault().Id;
 

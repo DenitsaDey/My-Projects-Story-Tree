@@ -11,4 +11,5 @@ export interface IFullUser{
     parent2: IUser;
     familyMembersCount: number;
     relationToMe?: string;
+    profilePicture?: string;
 }
