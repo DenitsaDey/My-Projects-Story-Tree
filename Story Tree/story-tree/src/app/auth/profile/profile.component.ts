@@ -19,7 +19,12 @@ export class ProfileComponent implements OnInit {
   @ViewChild('editProfileForm') editProfileForm: NgForm;
 
   //old version: currentUser$: Observable<IFullUser> = this.authService.currentUser$;
-  currentUser$: Observable<IFullUser> = this.store.select(state => state.auth.profile.currentProfile);
+  
+  //DDEY: we can pipe the observable to set the currentUser and use it directly in the html, or else set it in the html as currentUser$ | async
+  // currentUser: IUser;
+  currentUser$: Observable<IFullUser> = this.store.select(state => state.auth.profile.currentProfile)
+  // .pipe(tap(profile => this.currentUser = profile))
+  ;
 
   //old version: user: IFullUser;
 
@@ -40,11 +45,11 @@ export class ProfileComponent implements OnInit {
 
     this.hasErrorHappened.subscribe((hasError) => {
       if (hasError) {
-        this.router.navigate(['/user/login'])
+        this.router.navigate(['/user/login']) //DDEY: left on purpose as 'login' instead of redirecting to 'signin' in order for the 'Not found' page to be called as a clue that the error comes from here 
       }
     })
 
-    //old version
+    //old version replaced by profilePageInitalized()
       // this.userService.getUser$().subscribe({
       //   next: (user) => {
       //     this.user = user;

@@ -1,23 +1,37 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/auth.service';
 import { IFullUser, IUser } from 'src/app/core/interfaces';
 import { UserService } from 'src/app/core/services/user.service';
+import { IAuthModuleState } from '../+store';
+import { initializeLoginState, loginProcessError, startLoginProcess } from '../+store/actions';
+import { loginErrorMessageSelector, loginIsLoginPendingSelector } from '../+store/selectors';
 import { emailValidator } from '../util';
+
+const myRequired = (control: AbstractControl) => {
+  // console.log('validator called');
+  return Validators.required(control);
+}
 
 @Component({
   selector: 'stapp-sign-in',
   templateUrl: './sign-in.component.html',
   styleUrls: ['./sign-in.component.css']
 })
-export class SignInComponent implements OnInit {
+export class SignInComponent implements OnInit, OnDestroy {
 
   currentUser$: Observable<IFullUser> = this.authService.currentUser$;
 
-  errorMessage: string = '';
-  invalidLogin: boolean;
+  //old version
+  //errorMessage: string = '';
+  //invalidLogin: boolean;
+
+  errorMessage$: Observable<string> = this.store.select(loginErrorMessageSelector); // DDEY:(s => s.auth.login.errorMessage) 
+  isLoginPending$: Observable<boolean> = this.store.select(loginIsLoginPendingSelector); // DDEY: (s => s.auth.login.isLoginPending)
+
 
   signinFormGroup: FormGroup = this.formBuilder.group({
     'email': new FormControl('', [Validators.required, Validators.email]), // ,emailValidator] - when custom email validator is required, we use the one from util.js or simply use Validators.pattern(/.{6,}@gmail\.(bg|com)/)
@@ -29,11 +43,19 @@ export class SignInComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private userService: UserService) { }
+    private store: Store<IAuthModuleState>) { }
 
   ngOnInit(): void {
+    // this.store.dispatch(initializeLoginState()); //DDEY: this could be called here or in the onDestroy()
+    // this.loginFormGroup.get('email').valueChanges.subscribe(value => {
+    //   console.log('email changed', value);
+    // })
   }
 
+  ngOnDestroy(): void {
+    this.store.dispatch(initializeLoginState());
+  }
+  
   onLogin(): void {
   }
 
@@ -45,8 +67,8 @@ export class SignInComponent implements OnInit {
   }
 
   handleSignIn(): void {
-    this.errorMessage = '';
-
+    //old version: this.errorMessage = '';
+    this.store.dispatch(startLoginProcess());
 
     this.authService.signin$(this.signinFormGroup.value)
        .subscribe({
@@ -57,7 +79,7 @@ export class SignInComponent implements OnInit {
            console.log('signin stream completed')
          },
          error: (err: any) => {
-           this.errorMessage = err.error.message;
+           this.store.dispatch(loginProcessError({ errorMessage: "Invalid username or password" }));
          }
         });
     //DDEY: version before testing handling sign in in auth service

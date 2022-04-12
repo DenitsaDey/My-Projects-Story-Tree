@@ -84,7 +84,7 @@ input[type="password"]:focus {
   transition: 0.2s ease;
 }
 
-input[type="submit"] {
+.btn-signin {
   margin-top: 105px;
   width: 120px;
   height: 32px;
@@ -99,14 +99,14 @@ input[type="submit"] {
   cursor: pointer;
 }
 
-input[type="submit"]:hover,
-input[type="submit"]:focus {
+btn-signin:hover,
+.btn-signin:focus {
   opacity: 0.8;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   transition: 0.1s ease;
 }
 
-input[type="submit"]:active {
+.btn-signin:active {
   opacity: 1;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
   transition: 0.1s ease;
@@ -141,12 +141,12 @@ input[type="submit"]:active {
   letter-spacing: 1px;
 }
 
-.social-signin {
+.btn-signin {
     
   margin-top: 100px;
   margin-bottom: 20px;
-  width: 220px;
-  height: 36px;
+  width: 120px;
+  height: 32px;
   border: none;
   border-radius: 2px;
   color: #FFF;
@@ -156,18 +156,20 @@ input[type="submit"]:active {
   cursor: pointer;
 }
 
-button.social-signin:hover,
-button.social-signin:focus {
+button.btn-signin:hover,
+button.btn-signin:focus {
+  opacity: 0.8;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   transition: 0.2s ease;
 }
 
-button.social-signin:active {
+button.btn-signin:active {
+  opacity: 1;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
   transition: 0.2s ease;
 }
 
-button.social-signin.facebook {
+button.btn-signin.facebook {
   background: #32508E;
 }
 
@@ -203,6 +205,9 @@ button.social-signin.facebook {
   opacity: 1;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
   transition: 0.1s ease;
+}
+.btn-register:disabled {
+  opacity: 3;
 }
 
 .error{

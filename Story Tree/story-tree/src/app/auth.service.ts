@@ -5,7 +5,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { BehaviorSubject, EMPTY, Observable} from 'rxjs';
 import { catchError, map, tap} from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { IRootState, logout, signin } from './+store';
+import { IRootState, logout, login } from './+store';
 import { IFullUser } from './core/interfaces';
 import { CreateUserDto } from './core/services/user.service';
 
@@ -121,7 +121,7 @@ register$(userData: CreateUserDto): Observable<IFullUser>{
 
   //DDEY: used in the interceptor
   handleLogin(newUser: IFullUser) {
-    this.store.dispatch(signin({ user: newUser }));
+    this.store.dispatch(login({ user: newUser }));
   }
 
   //DDEY: used in the header component for logoutHandler and in the auth interceptor

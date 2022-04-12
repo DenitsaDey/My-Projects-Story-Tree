@@ -28,14 +28,14 @@
         </p>
       </ng-container>
 
-      <ng-container *ngIf="invalidLogin">
+      <ng-container *ngIf="(errorMessage$ | async) as errorMessage">
         <p class="error">
-          Invalid username or password
+          {{errorMessage}}
             </p>  
           </ng-container>
+          
+      <button type="submit" [disabled]="(isLoginPending$ | async)" (click)="loginHandler()" class="btn-signin">Sign in</button>
 
-      <input class="social-signin" (click)="loginHandler()" type="submit" name="signup_submit" value="Sign in" />
-      
     </div>
 
     <div class="right">

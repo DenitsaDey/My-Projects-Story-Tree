@@ -11,11 +11,11 @@ import { profileLoaded, profileLoadError, profilePageInitalized } from "./action
 export class ProfileEffects {
     constructor(private actions$: Actions, private userService: UserService) { }
 
-    onProfilePageLoaded$ = createEffect(() =>
-        this.actions$.pipe(
-            filter(a => a.type === profilePageInitalized().type),
-            mergeMap(() => this.userService.getUser$()),
-            map(currentProfile => profileLoaded({ profile: currentProfile })),
+    onProfilePageLoaded$ = createEffect(() => //DDEY: we create an Effect 
+        this.actions$.pipe( //DDEY: that will observe is actions are dispatched
+            filter(a => a.type === profilePageInitalized().type),//DDEY: when the action matches our filter
+            mergeMap(() => this.userService.getUser$()),//DDEY: then make a request to the server to get the profile
+            map(currentProfile => profileLoaded({ profile: currentProfile })),//DDEY: and when the request is completed emit profileLoaded with the current profile value
             catchError(() => of(profileLoadError()))
         )
     )

@@ -18,6 +18,7 @@ import { AuthService } from './auth.service';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { StoreModule } from '@ngrx/store';
 import { IRootState, currentUserReducer } from './+store';
+import { EffectsModule } from '@ngrx/effects';
 
 export function tokenGetter(){
   return localStorage.getItem('jwt');
@@ -48,6 +49,7 @@ export function tokenGetter(){
     StoreModule.forRoot<IRootState>({
       currentUser: currentUserReducer
     }, {}),
+    EffectsModule.forRoot([])
   ],
   providers: [
     {

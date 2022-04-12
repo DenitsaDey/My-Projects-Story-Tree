@@ -45,9 +45,9 @@
                     <li><p>Lives in: </p>
                         <input type="text" name="location" ngModel id="location" value="{{(currentUser$ | async).location}}"></li>
                       <li><p>Birthday: </p>
-                        <input type="text" name="birthday" ngModel id="birthday" value="{{(currentUser$ | async).birthday | date: 'longDate'}}"></li>
+                        <input type="text" name="birthday" ngModel id="birthday" value="{{currentUser.birthday | date: 'shortDate'}}"></li>
                       <li><p>Married to: </p>
-                        <input type="text" name="partnerId" ngModel id="parnerId" value="{{(currentUser$ | async).partner.name}}"></li>
+                        <input type="text" name="partner" ngModel id="parner" value="{{(currentUser$ | async).partner.name}}"></li>
                       <li><p>Family Members: {{(currentUser$ | async).familyMembersCount}}</p></li>
                   </ul> 
                 </div>
