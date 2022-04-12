@@ -30,14 +30,14 @@ export class MemberService {
 
   //DDEY: used in the add-member component for the drop-down select box
   //DDEY: TODO find how to get the profileId from the jwt ? {withCredentials: true}
-  getAllMembers$(profileId: string): Observable<IBase[]>{
-    return this.httpClient.get<IBase[]>(`${apiUrl}/familymembers/${profileId}`)
+  getAllMembers$(): Observable<IBase[]>{
+    return this.httpClient.get<IBase[]>(`${apiUrl}/familymembers`)
   }
  
 
-  addRelative$(relative: CreateRelativeDto, memberId: string){
+  addRelative$(relative: CreateRelativeDto){
     
-    return this.httpClient.post(`${apiUrl}/familymembers`, relative);
+    return this.httpClient.post(`${apiUrl}/familymembers/add`, relative);
   }
 
   

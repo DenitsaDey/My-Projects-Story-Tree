@@ -3,11 +3,11 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/auth.service';
-import { IFullUser, IProfile, IUser } from 'src/app/core/interfaces';
+import { IFullUser } from 'src/app/core/interfaces';
+import { MemberService } from 'src/app/core/services/member.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { IAuthModuleState } from '../+store';
-import { enterEditMode, exitEditMode, profileLoaded, profilePageInitalized } from '../+store/actions';
+import { enterEditMode, exitEditMode, profilePageInitalized, updateProfileStarted } from '../+store/actions';
 
 @Component({
   selector: 'stapp-profile',
@@ -33,8 +33,12 @@ export class ProfileComponent implements OnInit {
 
   hasErrorHappened: Observable<boolean> = this.store.select(state => state.auth.profile.errorHappened);
 
+  newProfilePicture?: File;
+
+  members = [];
 
   constructor(
+    private memberService: MemberService,
     private userService: UserService,
     private router: Router,
     private store: Store<IAuthModuleState>) { }
@@ -47,7 +51,11 @@ export class ProfileComponent implements OnInit {
       if (hasError) {
         this.router.navigate(['/user/login']) //DDEY: left on purpose as 'login' instead of redirecting to 'signin' in order for the 'Not found' page to be called as a clue that the error comes from here 
       }
-    })
+    });
+
+    this.memberService.getAllMembers$().subscribe(
+      (response) => this.members = response
+          );
 
     //old version replaced by profilePageInitalized()
       // this.userService.getUser$().subscribe({
@@ -73,7 +81,6 @@ export class ProfileComponent implements OnInit {
       this.editProfileForm.form.patchValue({
         name: currentUser.name,
         location: currentUser.location,
-        birthday: currentUser.birthday,
         partner: currentUser.partner.name,
       })
     });
@@ -92,15 +99,40 @@ export class ProfileComponent implements OnInit {
     */
   }
 
-  updateProfile(): void {
-    // TODO stoimenovg: continue. with the http update request
-    console.log(this.editProfileForm.value);
+  // updateProfile(): void {
 
-    //old version: this.isInEditMode = false;
-    this.exitEditMode();
+  //   this.store.dispatch(updateProfileStarted({
+  //     user: {
+  //       name: this.editProfileForm.value.name,
+  //       location: this.editProfileForm.value.location,
+  //       partnerName: this.editProfileForm.value.partner,
+  //       //profilePicture: this.newProfilePicture,
+  //     }
+  //   }));
+  //   // TODO stoimenovg: continue. with the http update request
+  //   //console.log(this.editProfileForm.value);
+
+  //   //old version: this.isInEditMode = false;
+  //   //this.exitEditMode();
+  // }
+
+  updateProfile(editProfileForm: NgForm){
+    this.userService.updateProfile$(editProfileForm.value).subscribe({
+      next:(user) => {
+        this.router.navigate(['profile']);
+      },
+      error:(err) => {
+        console.log(err);
+      }
+    })
   }
 
   exitEditMode(): void {
     this.store.dispatch(exitEditMode());
+  }
+
+  handleProfilePictureChange(event: InputEvent) {
+    const input: HTMLInputElement = event.target as HTMLInputElement;
+    this.newProfilePicture = input.files[0];
   }
 }

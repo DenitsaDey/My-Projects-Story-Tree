@@ -59,11 +59,12 @@
         }
 
         //Update a profile
-        [HttpPost]
-        [Route("{id:}")]
-        public IActionResult UpdateProfile([FromRoute] string id, [FromBody] ProfileInputModel input)
+        [HttpPut]
+        [Route("user")]
+        public IActionResult UpdateProfile([FromBody] ProfileInputModel input)
         {
-            if(!this.profilesService.UpdateProfile(input, id))
+            var id = this.profilesService.GetCurrentUserId();
+            if (this.profilesService.UpdateProfile(input, id))
             {
                 return Ok();
             }
@@ -73,9 +74,10 @@
 
         //Delete a profile
         [HttpDelete]
-        [Route("{id:}")]
-        public IActionResult UpdateProfile([FromRoute] string id)
+        [Route("user")]
+        public IActionResult DeleteProfile()
         {
+            var id = this.profilesService.GetCurrentUserId();
             if (!this.profilesService.DeleteProfile(id))
             {
                 return Ok();

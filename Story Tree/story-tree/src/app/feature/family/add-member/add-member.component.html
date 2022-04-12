@@ -12,10 +12,10 @@
                 </div>   
                 <div class="form-group">   
                     <label for="relation">Relation to me</label>   
-                    <select class="form-control" id="relation" required name="relation" ngModel #relation="ngModel">                    
+                    <select class="form-control" id="relationToMe" required name="relationToMe" ngModel #relationToMe="ngModel">                    
                         <option *ngFor="let relation of relations" [value]="relation">{{relation}}</option>                 
                     </select> 
-                    <div class="alert alert-danger" *ngIf="relation.touched && relation.invalid">
+                    <div class="alert alert-danger" *ngIf="relationToMe.touched && relationToMe.invalid">
                         Relation is required!
                     </div>  
                 </div>   
@@ -36,8 +36,8 @@
                     </select> 
                 </div>                 
                 </div>                    
-                <button [disabled]="addMemberForm.invalid" type="submit" class="btn btn-success">Submit</button>   
-                <button (click)="clearForm()" type="button" class="btn btn-info">Clear</button>   
+                <button [disabled]="addMemberForm.invalid" type="submit" class="btn btn-submit">Submit</button>   
+                <button (click)="clearForm()" type="button" class="btn btn-clear">Clear</button>   
             </form>    
         </div>
     </div>

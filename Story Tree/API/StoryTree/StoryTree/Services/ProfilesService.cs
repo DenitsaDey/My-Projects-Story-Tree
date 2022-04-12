@@ -7,6 +7,7 @@
     using StoryTree.ViewModels;
     using System;
     using System.Collections.Generic;
+    using System.Globalization;
     using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
@@ -152,13 +153,20 @@
             }
 
             currentProfile.Name = input.Name;
-            currentProfile.Birthday = input.Birthday;
-            currentProfile.Email = input.Email;
+            //currentProfile.Birthday = DateTime.ParseExact(input.Birthday, "yyyy--MM--dd", CultureInfo.InvariantCulture);
             currentProfile.Location = input.Location;
-            currentProfile.PartnerId = this.data.Profiles.Where(p => p.Name == input.Partner).FirstOrDefault().Id;
-            currentProfile.Parent1Id = this.data.Profiles.Where(p => p.Name == input.Parent1).FirstOrDefault().Id;
-            currentProfile.Parent2Id = this.data.Profiles.Where(p => p.Name == input.Parent2).FirstOrDefault().Id;
+            //currentProfile.Email = input.Email;
+            currentProfile.Partner = this.data.Profiles.Where(p => p.Name == input.PartnerName).FirstOrDefault();
+            //currentProfile.Parent1Id = this.data.Profiles.Where(p => p.Name == input.Parent1).FirstOrDefault().Id;
+            //currentProfile.Parent2Id = this.data.Profiles.Where(p => p.Name == input.Parent2).FirstOrDefault().Id;
 
+            var oldPartnerRelation = this.data.Relations.Where(r => r.MemberId == id && (r.Relation == "husband" || r.Relation == "wife")).FirstOrDefault();
+            var typeOfRelation = oldPartnerRelation.Relation;
+            this.data.Relations.Remove(oldPartnerRelation);
+            this.data.SaveChanges();
+
+            var newPartnerRelation = new RelationToMe { MemberId = id, RelativeId = currentProfile.Partner.Id, Relation = typeOfRelation };
+            this.data.Relations.Add(newPartnerRelation);
             this.data.SaveChanges();
 
             return true;

@@ -1,8 +1,8 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ComponentFactoryResolver, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MemberService } from 'src/app/core/services/member.service';
 
-const profileId = 'b8d7263c-a032-453e-94ec-6e5d99179aba'; //DDEY hard-coded for demo purposes, but to be later taken from the jwt
 @Component({
   selector: 'stapp-add-member',
   templateUrl: './add-member.component.html',
@@ -29,11 +29,12 @@ export class AddMemberComponent implements OnInit, AfterViewInit {
     'brother-in-law',
     'sister-in-law',
   ];
-  constructor(private memberService: MemberService) { }
+  constructor(private memberService: MemberService,
+    private router: Router) { }
 
   ngOnInit(): void {
 
-    this.memberService.getAllMembers$(profileId).subscribe(
+    this.memberService.getAllMembers$().subscribe(
 (response) => this.members = response
     );
   }
@@ -43,7 +44,15 @@ export class AddMemberComponent implements OnInit, AfterViewInit {
   }
 
   onSubmit(addMemberForm: NgForm): void {
-    console.log(addMemberForm.value);
+    this.memberService.addRelative$(addMemberForm.value).subscribe({
+      next: (relative) => {
+        //console.log(relative);
+        this.router.navigate(['/family']);
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
     
   }
 

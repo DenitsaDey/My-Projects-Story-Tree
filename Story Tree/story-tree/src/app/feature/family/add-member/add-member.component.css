@@ -50,3 +50,47 @@
       gap: 2rem;
       justify-content: space-between;
   }
+
+  button {
+    border: none;
+    background: none;
+    font-size: 14px;
+    cursor: pointer;
+    transition:.5s;
+    border-radius:8px;
+    background-color:var(--color-bkgrd-light);
+      padding: 4px 8px;
+      color: white;
+      margin-left: 15px;
+      margin-top: 15px;
+  }
+    /* button>i:hover{
+      color: #E2A05E  ;
+      transform: rotate(22deg)
+    } */
+  
+  
+   
+  
+  button:hover{
+      background-color: var(--color-text-primary); 
+  }
+  
+  
+  .btn-clear{
+    border-radius:8px;
+      border: none;
+      background-color:var(--color-bkgrd-light);
+      padding: 4px 8px;
+      color: white;
+      background-color: var(--color-logo);
+      color: var(--color-primary);
+      margin-left: 10px;
+  }
+  
+  .btn-clear:hover{
+    background-color: var(--color-primary);
+    color: var(--color-logo); 
+  }
+  
+  

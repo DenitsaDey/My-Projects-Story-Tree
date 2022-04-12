@@ -83,29 +83,40 @@
         {
             //DDEY: TODO: to add condition && p.shareInfo == true
             var memberToBeAdded = this.data.Profiles.Where(p => p.Name == input.Name).FirstOrDefault();
-            if(memberToBeAdded == null)
+            if (memberToBeAdded == null)
             {
                 var newMember = new Profile
                 {
-                    Name = input.Name
+                    Name = input.Name,
+
                 };
+
                 this.data.Profiles.Add(newMember);
                 this.data.SaveChanges();
                 memberToBeAdded = newMember;
             }
 
-            memberToBeAdded.PartnerId = input.PartnerId;
-            memberToBeAdded.Parent1Id = input.Parent1Id;
-            memberToBeAdded.Parent2Id = input.Parent2Id;
+            memberToBeAdded.PartnerId = (input.PartnerId != null) ? input.PartnerId : null;
+            memberToBeAdded.Parent1Id = (input.Parent1Id != null) ? input.Parent1Id : null;
+            memberToBeAdded.Parent2Id = (input.Parent2Id != null) ? input.Parent2Id : null;
 
-            var newRelation = new RelationToMe
+            bool relationExists = this.data.Relations
+                .Any(r => r.MemberId == memberId && r.RelativeId == memberToBeAdded.Id);
+            
+            if (!relationExists)
             {
-                MemberId = memberId,
-                RelativeId = memberToBeAdded.Id,
-            };
+                var newRelation = new RelationToMe
+                {
+                    MemberId = memberId,
+                    RelativeId = memberToBeAdded.Id,
+                    Relation = input.RelationToMe
+                };
+                this.data.Relations.Add(newRelation);
+                this.data.SaveChanges();
+            }
 
-            this.data.Relations.Add(newRelation);
-            this.data.SaveChanges();
+
+
         }
     }
 }
