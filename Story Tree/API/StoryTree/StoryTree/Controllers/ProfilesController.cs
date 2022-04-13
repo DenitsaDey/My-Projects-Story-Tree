@@ -66,7 +66,8 @@
             var id = this.profilesService.GetCurrentUserId();
             if (this.profilesService.UpdateProfile(input, id))
             {
-                return Ok();
+                var profile = this.profilesService.GetById(id);
+                return Ok(profile);
             }
 
             return NotFound("Profile not found.");

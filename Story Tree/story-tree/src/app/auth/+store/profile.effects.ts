@@ -31,8 +31,10 @@ export class ProfileEffects {
         ),
     ))
 
+    //DDEY: we use the method bellow so that after each update to display the current information about the user in all components that use it
     onProfileUpdateCompleted$ = createEffect(() => this.actions$.pipe(
         ofType(updateProfileCompleted),
         map(result => login({ user: result.updatedUser }))
     ))
+
 }

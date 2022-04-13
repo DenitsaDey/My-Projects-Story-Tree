@@ -8,8 +8,8 @@ export interface IFullUser{
     location?: string;
     partner?: IUser;
     parent1?: IUser;
-    parent2: IUser;
-    familyMembersCount: number;
+    parent2?: IUser;
+    familyMembersCount?: number;
     relationToMe?: string;
     profilePicture?: string;
 }

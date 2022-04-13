@@ -47,7 +47,7 @@
                         <input type="text" name="location" ngModel id="location" value="{{(currentUser$ | async).location}}"></li>
                     <!-- <li><p>Married to: {{(currentUser$ | async).partner.name}}</p> -->
                     <li><p>Married to: </p>
-                      <select class="form-control" id="partner" name="partner" ngModel value="{{(currentUser$ | async).partner.name}}">                    
+                      <select class="form-control" id="partnerName" name="partnerName" ngModel value="{{(currentUser$ | async).partner.name}}">                    
                         <option *ngFor="let partner of members" [value]="partner.name">{{partner.name}}</option>                 
                     </select>
                         <!-- <input type="text" name="partner" ngModel id="parner" value="{{(currentUser$ | async).partner.name}}"></li> -->

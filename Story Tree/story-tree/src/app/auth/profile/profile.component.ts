@@ -82,7 +82,7 @@ export class ProfileComponent implements OnInit {
       this.editProfileForm.form.patchValue({
         name: currentUser.name,
         location: currentUser.location,
-        partner: currentUser.partner.name,
+        partnerName: currentUser.partner.name,
       })
     });
 
@@ -106,15 +106,15 @@ export class ProfileComponent implements OnInit {
       user: {
         name: this.editProfileForm.value.name,
         location: this.editProfileForm.value.location,
-        partner: this.editProfileForm.value.partner,
-        profilePicture: this.newProfilePicture,
+        partnerName: this.editProfileForm.value.partnerName,
+        //profilePicture: this.newProfilePicture,
       }
     }));
     // TODO stoimenovg: continue. with the http update request
     //console.log(this.editProfileForm.value);
 
     //old version: this.isInEditMode = false;
-    //this.exitEditMode();
+    this.exitEditMode();
   }
 
   // updateProfile(editProfileForm: NgForm){
