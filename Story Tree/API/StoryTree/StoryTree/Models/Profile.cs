@@ -20,7 +20,7 @@
 
         public string Password { get; set; }
 
-        public string ProfilePic { get; set; }
+        public string ProfilePicName { get; set; }
 
         public ICollection<Image> Images { get; set; } = new HashSet<Image>();
 

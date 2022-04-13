@@ -26,5 +26,7 @@
         public int FamilyMembersCount { get; set; }
 
         public string RelationToMe { get; set; }
+
+        public string ProfilePicSrc { get; set; }
     }
 }

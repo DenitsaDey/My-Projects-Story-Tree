@@ -1,5 +1,6 @@
 ﻿namespace StoryTree.ViewModels
 {
+    using Microsoft.AspNetCore.Http;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -19,6 +20,10 @@
 
         //this would come as the name selected from a drop down
         public string PartnerName { get; set; }
+
+        public string ImageName { get; set; }
+
+        public IFormFile ProfilePicture { get; set; }
 
         //public UserViewModel Partner { get; set; }
 

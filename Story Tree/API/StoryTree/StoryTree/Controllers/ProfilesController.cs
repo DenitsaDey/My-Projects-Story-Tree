@@ -1,11 +1,14 @@
 ﻿namespace StoryTree.Controllers
 {
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using StoryTree.Models;
     using StoryTree.Services;
     using StoryTree.ViewModels;
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -86,5 +89,7 @@
 
             return NotFound("Profile not found.");
         }
+
+        
     }
 }

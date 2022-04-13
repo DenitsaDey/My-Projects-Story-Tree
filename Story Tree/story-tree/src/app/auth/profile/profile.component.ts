@@ -107,7 +107,7 @@ export class ProfileComponent implements OnInit {
         name: this.editProfileForm.value.name,
         location: this.editProfileForm.value.location,
         partnerName: this.editProfileForm.value.partnerName,
-        //profilePicture: this.newProfilePicture,
+        profilePicture: this.newProfilePicture,
       }
     }));
     // TODO stoimenovg: continue. with the http update request

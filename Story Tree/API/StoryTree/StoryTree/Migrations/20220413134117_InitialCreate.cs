@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace StoryTree.Migrations
 {
-    public partial class initial : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,7 +15,7 @@ namespace StoryTree.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ProfilePic = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ProfilePicName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Birthday = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     PartnerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
@@ -50,7 +50,8 @@ namespace StoryTree.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Path = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    CreatedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
                     MemberId = table.Column<string>(type: "nvarchar(450)", nullable: true)
                 },
                 constraints: table =>

@@ -3,7 +3,8 @@
     <ng-container *ngIf="!(isInEditMode$ | async)">
     <div class="card">
         <div class="img-avatar">
-          <img src="../../../assets/Images/people/michael-dam-mEZ3PoFGs_k-unsplash.jpg">
+          <!-- <img src="../../../assets/Images/people/michael-dam-mEZ3PoFGs_k-unsplash.jpg"> -->
+          <img src="currentUser.ProfilePicName">
         </div>
         <div class="card-text">
           <div class="portada">
@@ -35,7 +36,8 @@
           </div>
           <div class="card-text">
             <div class="portada">
-              <button>Upload profile picture</button> 
+              <!-- <button>Upload profile picture</button>  -->
+              <input type="file" accept="image/*" id="profile-picture" (change)="handleProfilePictureChange($any($event))" value="Upload profile picture">
             </div>
             <div class="title-total">   
                 <div class="title">Me</div>

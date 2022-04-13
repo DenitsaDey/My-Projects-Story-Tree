@@ -5,11 +5,16 @@ import { map, tap } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { IFullUser, IProfile, IUser } from '../interfaces/index';
 
-// export interface IUpdateUserDto extends Pick<IFullUser, 'name' | 'location' > {
-//   partnerName?: string;
-//   profilePicture?: File;
-// }
-export interface IUpdateUserDto {name: string, location: string, partnerName?: string}
+/* DDEY: the bellow Pick is an Utility type thas specifies 
+"Pick only the following properties from IFullUser interface" 
+and extend it with additional partnerName and Profile picture
+
+ export interface IUpdateUserDto extends Pick<IFullUser, 'name' | 'location' > {
+   partnerName?: string;
+   profilePicture?: File;
+ }
+*/
+export interface IUpdateUserDto {name: string, location: string, partnerName?: string, profilePicture?: File;}
 export interface CreateUserDto { name: string, email: string, password: string }
 //DDEY: this is the same as an object with string key and its value: { [key: string]: string }
 
@@ -36,9 +41,9 @@ export class UserService {
     formData.set('location', newUser.location);
     formData.set('partnerName', newUser.partnerName);
 
-    // if (newUser.profilePicture){
-    //   formData.append('profilePicture', newUser.profilePicture);
-    // }
+    if (newUser.profilePicture){
+      formData.append('profilePicture', newUser.profilePicture);
+    }
 
     return this.httpClient.put<IProfile>(`${apiUrl}/profiles/user`, formData, { withCredentials: true })
   }

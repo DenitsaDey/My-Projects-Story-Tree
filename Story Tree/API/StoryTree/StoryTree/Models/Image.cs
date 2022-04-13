@@ -12,7 +12,9 @@
         public string Id { get; set; } = Guid.NewGuid().ToString();
 
         [Required]
-        public string Path { get; set; }
+        public string Name { get; set; }
+
+        public DateTime? CreatedOn { get; set; }
 
         public string MemberId { get; set; }
 

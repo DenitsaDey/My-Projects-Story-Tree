@@ -48,6 +48,11 @@
                 .HasForeignKey(r => r.MemberId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<Image>()
+                .HasOne(i => i.Member)
+                .WithMany(p => p.Images)
+                .HasForeignKey(i => i.MemberId);
+
         }
     }
 }

@@ -10,8 +10,8 @@ using StoryTree.Data;
 namespace StoryTree.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220330080300_initial")]
-    partial class initial
+    [Migration("20220413134117_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -26,10 +26,13 @@ namespace StoryTree.Migrations
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<DateTime?>("CreatedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("MemberId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Path")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -70,7 +73,7 @@ namespace StoryTree.Migrations
                     b.Property<string>("Password")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ProfilePic")
+                    b.Property<string>("ProfilePicName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

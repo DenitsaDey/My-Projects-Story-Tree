@@ -44,7 +44,7 @@ export const profileReducer = createReducer<IProfilePageState>(
         return {
             ...state,
             isInEditMode: false,
-            currentProfile: action.updatedUser
+            currentProfile: action.updatedUser //DDEY: gives the latest info about the user after the update to the profile component
         }
     })
 )
