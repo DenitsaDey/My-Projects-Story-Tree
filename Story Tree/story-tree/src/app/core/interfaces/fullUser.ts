@@ -1,3 +1,4 @@
+import { IImage } from "./image";
 import { IUser } from "./user";
 
 export interface IFullUser{ 
@@ -11,5 +12,6 @@ export interface IFullUser{
     parent2?: IUser;
     familyMembersCount?: number;
     relationToMe?: string;
-    profilePicName?: string;
+    profilePicSrc?: string;
+    gallery?: IImage[];
 }

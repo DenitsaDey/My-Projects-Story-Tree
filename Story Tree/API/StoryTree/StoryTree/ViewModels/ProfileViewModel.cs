@@ -28,5 +28,9 @@
         public string RelationToMe { get; set; }
 
         public string ProfilePicSrc { get; set; }
+
+        public string ProfilePicName { get; set; }
+
+        public ICollection<ImageViewModel> Gallery { get; set; }
     }
 }

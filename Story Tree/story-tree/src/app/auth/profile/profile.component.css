@@ -56,7 +56,7 @@
   position: absolute;
   border-radius: 50%;
   border: 6px solid white;
-  background-image: linear-gradient(-60deg, #16a085 0%, #f4d03f 100%);
+  background-image: linear-gradient(-60deg, #545A5E 0%, #E2A05E 100%);
   top: 15px;
   right: 45px;
   overflow: hidden;
@@ -87,6 +87,50 @@ path {
   background-image: url("../../../assets/Images/karsten-winegeart-60GsdOMRFGc-unsplash.jpg");
   background-position: bottom center;
   background-size: cover;
+  overflow: hidden;
+}
+
+.carousel-container{
+  position: relative;
+  height: 371px;
+  width: 268px;
+  margin: auto;
+  /* text-align: center; */
+}
+
+carousel-container>img{
+  display: none;
+
+}
+
+carousel-container>img.image-active {
+  display: block;
+  height: 100%;
+  max-width: 268px;
+  object-fit: cover;
+}
+
+carouse-date-container{
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  justify-content: center;
+  padding: 5px;
+  margin-bottom: 1rem;
+  background-color: var(--color-bckgr-light);
+  color: #fff;
+}
+
+/* DDEY: image transition fade effect */
+.fade{
+  animation: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from{opacity: 0.4;}
+  to{opacity: 1;}
 }
 
 .portada>button{
@@ -161,10 +205,33 @@ button:hover{
 .edit-button:disabled{
   background-color: grey;
 }
-  .subscribe{
-      color: green;
-  }
+  
+input[type="file"]{
+  display: none;
+}
 
-  .unsubscribe{
-      color: red;
-  }
+.custom-file-upload {
+  border: none;
+  background: none;
+  font-size: 14px;
+  cursor: pointer;
+  transition:.5s;
+  border-radius:8px;
+  background-color:var(--color-bkgrd-light);
+    padding: 4px 8px;
+    color: white;
+    position: absolute;
+    bottom: 20px;
+    left: 60px;
+}
+
+.custom-file-upload:hover{
+  background-color: var(--color-text-primary);
+}
+
+.profile{
+  position: static;
+  margin-left: 15px;
+  margin-right: 60px;
+}
+

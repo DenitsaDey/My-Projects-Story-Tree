@@ -1,6 +1,9 @@
 @import url("https://use.fontawesome.com/releases/v6.0.0/css/icons.css");
 
+
 #error-wrapper{
+  /* background-color: var(--color-input-subscribe); */
+  background: linear-gradient(0deg, rgba(241,244,247,1) 28%, rgba(75,104,122,1) 90%);
   padding:150px 100px 10px 100px;
 }
 .mainbox {
@@ -11,7 +14,7 @@
   }
   
     .err {
-      color: #95c2de;
+      color: var(--color-text-primary);
       font-family: 'Nunito Sans', sans-serif;
       font-size: 11rem;
       position:absolute;
@@ -24,11 +27,11 @@
     font-size: 8.5rem;
     left: 42%;
     top: 15%;
-    color: #95c2de;
+    color: var(--color-text-primary);
   }
   
    .err2 {
-      color: #95c2de;
+      color: var(--color-text-primary);
       font-family: 'Nunito Sans', sans-serif;
       font-size: 11rem;
       position:absolute;
@@ -48,7 +51,7 @@
   
   a {
     text-decoration: none;
-    color: #95c2de;
+    color: var(--color-text-primary);
   }
   
   a:hover {

@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-import { IFullUser } from 'src/app/core/interfaces';
+import { Observable, tap } from 'rxjs';
+import { IFullUser, IImage } from 'src/app/core/interfaces';
 import { MemberService } from 'src/app/core/services/member.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { IAuthModuleState } from '../+store';
@@ -19,12 +19,12 @@ export class ProfileComponent implements OnInit {
   @ViewChild('editProfileForm') editProfileForm: NgForm;
 
   //old version: currentUser$: Observable<IFullUser> = this.authService.currentUser$;
-  
+
   //DDEY: we can pipe the observable to set the currentUser and use it directly in the html, or else set it in the html as currentUser$ | async
-  // currentUser: IUser;
+   //currentUser: IFullUser;
   currentUser$: Observable<IFullUser> = this.store.select(state => state.auth.profile.currentProfile)
-  // .pipe(tap(profile => this.currentUser = profile))
-  ;
+     //.pipe(tap(profile => this.currentUser = profile))
+    ;
 
   //old version: user: IFullUser;
 
@@ -34,8 +34,16 @@ export class ProfileComponent implements OnInit {
   hasErrorHappened: Observable<boolean> = this.store.select(state => state.auth.profile.errorHappened);
 
   newProfilePicture?: File;
+  newGalleryPicture?: File;
 
+  //DDEY: used for populating the drop-down menu for Partner in Edit mode
   members = [];
+
+  gallery : IImage[] = [];
+  selectedIndex = 1;
+  slideInterval = 3000; //DDEY: Default to 3 secs
+
+  //startIndex = 0;
 
   constructor(
     private memberService: MemberService,
@@ -44,7 +52,7 @@ export class ProfileComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private store: Store<IAuthModuleState>) { }
 
-   
+
   ngOnInit(): void {
     this.store.dispatch(profilePageInitalized());
 
@@ -56,25 +64,85 @@ export class ProfileComponent implements OnInit {
 
     this.memberService.getAllMembers$().subscribe(
       (response) => this.members = response
-          );
+    );
 
-    //old version replaced by profilePageInitalized()
-      // this.userService.getUser$().subscribe({
-      //   next: (user) => {
-      //     this.user = user;
-      //   },
-      //   error: () => {
-      //     this.router.navigate(['/login'])
-      //   }
-      // });
+    this.userService.getUser$().subscribe( (user) =>{
+      this.gallery = user.gallery;
+    })
+
+    
+    this.autoSlideGallery();
+    
+    //this.Repeat();
+
+    /*DDEY: old version replaced by profilePageInitalized()
+      this.userService.getUser$().subscribe({
+        next: (user) => {
+          this.user = user;
+        },
+        error: () => {
+          this.router.navigate(['/login'])
+        }
+      });
 
       
-      // this.userService.getUser$().subscribe( (user) =>{
-      //     this.user = user;
-      //   })
+      this.userService.getUser$().subscribe( (user) =>{
+          this.user = user;
+        })
+  */
+
   }
 
-  enterEditMode(currentUser: IFullUser): void{
+  autoSlideGallery(): void{
+    setInterval(() =>{
+      this.onNextClick();
+      this.autoSlideGallery();
+    }, this.slideInterval);
+  }
+
+  onNextClick(): void{
+    if(this.selectedIndex === this.gallery.length -1){
+      this.selectedIndex = 1;
+    } else{
+      this.selectedIndex++;
+    }
+  }
+
+  selectImage(index: number): void{
+    this.selectedIndex = index;
+  }
+  /*
+  Repeat(){
+    setTimeout(() => {
+      this.__FunctionSlide();
+      this.Repeat();
+    }, 2000);
+  }
+
+  __FunctionSlide() {
+    const slides = Array.from(document.getElementsByClassName('mall-show-slide'));
+    if (slides === []) {
+      this.Repeat();
+    }
+    for (const x of slides) {
+      const y = x as HTMLElement;
+      y.style.display = 'none';
+    }
+    if (this.startIndex > slides.length - 1) {
+      this.startIndex = 0;
+      const slide = slides[this.startIndex] as HTMLElement;
+      slide.style.display = 'block';
+      this.startIndex++;
+    } else {
+
+      const slide = slides[this.startIndex] as HTMLElement;
+      slide.style.display = 'block';
+      this.startIndex++;
+    }
+  }
+  */
+
+  enterEditMode(currentUser: IFullUser): void {
     this.store.dispatch(enterEditMode());
 
     //DDEY when template forms are used it is advisory to use setTimeout() in order to give time to the form to detect the changes in the new values
@@ -108,10 +176,9 @@ export class ProfileComponent implements OnInit {
         location: this.editProfileForm.value.location,
         partnerName: this.editProfileForm.value.partnerName,
         profilePicture: this.newProfilePicture,
+        newGalleryPicture: this.newGalleryPicture,
       }
     }));
-    // TODO stoimenovg: continue. with the http update request
-    //console.log(this.editProfileForm.value);
 
     //old version: this.isInEditMode = false;
     this.exitEditMode();
@@ -128,15 +195,22 @@ export class ProfileComponent implements OnInit {
   //     }
   //   })
   //   this.exitEditMode();
-    
+
   // }
 
   exitEditMode(): void {
     this.store.dispatch(exitEditMode());
   }
 
+  //DDEY: changing profile pic
   handleProfilePictureChange(event: InputEvent) {
     const input: HTMLInputElement = event.target as HTMLInputElement;
     this.newProfilePicture = input.files[0];
+  }
+
+  //DDEY: adding new picture to profile's gallery
+  handleGalleryPictureChange(event: InputEvent) {
+    const input: HTMLInputElement = event.target as HTMLInputElement;
+    this.newGalleryPicture = input.files[0];
   }
 }

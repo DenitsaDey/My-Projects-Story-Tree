@@ -25,6 +25,10 @@
 
         public IFormFile ProfilePicture { get; set; }
 
+        public string NewGalleryPicture { get; set; }
+
+        public IFormFile newGalleryPicture { get; set; }
+
         //public UserViewModel Partner { get; set; }
 
         //public UserViewModel Parent1 { get; set; }

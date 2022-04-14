@@ -32,20 +32,20 @@
         }
 
         //Get a sigle profile
-        [HttpGet]
-        [Route("{id:}")]
-        [ActionName("GetProfile")]
-        public IActionResult GetProfile([FromRoute] string id)
-        {
-            //var id = this.profilesService.GetCurrentUserId();
-            var profile = this.profilesService.GetById(id);
-            if (profile != null)
-            {
-                return Ok(profile);
-            }
+        //[HttpGet]
+        //[Route("{id:}")]
+        //[ActionName("GetProfile")]
+        //public IActionResult GetProfile([FromRoute] string id)
+        //{
+        //    //var id = this.profilesService.GetCurrentUserId();
+        //    var profile = this.profilesService.GetById(id);
+        //    if (profile != null)
+        //    {
+        //        return Ok(profile);
+        //    }
 
-            return NotFound("The profile could not be found!");
-        }
+        //    return NotFound("The profile could not be found!");
+        //}
 
         [HttpGet]
         [Route("user")]

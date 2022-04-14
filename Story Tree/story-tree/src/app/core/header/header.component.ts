@@ -11,13 +11,6 @@ import { UserService } from '../services/user.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  //old version:
-  // get isLogged(): boolean {
-  //   return this.userService.isLogged;  
-  // }
-  // get currentUser(): IUser {
-  //   return this.userService.currentUser;
-  // }
 
   currentUser$: Observable<IFullUser> = this.authService.currentUser$;
   isLoggedIn$: Observable<boolean> = this.authService.isLoggedIn$;

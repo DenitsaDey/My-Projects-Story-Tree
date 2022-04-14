@@ -16,7 +16,7 @@
 
     public class ProfilesService : IProfilesService
     {
-        
+
         private readonly ApplicationDbContext data;
         private readonly IHttpContextAccessor httpContextAccessor;
         private readonly IWebHostEnvironment hostEnvironment;
@@ -54,6 +54,7 @@
 
         }
 
+        //DDEY: TODO - get all, but related to the current user
         public IEnumerable<ProfileViewModel> GetAll()
         {
             var profiles = this.data.Profiles
@@ -69,7 +70,8 @@
                     Parent2 = this.data.Profiles.Where(x => x.Id == p.Parent2.Id).Select(pr => new UserViewModel { Id = pr.Id, Name = pr.Name, Email = pr.Email }).FirstOrDefault(),
                     FamilyMembersCount = this.data.Relations.Where(r => r.MemberId == p.Id).Count(),
                     RelationToMe = "",
-                    ProfilePicSrc =  GetPictureSrc(p.ProfilePicName),
+                    ProfilePicName = p.ProfilePicName,
+                    ProfilePicSrc = String.Format("{0}://{1}{2}/Images/{3}", this.httpContextAccessor.HttpContext.Request.Scheme, this.httpContextAccessor.HttpContext.Request.Host, this.httpContextAccessor.HttpContext.Request.PathBase, p.ProfilePicName),
                 })
                 .ToList();
 
@@ -93,7 +95,16 @@
                                         Parent2 = this.data.Profiles.Where(x => x.Id == p.Parent2.Id).Select(pr => new UserViewModel { Id = pr.Id, Name = pr.Name, Email = pr.Email }).FirstOrDefault(),
                                         FamilyMembersCount = this.data.Relations.Where(r => r.MemberId == p.Id).Count(),
                                         RelationToMe = "",
-                                        //ProfilePicSrc = GetPictureSrc(p.ProfilePicName),
+                                        ProfilePicName = p.ProfilePicName,
+                                        ProfilePicSrc = String.Format("{0}://{1}{2}/Images/{3}", this.httpContextAccessor.HttpContext.Request.Scheme, this.httpContextAccessor.HttpContext.Request.Host, this.httpContextAccessor.HttpContext.Request.PathBase, p.ProfilePicName),
+                                        Gallery = this.data.Images.Where(i => i.MemberId == p.Id)
+                                                        .OrderByDescending(i => i.CreatedOn)
+                                                        .Select(i => new ImageViewModel
+                                                        {
+                                                            ImageName = i.Name,
+                                                            ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", this.httpContextAccessor.HttpContext.Request.Scheme, this.httpContextAccessor.HttpContext.Request.Host, this.httpContextAccessor.HttpContext.Request.PathBase, i.Name),
+                                                            CreatedOn = i.CreatedOn.ToString(),
+                                                        }).ToList(),
                                     })
                                     .FirstOrDefault();
             return currentUser;
@@ -116,7 +127,17 @@
                     Parent2 = this.data.Profiles.Where(x => x.Id == p.Parent2.Id).Select(pr => new UserViewModel { Id = pr.Id, Name = pr.Name, Email = pr.Email }).FirstOrDefault(),
                     FamilyMembersCount = this.data.Relations.Where(r => r.MemberId == id).Count(),
                     RelationToMe = this.data.Relations.Where(x => x.MemberId == id && x.RelativeId == id).FirstOrDefault().Relation,
-                    ProfilePicSrc = GetPictureSrc(p.ProfilePicName),
+                    ProfilePicName = p.ProfilePicName,
+                    ProfilePicSrc = String.Format("{0}://{1}{2}/Images/{3}", this.httpContextAccessor.HttpContext.Request.Scheme, this.httpContextAccessor.HttpContext.Request.Host, this.httpContextAccessor.HttpContext.Request.PathBase, p.ProfilePicName),
+                    Gallery = this.data.Images.Where(i => i.MemberId == p.Id)
+                                                        .OrderByDescending(i => i.CreatedOn)
+                                                        .Select(i => new ImageViewModel
+                                                        {
+                                                            ImageName = i.Name,
+                                                            ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", this.httpContextAccessor.HttpContext.Request.Scheme, this.httpContextAccessor.HttpContext.Request.Host, this.httpContextAccessor.HttpContext.Request.PathBase, i.Name),
+                                                            CreatedOn = i.CreatedOn.ToString(),
+                                                        })
+                                                        .ToList(),
                 })
                 .FirstOrDefault();
             return profile;
@@ -165,11 +186,29 @@
             currentProfile.Location = input.Location;
             currentProfile.Partner = this.data.Profiles.Where(p => p.Name == input.PartnerName).FirstOrDefault();
 
-            //DDEY: adding the profile picture
+            //DDEY: updating the profile picture
             if (input.ProfilePicture != null)
             {
                 input.ImageName = SaveImage(input.ProfilePicture);
                 currentProfile.ProfilePicName = input.ImageName;
+            }
+
+            //DDEY: adding new gallery pic to the images, from where by id the user can get their profiles collection
+            var galleryPicId = "";
+            if (input.newGalleryPicture != null)
+            {
+                input.NewGalleryPicture = SaveImage(input.newGalleryPicture);
+
+                var newGalleryPic = new Image
+                {
+                    Name = input.NewGalleryPicture,
+                    MemberId = id,
+                    CreatedOn = DateTime.Now.Date,
+                };
+
+                this.data.Images.Add(newGalleryPic);
+                this.data.SaveChanges();
+                galleryPicId = newGalleryPic.Id;
             }
 
             //DDEY: remove old partner relation and save the new partner
@@ -211,19 +250,5 @@
             }
             return imageName;
         }
-
-        public string GetPictureSrc(string pictureName)
-        {
-            return String.Format("{0}://{1}{2}/Images/{3}", this.httpContextAccessor.HttpContext.Request.Scheme, this.httpContextAccessor.HttpContext.Request.Host, this.httpContextAccessor.HttpContext.Request.PathBase, pictureName);
-            //return String.Format("{0}://{1}/Images/{2}", this.httpContextAccessor.HttpContext.Request.Scheme, this.httpContextAccessor.HttpContext.Request.Host, pictureName);
-        }
-
-        //DDEY: TODO - find how to delete old profile pics from Images folder
-        //public void DeleteProfilePic(string imageName)
-        //{
-        //    var imagePath = String.Format("{0}://{1}{2}/Images/{3}", this.httpContextAccessor.HttpContext.Request.Scheme, this.httpContextAccessor.HttpContext.Request.Host, this.httpContextAccessor.HttpContext.Request.PathBase, imageName);
-
-        //    using(var fileStream = new FileStream(imagePath, FileMode.Tr))
-        //}
     }
 }
