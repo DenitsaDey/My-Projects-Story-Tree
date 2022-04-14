@@ -1,5 +1,7 @@
 ﻿namespace StoryTree.Services
 {
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using StoryTree.Data;
     using StoryTree.Models;
     using StoryTree.ViewModels;
@@ -12,10 +14,19 @@
     public class FamilyMembersService : IFamilyMembersService
     {
         private readonly ApplicationDbContext data;
+        private readonly IHttpContextAccessor httpContextAccessor;
+        private readonly IWebHostEnvironment hostEnvironment;
+        private readonly IProfilesService profilesService;
 
-        public FamilyMembersService(ApplicationDbContext data)
+        public FamilyMembersService(ApplicationDbContext data,
+            IHttpContextAccessor httpContextAccessor,
+            IWebHostEnvironment hostEnvironment,
+            IProfilesService profilesService)
         {
             this.data = data;
+            this.httpContextAccessor = httpContextAccessor;
+            this.hostEnvironment = hostEnvironment;
+            this.profilesService = profilesService;
         }
 
 
@@ -39,18 +50,36 @@
                                         .Where(p => p.Id == member.RelativeId)
                                         .Select(p => new FamilyMemberViewModel
                                         {
-                                            Id = p.Id,
+                                            Key = p.Id,
                                             Name = p.Name,
-                                            PartnerId = p.PartnerId,
-                                            Parent1Id = p.Parent1Id,
-                                            Parent2Id = p.Parent2Id,
-                                            RelationToMe = member.Relation
-                                            //DDEY: TODO - to add options for profile pic and button Details if prop bool shareInfo is true
+                                            Partner = p.Partner.Name,
+                                            Parent = p.Parent1Id,
+                                            RelationToMe = member.Relation,
+                                            ProfilePicName = p.ProfilePicName,
+                                            ProfilePicSrc = String.Format("{0}://{1}{2}/Images/{3}", this.httpContextAccessor.HttpContext.Request.Scheme, this.httpContextAccessor.HttpContext.Request.Host, this.httpContextAccessor.HttpContext.Request.PathBase, p.ProfilePicName),
                                         })
                                         .FirstOrDefault();
 
                 family.Add(currentMember);
             }
+
+
+            //DDEY: Adding also the current user to the tree
+            var myProfile = this.data.Profiles
+                .Where(p => p.Id == profileId)
+                                        .Select(p => new FamilyMemberViewModel
+                                        {
+                                            Key = p.Id,
+                                            Name = p.Name,
+                                            Partner = p.Partner.Name,
+                                            Parent = p.Parent1Id,
+                                            RelationToMe = "Me",
+                                            ProfilePicName = p.ProfilePicName,
+                                            ProfilePicSrc = String.Format("{0}://{1}{2}/Images/{3}", this.httpContextAccessor.HttpContext.Request.Scheme, this.httpContextAccessor.HttpContext.Request.Host, this.httpContextAccessor.HttpContext.Request.PathBase, p.ProfilePicName),
+                                        })
+                                        .FirstOrDefault();
+
+            family.Add(myProfile);
 
             return family;
         }

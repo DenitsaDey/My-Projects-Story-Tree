@@ -1,9 +1,8 @@
 export interface IMember{
-    id:string;
+    key:string;
     name: string;
     relationToMe?: string;
-    partnerId?: string;
-    parent1Id?: string;
-    parent2Id?: string;
-    //DDEY: TODO - to add options for profile pic and button Details if prop bool shareInfo is true
+    partner?: string; //DDEY: we want only the name of the partner
+    parent?: string; //DDEY: we want only the id of the 1st parent, but for the gojs tree model we call it just 'parent'
+    profilePicSrc?: string;
 }

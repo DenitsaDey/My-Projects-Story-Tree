@@ -16,19 +16,12 @@ export class FamilyService {
   constructor(private httpClient: HttpClient) {}
    
   //DDEY: used in family tree page component
-  //DDEY: TODO find how to get the profileId from the jwt ? {withCredentials: true}
-   loadFamilyTree$(): Observable<IMember[]>{
+  loadFamilyTree$(): Observable<IMember[]>{
     return this.httpClient.get<IMember[]>(`${apiUrl}/familymembers`, { withCredentials: true})
-    .pipe(map((familyMembers: []) => {
-      return familyMembers
-      // .map(familyMember => ({
-      //   id: familyMember.id,
-      //   name: familyMember.name,
-      //   relationToMe: familyMember.relationToMe,
-      //   parent1Id: familyMember.parent1Id
-      // }))
-    })
-    );
+    // .pipe(map((familyMembers: IMember[]) => {
+    //   return familyMembers
+    // })
+    // );
    }
   
 }

@@ -93,9 +93,9 @@ export class FamilyDiagramComponent implements OnInit {
             desiredSize: new go.Size(39, 50),
             margin: new go.Margin(6, 8, 6, 10)
           },
-          new go.Binding('source', 'key', function(key) {
-            if (key < 0 || key > 16) return ''; // There are only 16 images on the server
-            return 'assets/HS' + key + '.png';
+          new go.Binding('source', 'id', function(id) {
+            if (id < 0 || id > 16) return ''; // There are only 16 images on the server
+            return 'assets/HS' + id + '.png';
           })
         ),
         // define the panel where the text will appear
@@ -126,7 +126,7 @@ export class FamilyDiagramComponent implements OnInit {
             new go.Binding('text', 'relationToMe').makeTwoWay()),
           $(go.TextBlock, { font: '9pt  Segoe UI,sans-serif', stroke: 'white' },
             { row: 2, column: 0 },
-            new go.Binding('text', 'key', function(v) { return 'ID: ' + v; })),
+            new go.Binding('text', 'key', function(v) { return 'ID: ' + v; })),//DDEY: responsible for the ID text in the field
           $(go.TextBlock, { font: '9pt  Segoe UI,sans-serif', stroke: 'white' },
             { name: 'boss', row: 2, column: 3 }, // we include a name so we can access this TextBlock when deleting Nodes/Links
             new go.Binding('text', 'parent', function(v) { return 'Boss: ' + v; })),

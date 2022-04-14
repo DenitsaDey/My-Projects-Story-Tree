@@ -54,29 +54,29 @@
 
         }
 
-        //DDEY: TODO - get all, but related to the current user
-        public IEnumerable<ProfileViewModel> GetAll()
-        {
-            var profiles = this.data.Profiles
-                .Select(p => new ProfileViewModel
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Email = p.Email,
-                    Birthday = p.Birthday.ToString(),
-                    Location = p.Location,
-                    Partner = this.data.Profiles.Where(x => x.Id == p.Partner.Id).Select(pr => new UserViewModel { Id = pr.Id, Name = pr.Name, Email = pr.Email }).FirstOrDefault(),
-                    Parent1 = this.data.Profiles.Where(x => x.Id == p.Parent1.Id).Select(pr => new UserViewModel { Id = pr.Id, Name = pr.Name, Email = pr.Email }).FirstOrDefault(),
-                    Parent2 = this.data.Profiles.Where(x => x.Id == p.Parent2.Id).Select(pr => new UserViewModel { Id = pr.Id, Name = pr.Name, Email = pr.Email }).FirstOrDefault(),
-                    FamilyMembersCount = this.data.Relations.Where(r => r.MemberId == p.Id).Count(),
-                    RelationToMe = "",
-                    ProfilePicName = p.ProfilePicName,
-                    ProfilePicSrc = String.Format("{0}://{1}{2}/Images/{3}", this.httpContextAccessor.HttpContext.Request.Scheme, this.httpContextAccessor.HttpContext.Request.Host, this.httpContextAccessor.HttpContext.Request.PathBase, p.ProfilePicName),
-                })
-                .ToList();
+        ////DDEY: TODO - get all, but related to the current user
+        //public IEnumerable<ProfileViewModel> GetAll()
+        //{
+        //    var profiles = this.data.Profiles
+        //        .Select(p => new ProfileViewModel
+        //        {
+        //            Id = p.Id,
+        //            Name = p.Name,
+        //            Email = p.Email,
+        //            Birthday = p.Birthday.ToString(),
+        //            Location = p.Location,
+        //            Partner = this.data.Profiles.Where(x => x.Id == p.Partner.Id).Select(pr => new UserViewModel { Id = pr.Id, Name = pr.Name, Email = pr.Email }).FirstOrDefault(),
+        //            Parent1 = this.data.Profiles.Where(x => x.Id == p.Parent1.Id).Select(pr => new UserViewModel { Id = pr.Id, Name = pr.Name, Email = pr.Email }).FirstOrDefault(),
+        //            Parent2 = this.data.Profiles.Where(x => x.Id == p.Parent2.Id).Select(pr => new UserViewModel { Id = pr.Id, Name = pr.Name, Email = pr.Email }).FirstOrDefault(),
+        //            FamilyMembersCount = this.data.Relations.Where(r => r.MemberId == p.Id).Count(),
+        //            RelationToMe = "",
+        //            ProfilePicName = p.ProfilePicName,
+        //            ProfilePicSrc = String.Format("{0}://{1}{2}/Images/{3}", this.httpContextAccessor.HttpContext.Request.Scheme, this.httpContextAccessor.HttpContext.Request.Host, this.httpContextAccessor.HttpContext.Request.PathBase, p.ProfilePicName),
+        //        })
+        //        .ToList();
 
-            return profiles;
-        }
+        //    return profiles;
+        //}
 
         //DDEY: method is used for login in AuthController
         public ProfileViewModel GetUserProfile(string email, string password)

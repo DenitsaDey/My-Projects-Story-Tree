@@ -35,7 +35,7 @@
         //Get Details about a relative
         //TODO Authorise
         [HttpGet]
-        [Route("{profileId:}/{relativeId:}")]
+        [Route("{relativeId:}")]
         public IActionResult GetMemberDetails([FromRoute] string profileId, [FromRoute] string relativeId)
         {
             var relativeDetails = this.familymembersService.GetById(profileId, relativeId);

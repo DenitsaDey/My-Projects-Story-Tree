@@ -24,12 +24,12 @@
         }
 
         //Get All Profiles
-        [HttpGet]
-        public IActionResult GetAllProfiles()
-        {
-            var profiles = this.profilesService.GetAll();
-            return Ok(profiles);
-        }
+        //[HttpGet]
+        //public IActionResult GetAllProfiles()
+        //{
+        //    var profiles = this.profilesService.GetAll();
+        //    return Ok(profiles);
+        //}
 
         //Get a sigle profile
         //[HttpGet]

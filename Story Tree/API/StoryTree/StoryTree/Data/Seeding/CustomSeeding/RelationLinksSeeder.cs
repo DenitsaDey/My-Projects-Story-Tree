@@ -14,10 +14,10 @@
                 return;
             }
 
-            AddLinks(dbContext, "Daniela Dess", "Alexander Dess", "Severina Milan", "Domnic Milan");
+            AddLinks(dbContext, "Daniela Dess", "Alexander Dess", "Domnic Milan", "Severina Milan");
             AddLinks(dbContext, "Alexander Dess", "Daniela Dess", null, null);
             AddLinks(dbContext, "Ian Vel", "Vivian Vel", null, null);
-            AddLinks(dbContext, "Vivian Vel", "Ian Vel", "Severina Milan", "Domnic Milan");
+            AddLinks(dbContext, "Vivian Vel", "Ian Vel", "Domnic Milan", "Severina Milan");
             AddLinks(dbContext, "Severina Milan", "Domnic Milan", "Velina Vouche", null);
             AddLinks(dbContext, "Domnic Milan", "Severina Milan", "Stella Milan", null);
             AddLinks(dbContext, "Sonya Dess", null, "Daniela Dess", "Alexander Dess");

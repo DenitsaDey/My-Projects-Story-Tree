@@ -1,5 +1,6 @@
 ﻿namespace StoryTree.Services
 {
+    using Microsoft.AspNetCore.Http;
     using StoryTree.Models;
     using StoryTree.ViewModels;
     using System;
@@ -11,7 +12,7 @@
     {
         string GetCurrentUserId();
 
-        IEnumerable<ProfileViewModel> GetAll();
+        //IEnumerable<ProfileViewModel> GetAll();
 
         ProfileViewModel GetUserProfile(string email, string password);
 
@@ -26,5 +27,7 @@
         bool UpdateProfile(ProfileInputModel input, string id);
 
         bool DeleteProfile(string id);
+
+        string SaveImage(IFormFile profilePicture);
     }
 }
