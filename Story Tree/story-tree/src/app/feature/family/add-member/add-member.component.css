@@ -17,7 +17,7 @@
     position: relative;
     margin: -10% auto;
     width: 600px;
-    height: 400px;
+    height: 450px;
     background-color: rgba(0,0,0,0.3);
     border-radius: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
@@ -61,8 +61,7 @@
     background-color:var(--color-bkgrd-light);
       padding: 4px 8px;
       color: white;
-      margin-left: 15px;
-      margin-top: 15px;
+      margin: 10px 10px 10px 10px;
   }
     /* button>i:hover{
       color: #E2A05E  ;

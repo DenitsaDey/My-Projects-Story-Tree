@@ -1,4 +1,5 @@
 <div class="body-wrapper">
+
   <ng-container *ngIf="(currentUser$ | async) as currentUser">
     <ng-container *ngIf="!(isInEditMode$ | async)">
       <div class="card">
@@ -7,25 +8,8 @@
         </div>
         <div class="card-text">
           <div class="portada">
-            <div *ngIf="gallery && gallery.length > 0" class="carousel-container">
-              <img *ngFor="let image of gallery; let i=index" 
-              src="{{image.imageSrc}}" 
-              [ngClass]="{'image-active': this.selectedIndex === i}"
-              class="fade">
-              
-            </div>
-            <!-- <div class="mall-slide">
-              <div class="slid-content" id="gallery" name="gallery">
-                  <div class="mall-show-slide fade" *ngFor="let item of gallery">
-                      <img src="{{item.imageSrc}}" style="width:100%">
-                  </div>
-                  <div class="mall-carousel-ind">
-                      <ul>
-                          <li *ngFor="let item of gallery; let i = index;" [class.mall-this]="startIndex - 1 === i"></li>
-                      </ul>
-                  </div>
-              </div> 
-          </div>-->
+            <input type="button" class="button-primary" value="View My Galley" routerLink="/family/{{currentUser.id}}">
+          
           </div>
           <div class="title-total">
             <h2>{{currentUser.name}}</h2>

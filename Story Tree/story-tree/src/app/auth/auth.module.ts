@@ -29,4 +29,5 @@ import { ProfileEffects } from './+store/profile.effects';
     EffectsModule.forFeature([ProfileEffects])
   ]
 })
-export class AuthModule { }
+export class AuthModule {  
+}

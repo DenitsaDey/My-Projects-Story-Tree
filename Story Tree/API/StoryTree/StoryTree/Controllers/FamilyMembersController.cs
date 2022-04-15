@@ -23,7 +23,7 @@
             this.profilesService = profilesService;
         }
 
-        //Get All Relatives
+        //Get All Relatives for the current user
         [HttpGet]
         public IActionResult GetAllProfiles()
         {
@@ -36,9 +36,9 @@
         //TODO Authorise
         [HttpGet]
         [Route("{relativeId:}")]
-        public IActionResult GetMemberDetails([FromRoute] string profileId, [FromRoute] string relativeId)
+        public IActionResult GetMemberDetails([FromRoute] string relativeId)
         {
-            var relativeDetails = this.familymembersService.GetById(profileId, relativeId);
+            var relativeDetails = this.familymembersService.GetById( relativeId);
             if (relativeDetails != null)
             {
                 return Ok(relativeDetails);

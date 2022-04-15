@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -9,6 +9,7 @@ import { UserService } from 'src/app/core/services/user.service';
 import { IAuthModuleState } from '../+store';
 import { enterEditMode, exitEditMode, profilePageInitalized, updateProfileStarted } from '../+store/actions';
 
+export interface CarouselImage{ imageSrc: string;}
 @Component({
   selector: 'stapp-profile',
   templateUrl: './profile.component.html',
@@ -39,6 +40,7 @@ export class ProfileComponent implements OnInit {
   //DDEY: used for populating the drop-down menu for Partner in Edit mode
   members = [];
 
+  //gallery: CarouselImage[] = [{imageSrc: 'http://localhost:19986/I…/sincerely-225318523.jpg'}, {imageSrc: 'http://localhost:19986/I…/noah-busch225344455.jpg'}];
   gallery : IImage[] = [];
   selectedIndex = 1;
   slideInterval = 3000; //DDEY: Default to 3 secs
@@ -58,7 +60,7 @@ export class ProfileComponent implements OnInit {
 
     this.hasErrorHappened.subscribe((hasError) => {
       if (hasError) {
-        this.router.navigate(['/user/login']) //DDEY: left on purpose as 'login' instead of redirecting to 'signin' in order for the 'Not found' page to be called as a clue that the error comes from here 
+        this.router.navigate(['/user/login']) //DDEY: left on purpose as 'login' instead of redirecting to 'signin' in order for the 'Not found' page to be called as a clue that the error comes from here
       }
     });
 
@@ -68,11 +70,11 @@ export class ProfileComponent implements OnInit {
 
     this.userService.getUser$().subscribe( (user) =>{
       this.gallery = user.gallery;
-    })
+    });
 
-    
-    this.autoSlideGallery();
-    
+
+    //this.autoSlideGallery();
+
     //this.Repeat();
 
     /*DDEY: old version replaced by profilePageInitalized()
@@ -85,7 +87,7 @@ export class ProfileComponent implements OnInit {
         }
       });
 
-      
+
       this.userService.getUser$().subscribe( (user) =>{
           this.user = user;
         })
@@ -93,24 +95,28 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  autoSlideGallery(): void{
-    setInterval(() =>{
-      this.onNextClick();
-      this.autoSlideGallery();
-    }, this.slideInterval);
-  }
+  // ngAfterViewInit(): void{
+  //   this.autoSlideGallery();
+  // }
 
-  onNextClick(): void{
-    if(this.selectedIndex === this.gallery.length -1){
-      this.selectedIndex = 1;
-    } else{
-      this.selectedIndex++;
-    }
-  }
+  // autoSlideGallery(): void{
+  //   setInterval(() =>{
+  //     this.onNextClick();
+  //     this.autoSlideGallery();
+  //   }, this.slideInterval);
+  // }
 
-  selectImage(index: number): void{
-    this.selectedIndex = index;
-  }
+  // onNextClick(): void{
+  //   if(this.selectedIndex === this.gallery.length -1){
+  //     this.selectedIndex = 1;
+  //   } else{
+  //     this.selectedIndex++;
+  //   }
+  // }
+
+  // selectImage(index: number): void{
+  //   this.selectedIndex = index;
+  // }
   /*
   Repeat(){
     setTimeout(() => {

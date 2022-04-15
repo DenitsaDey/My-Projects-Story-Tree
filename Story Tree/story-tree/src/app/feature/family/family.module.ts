@@ -10,8 +10,6 @@ import { AddMemberComponent } from './add-member/add-member.component';
 
 
 
-
-
 @NgModule({
   declarations: [
     FamilyTreePageComponent,

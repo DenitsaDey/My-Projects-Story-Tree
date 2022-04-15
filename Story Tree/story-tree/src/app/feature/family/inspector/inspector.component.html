@@ -1,9 +1,39 @@
-<form *ngIf="selectedNode" (ngSubmit)="onCommitForm()">
-    Name: <input name="name" [(ngModel)]="data.name" />
-    Boss: <input name="parent" [(ngModel)]="data.parent" />
-    <button type="submit">Commit</button>
+<ng-container *ngIf="selectedNode">
+  <form (ngSubmit)="onCommitForm()">
+    <h1>Edit member</h1>
+    <label for="name">Name: </label> <input name="name" [(ngModel)]="data.name" />
+    <label for="relationToMe">Relation: </label><input name="relationToMe" [(ngModel)]="data.relationToMe" />
+    <!-- <label for="parent">Parent: </label><input name="parent" [(ngModel)]="data.parent" /> -->
+    <button type="submit">Save</button>
+    <!-- <button type="button" (click)="exitEditMode()">Cancel</button> -->
   </form>
 
-  <div *ngIf="selectedNode">
-    {{selectedNode.data.name}}
-  </div>
+  <!-- <div *ngIf="!editMode" class="info-wrapper">
+    <div class="title-total">
+      <h2>{{selectedNode.data.name}}</h2>
+      <div class="actions">
+        <ul>
+          <li>
+            <p><span class="title-sm">Relation: </span>{{selectedNode.data.relationToMe}}</p>
+          </li>
+          <li>
+            <p><span class="title-sm">Parent: </span>{{selectedNode.data.parent}}</p>
+          </li>
+        </ul>
+      </div>
+      <button type="button" (click)="enterEditMode()" class="edit-button">Edit</button>
+    </div>
+    <div class="title-total">
+      <button type="button" routerLink="['/family', '36a655ce82af441d8e115149ac9756be'"] >View Gallery</button>
+      
+    </div> -->
+  <!-- </div> -->
+</ng-container>
+
+<!-- DDEY: example of routerLink with parameters
+        <div class="title-total"> 
+        <a [routerLink="['/family', member.id]"]  
+          <h2>{{member.name}}</h2>
+        </a>
+        </div>
+    -->

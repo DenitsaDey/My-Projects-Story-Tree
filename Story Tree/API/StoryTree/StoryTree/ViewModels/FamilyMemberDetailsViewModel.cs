@@ -12,5 +12,7 @@
         public string Location { get; set; }
 
         public string RelationToMe { get; set; }
+
+        public ICollection<ImageViewModel> Gallery { get; set; }
     }
 }

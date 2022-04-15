@@ -50,7 +50,7 @@
                                         .Where(p => p.Id == member.RelativeId)
                                         .Select(p => new FamilyMemberViewModel
                                         {
-                                            Key = p.Id,
+                                            Id = p.Id,
                                             Name = p.Name,
                                             Partner = p.Partner.Name,
                                             Parent = p.Parent1Id,
@@ -69,7 +69,7 @@
                 .Where(p => p.Id == profileId)
                                         .Select(p => new FamilyMemberViewModel
                                         {
-                                            Key = p.Id,
+                                            Id = p.Id,
                                             Name = p.Name,
                                             Partner = p.Partner.Name,
                                             Parent = p.Parent1Id,
@@ -86,8 +86,9 @@
 
 
         //DDEY: method is used to get the details of individual family member in FamilyMembersController (from the details button in front-end)
-        public FamilyMemberDetailsViewModel GetById(string profileId, string relativeId)
+        public FamilyMemberDetailsViewModel GetById(string relativeId)
         {
+            var profileId = this.profilesService.GetCurrentUserId();
             var currentMember = this.data.Profiles
                                         .Where(p => p.Id == relativeId)
                                         .Select(p => new FamilyMemberDetailsViewModel
@@ -100,7 +101,48 @@
                                             RelationToMe = this.data.Relations
                                                             .Where(r => r.MemberId == profileId && r.RelativeId == relativeId)
                                                             .FirstOrDefault()
-                                                            .Relation
+                                                            .Relation,
+                                            Gallery = this.data.Images
+                                                            .Where(i => i.MemberId == relativeId)
+                                                            .OrderByDescending(i => i.CreatedOn)
+                                                            .Select(i => new ImageViewModel
+                                                                {
+                                                                    ImageName = i.Name,
+                                                                    ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", this.httpContextAccessor.HttpContext.Request.Scheme, this.httpContextAccessor.HttpContext.Request.Host, this.httpContextAccessor.HttpContext.Request.PathBase, i.Name),
+                                                                    CreatedOn = i.CreatedOn.ToString(),
+                                                                }).ToList(),
+                                        })
+                                        .FirstOrDefault();
+
+            return currentMember;
+        }
+
+        public FamilyMemberDetailsViewModel GetByName(string relativeName)
+        {
+            var profileId = this.profilesService.GetCurrentUserId();
+            var relativeId = this.data.Profiles.Where(p => p.Name == relativeName).FirstOrDefault()?.Id;
+            var currentMember = this.data.Profiles
+                                        .Where(p => p.Name == relativeName)
+                                        .Select(p => new FamilyMemberDetailsViewModel
+                                        {
+                                            Id = p.Id,
+                                            Name = p.Name,
+                                            Email = p.Email,
+                                            Birthday = p.Birthday.ToString(),
+                                            Location = p.Location,
+                                            RelationToMe = this.data.Relations
+                                                            .Where(r => r.MemberId == profileId && r.RelativeId == relativeId)
+                                                            .FirstOrDefault()
+                                                            .Relation,
+                                            Gallery = this.data.Images
+                                                            .Where(i => i.MemberId == relativeId)
+                                                            .OrderByDescending(i => i.CreatedOn)
+                                                            .Select(i => new ImageViewModel
+                                                            {
+                                                                ImageName = i.Name,
+                                                                ImageSrc = String.Format("{0}://{1}{2}/Images/{3}", this.httpContextAccessor.HttpContext.Request.Scheme, this.httpContextAccessor.HttpContext.Request.Host, this.httpContextAccessor.HttpContext.Request.PathBase, i.Name),
+                                                                CreatedOn = i.CreatedOn.ToString(),
+                                                            }).ToList(),
                                         })
                                         .FirstOrDefault();
 

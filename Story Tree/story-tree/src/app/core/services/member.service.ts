@@ -24,12 +24,11 @@ export class MemberService {
   */
 
    //DDEY: used in the member-details component
-  getMemberById$(profileId: string, relativeId:string): Observable<IMemberDetails>{
-    return this.httpClient.get<IMemberDetails>(`${apiUrl}/profiles/${profileId}/${relativeId}`);
+  getMemberById$(relativeId:string): Observable<IMemberDetails>{
+    return this.httpClient.get<IMemberDetails>(`${apiUrl}/familymembers/${relativeId}`);
   }
 
   //DDEY: used in the add-member component for the drop-down select box
-  //DDEY: TODO find how to get the profileId from the jwt ? {withCredentials: true}
   getAllMembers$(): Observable<IBase[]>{
     return this.httpClient.get<IBase[]>(`${apiUrl}/familymembers`)
   }
