@@ -6,17 +6,21 @@
   display: grid;
   align-items: center;
   justify-items: center;
-  background-image: linear-gradient(to top, #E2A05E 0%, #FCE5AB 100%);
+  background-image: linear-gradient(to top, #FCE5AB 0%, #E2A05E 100%);
   color: white;
 }
 
+h2{
+  margin-top: 170px;
+  margin-bottom: 20px;
+}
+
 gallery{
-  margin-top: 200px;
-  width: 700px;
+  margin: 0 auto;
+  width: 70%;
   height: 400px;
   background-color: lightgrey;
-  padding: 50px;
-
+  padding: 50px;;
 }
 
 ul{
@@ -41,3 +45,8 @@ p{
   font-size: 20px;
   font-weight: bold;
 }
+
+h4{
+  color: black;
+}
+

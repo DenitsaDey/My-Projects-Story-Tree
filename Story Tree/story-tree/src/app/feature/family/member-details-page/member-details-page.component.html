@@ -1,8 +1,10 @@
 <div class="body-wrapper">
+  <h2> {{member.name}}'s Gallery </h2>
   <div *ngIf="gallery && gallery.length > 0; else emptyIndicator">
     <div class="gallery">
       <ul *ngFor="let image of gallery">
-        <li><img [src]="image.imageSrc"></li>
+        <li><img [src]="image.imageSrc">
+        <h4>{{image.createdOn | timeAgo}} ago</h4></li>
       </ul>
     </div>
   </div>
@@ -10,5 +12,4 @@
 
 <ng-template #emptyIndicator>
   <p>No pictures yet!</p>
-  
 </ng-template>

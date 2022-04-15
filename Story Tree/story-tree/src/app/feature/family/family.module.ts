@@ -7,6 +7,8 @@ import { FormsModule } from '@angular/forms';
 import { MemberDetailsPageComponent } from './member-details-page/member-details-page.component';
 import { FamilyRoutingModule } from './family-routing.module';
 import { AddMemberComponent } from './add-member/add-member.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+
 
 
 
@@ -22,6 +24,7 @@ import { AddMemberComponent } from './add-member/add-member.component';
     CommonModule,
     FormsModule,
     FamilyRoutingModule,
+    SharedModule
   ],
   exports: [
     FamilyTreePageComponent,

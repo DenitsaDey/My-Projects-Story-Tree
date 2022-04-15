@@ -1,5 +1,9 @@
 <div class="family-wrapper">
+    <main>
 <stapp-family-diagram [model]='model' (nodeClicked)='setSelectedNode($event)'></stapp-family-diagram>
+</main>
+<aside>
 <stapp-inspector [selectedNode]='selectedNode' [model]='model'></stapp-inspector>
+</aside>
 </div>
 
