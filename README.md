@@ -56,17 +56,17 @@ would happen once you run the application, including Test Accounts:
 
 ### Home Page
 
-(https://res.cloudinary.com/doh2fp7hz/image/upload/v1650025795/home_mrqz6l.jpg)
+<img width="953" alt="Home page" src="https://res.cloudinary.com/doh2fp7hz/image/upload/v1650025795/home_mrqz6l.jpg">
 
 ### Family Tree
 
-(https://res.cloudinary.com/doh2fp7hz/image/upload/v1650025795/tree_cyzmde.jpg)
+<img width="953" alt="Home page" src="https://res.cloudinary.com/doh2fp7hz/image/upload/v1650025795/tree_cyzmde.jpg">
 ### Add Member 
 
-(https://res.cloudinary.com/doh2fp7hz/image/upload/v1650025795/add_r0pdli.jpg)
+<img width="953" alt="Home page" src="https://res.cloudinary.com/doh2fp7hz/image/upload/v1650025795/add_r0pdli.jpg">
 ### My Profile
 
-(https://res.cloudinary.com/doh2fp7hz/image/upload/v1650025795/profile_hfloie.jpg)
+<img width="953" alt="Home page" src="https://res.cloudinary.com/doh2fp7hz/image/upload/v1650025795/profile_hfloie.jpg">
 
 ## License
 
