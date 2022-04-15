@@ -17,10 +17,11 @@ h2{
 
 gallery{
   margin: 0 auto;
-  width: 70%;
+  width: 700px;
   height: 400px;
   background-color: lightgrey;
-  padding: 50px;;
+  padding: 50px;
+  display: grid;
 }
 
 ul{

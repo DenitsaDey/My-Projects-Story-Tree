@@ -41,7 +41,7 @@ namespace StoryTree
                 setup.AddPolicy("default", (options) =>
                 {
                     options
-                        .WithOrigins("http://localhost:4200")
+                        .WithOrigins("http://localhost:4200", "http://localhost:4200/404.css")
                         .AllowAnyMethod()
                         .AllowAnyHeader()
                         .AllowCredentials();

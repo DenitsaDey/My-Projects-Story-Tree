@@ -203,7 +203,7 @@
                 {
                     Name = input.NewGalleryPicture,
                     MemberId = id,
-                    CreatedOn = DateTime.Now.Date,
+                    CreatedOn = DateTime.Now,
                 };
 
                 this.data.Images.Add(newGalleryPic);

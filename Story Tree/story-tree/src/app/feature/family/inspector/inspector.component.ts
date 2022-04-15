@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as go from 'gojs';
 
-const memberId = '36a655ce-82af-441d-8e11-5149ac9756be';
-
 @Component({
   selector: 'stapp-inspector',
   templateUrl: './inspector.component.html',
@@ -17,7 +15,6 @@ export class InspectorComponent{
     parent: null,
   };
 
-  //public editMode = false;
 
   /*we need to make sure that when we use the Inspector
    to edit a Node's name property, that change affects the Model defined in the app component.ts

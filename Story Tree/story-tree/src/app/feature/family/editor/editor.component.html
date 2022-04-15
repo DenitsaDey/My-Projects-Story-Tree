@@ -1,0 +1,9 @@
+
+<div *ngIf="!!member">
+<h2>{{member.name}}</h2>
+<div>
+    <p>{{member.loaction}}</p>
+    <p>{{member.birthday | date: 'shortDate'}}</p>
+    <p>{{member.partner}}</p>
+</div>
+</div>

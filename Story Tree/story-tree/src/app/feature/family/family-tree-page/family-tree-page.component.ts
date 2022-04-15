@@ -17,25 +17,15 @@ export class FamilyTreePageComponent implements OnInit {
 
   familyMembers: IMember[] = [];
   defaultData: MyArrayType = [];
-  testData: go.ObjectData[] = [];
-
-
+  
   constructor(private familyService: FamilyService) { }
 
   ngOnInit(): void {
 
-    
+
     this.familyService.loadFamilyTree$().subscribe(membersList => {
       this.familyMembers = membersList;
-      console.log(this.familyMembers);
-      // membersList.map((familyMember) =>{
-      //   return (
-      //     {key: familyMember.key.replace(/-/g,""),
-      //     name: familyMember.name,
-      //     relationToMe: familyMember.relationToMe,
-      //     parent: familyMember.parent? familyMember.parent.replace(/-/g,"") : null,
-      //   }); 
-      // }).forEach(familyMember => this.defaultData.push(familyMember));
+
       this.defaultData = this.familyMembers
         .map(familyMember => ({
           //'id': familyMember.id,
@@ -44,24 +34,7 @@ export class FamilyTreePageComponent implements OnInit {
           'relationToMe': familyMember.relationToMe,
           'parent': familyMember.parent ? familyMember.parent.replace(/-/g, "") : null,
         }));
-      console.log('new array')
-      console.log(this.defaultData);
 
-      console.log('2nd array')
-      console.log(this.defaultData2);
-
-      this.testData = this.familyMembers
-        .map(familyMember => ({
-          //'id': familyMember.id,
-          'key': familyMember.id.replace(/-/g, ""),
-          'name': familyMember.name,
-          'relationToMe': familyMember.relationToMe,
-          'parent': familyMember.parent ? familyMember.parent.replace(/-/g, "") : null,
-        }));
-
-        
-    console.log('test array')
-    console.log(this.testData);
     });
 
 
@@ -88,7 +61,7 @@ export class FamilyTreePageComponent implements OnInit {
     { 'key': '4', 'name': 'Nadine Milan', 'relationToMe': 'aunt', 'parent': '1' },
     ];
 
-  
+
 
   public selectedNode = null;
   /*

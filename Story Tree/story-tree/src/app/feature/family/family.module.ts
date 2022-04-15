@@ -8,6 +8,8 @@ import { MemberDetailsPageComponent } from './member-details-page/member-details
 import { FamilyRoutingModule } from './family-routing.module';
 import { AddMemberComponent } from './add-member/add-member.component';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { AllMembersComponent } from './all-members/all-members.component';
+import { EditorComponent } from './editor/editor.component';
 
 
 
@@ -19,6 +21,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     InspectorComponent,
     MemberDetailsPageComponent,
     AddMemberComponent,
+    AllMembersComponent,
+    EditorComponent,
   ],
   imports: [
     CommonModule,
