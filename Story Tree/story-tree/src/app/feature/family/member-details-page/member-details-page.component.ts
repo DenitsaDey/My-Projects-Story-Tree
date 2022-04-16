@@ -10,7 +10,7 @@ import { MemberService } from 'src/app/core/services/member.service';
 })
 export class MemberDetailsPageComponent implements OnInit {
 
-  member: IMemberDetails;
+  member: IMemberDetails = {} as IMemberDetails;
   gallery : IImage[];
   
 

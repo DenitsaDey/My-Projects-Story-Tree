@@ -1,9 +1,20 @@
-
-<div *ngIf="!!member">
-<h2>{{member.name}}</h2>
-<div>
-    <p>{{member.loaction}}</p>
-    <p>{{member.birthday | date: 'shortDate'}}</p>
-    <p>{{member.partner}}</p>
-</div>
+<div *ngIf="!!member" class="title-total">
+    <h2>{{member.name}}</h2>
+    <div class="actions">
+        <ul>
+            <li>
+                <p><span class="title-sm">Relation: </span>{{member.relationToMe}}</p>
+            </li>
+            <li>
+                <p><span class="title-sm">Birthday: </span>{{member.birthday | date: 'dd MMM yyyy'}}</p>
+            </li>
+            <li>
+                <p><span class="title-sm">Lives in: </span>{{member.location}}</p>
+            </li>
+            <li>
+                <p><span class="title-sm">Partner: </span>{{member.partner}}</p>
+            </li>
+        </ul>
+    </div>
+    <button type="button" routerLink="/family/{{member.id}}">View Gallery</button>
 </div>

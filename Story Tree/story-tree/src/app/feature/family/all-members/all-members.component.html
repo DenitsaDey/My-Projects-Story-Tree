@@ -1,23 +1,23 @@
 <div class="all-wrapper">
     <main>
-        <h2>My Family Members:</h2>
+        <h2>My Family Tree: {{familyModel.length}} members</h2>
+        <article>
+            <div class="img-wrapper">
+                <img src="../../../../assets/Images/people/christina-wocintechchat-com-SJvDxw0azqw-unsplash.jpg">
+            </div>
+            <div class="article-text-wrapper">
+                <h4>Member Name</h4>
+                <p>RelationToMe</p>
+                <button class="btn-primary readMore-btn"
+                    (click)="setSelectedMemberId('971e461d-77cd-4dc3-a6d3-ece5dd44b466')">Details</button>
+            </div>
+        </article>
         <!-- <stapp-all-members (memberClicked)='setSelectedMemberId($event)'></stapp-all-members> -->
-        <ng-component *ngIf="familyModel && familyModel.length > 0 && !isLoading; else startYourTree" class="family-tree">
-            <div *ngFor="let member of familyModel" class="tree-members">
-                <h3>TEST</h3>
-                    <article>
-                        <div class="img-wrapper">
-                            <img src="">
-                        </div>
-                        <div class="article-text-wrapper">
-                            <h4>{{member.name}}</h4>
-                            <p>{{member.relationToMe}}</p>
-                            <button class="btn-primary readMore-btn" (click)="setSelectedMemberId(member.id)">Details</button>
-                        </div>
-                    </article>
-                </div>
+        <ng-component *ngIf="(familyModel.length > 0 && !isLoading)? familyTreeMembers : startYourTree"
+            class="family-tree">
+             
         </ng-component>
-        
+
     </main>
     <aside>
         <stapp-editor [selectedMemberId]='selectedMemberId'></stapp-editor>
@@ -25,5 +25,21 @@
 </div>
 
 <ng-template #startYourTree>
-    <input type="button" routerLink="/family/add" value="Start Now">
+    <input type="button" routerLink="/family/add" class="btn-primary readMore-btn" value="Start Now">
 </ng-template>
+
+<ng-template #familyTreeMembers>
+    <div *ngFor="let member of familyModel" class="tree-members">
+        <article>
+            <div class="img-wrapper">
+                <img src="">
+            </div>
+            <div class="article-text-wrapper">
+                <h4>{{member.name}}</h4>
+                <p>{{member.relationToMe}}</p>
+                <button class="btn-primary readMore-btn"
+                    (click)="setSelectedMemberId(member.id)" id="">Details</button>
+            </div>
+        </article>
+    </div>
+    </ng-template>

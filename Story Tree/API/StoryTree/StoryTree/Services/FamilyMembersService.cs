@@ -98,6 +98,7 @@
                                             Email = p.Email,
                                             Birthday = p.Birthday.ToString(),
                                             Location = p.Location,
+                                            Partner = p.Partner.Name,
                                             RelationToMe = this.data.Relations
                                                             .Where(r => r.MemberId == profileId && r.RelativeId == relativeId)
                                                             .FirstOrDefault()

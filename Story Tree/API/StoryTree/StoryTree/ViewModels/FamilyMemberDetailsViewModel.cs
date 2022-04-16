@@ -13,6 +13,8 @@
 
         public string RelationToMe { get; set; }
 
+        public string Partner { get; set; }
+
         public ICollection<ImageViewModel> Gallery { get; set; }
     }
 }

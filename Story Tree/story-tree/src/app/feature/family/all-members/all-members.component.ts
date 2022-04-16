@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { IMember } from 'src/app/core/interfaces';
 import { FamilyService } from 'src/app/core/services/family.service';
 
@@ -9,9 +9,10 @@ import { FamilyService } from 'src/app/core/services/family.service';
 })
 export class AllMembersComponent implements OnInit {
 
+  @ViewChild('familyTreeMembers') familyTreeMembers;
   //DDEY: we define an Angular Input property named familyMembers and bind it in the common member component
   
-  public familyModel: IMember[];
+  public familyModel: IMember[] = [] as IMember[];
   public isLoading = true;
   
 
@@ -33,8 +34,9 @@ export class AllMembersComponent implements OnInit {
 
   public selectedMemberId = null;
 
-  public setSelectedMemberId(id: string) {
-    this.selectedMemberId = id;
+  public setSelectedMemberId(e) {
+    this.selectedMemberId = e;
+    this.memberClicked.emit(this.selectedMemberId);
   }
 
   // when the selection changes, emit event to app-component updating the selected node
