@@ -43,6 +43,7 @@ This is my defense project for Angular Course at [SoftUni](https://softuni.org).
 - Date Pipe
 - GoJS with Angular for building the family tree as a Basic OrgChart
 - Dependency Injection
+- ngRx store State Management
 
 
 ## :gear: Application Configurations
