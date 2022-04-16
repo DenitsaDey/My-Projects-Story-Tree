@@ -61,9 +61,11 @@ would happen once you run the application, including Test Accounts:
 ### Family Tree
 
 <img width="653" alt="Family Tree page" src="https://res.cloudinary.com/doh2fp7hz/image/upload/v1650025795/tree_cyzmde.jpg">
+
 ### Add Member 
 
 <img width="653" alt="Add Member page" src="https://res.cloudinary.com/doh2fp7hz/image/upload/v1650025795/add_r0pdli.jpg">
+
 ### My Profile
 
 <img width="653" alt="Profile page" src="https://res.cloudinary.com/doh2fp7hz/image/upload/v1650025795/profile_hfloie.jpg">
