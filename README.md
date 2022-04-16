@@ -40,7 +40,7 @@ This is my defense project for Angular Course at [SoftUni](https://softuni.org).
 - Template-driven Forms (two-way binding)
 - Reactive Forms
 - Auth Interceptor
-- Date Pipe
+- Date Pipe, Async Pipe, custom TimeAgo Pipe
 - GoJS with Angular for building the family tree as a Basic OrgChart
 - Dependency Injection
 - ngRx store State Management
